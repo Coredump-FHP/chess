@@ -40,3 +40,7 @@ PerceivedComplexity:
 # Disables "Method has too many lines" warning
 MethodLength:
   Enabled: false
+  
+# Do not use block comments.
+Style/BlockComments:
+  Enabled: false
