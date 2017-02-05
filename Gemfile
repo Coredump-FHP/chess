@@ -35,6 +35,10 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+
+#use rubocop for Ruby style guide.
+gem 'rubocop', '~> 0.47.1', require: false
+
 gem 'simplecov', :require => false, :group => :test
 
 group :development, :test do
