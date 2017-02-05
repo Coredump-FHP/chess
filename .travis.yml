@@ -7,7 +7,7 @@ services:
 install:
 - bundle install --retry=3
 before_script:
-  - psql -c 'create database coredump-chess_test;' -U postgres
+  - psql -c 'create database coredump_chess_test;' -U postgres
 script:
 - bundle exec rspec
 deploy:
