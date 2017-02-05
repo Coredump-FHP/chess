@@ -2,8 +2,12 @@ language: ruby
 rvm:
 - 2.3.1
 before_install: gem update --remote bundler
+services:
+  - postgresql
 install:
 - bundle install --retry=3
+before_script:
+  - psql -c 'create database coredump-chess_test;' -U postgres
 script:
 - bundle exec rspec
 deploy:
