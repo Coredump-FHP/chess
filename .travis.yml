@@ -10,7 +10,7 @@ before_script:
   - psql -c 'create database coredump_chess_test;' -U postgres
 script:
 - bundle exec rspec
-- bundle exec rubocop --config .rubocop.yml
+- bundle exec rubocop
 deploy:
   provider: heroku
   api_key:
