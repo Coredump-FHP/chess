@@ -6,7 +6,6 @@ install:
 - bundle install --retry=3
 script:
 - bundle exec rspec
-- bundle exec rubocop --config .rubocop.yml
 deploy:
   provider: heroku
   api_key:
