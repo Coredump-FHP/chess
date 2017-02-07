@@ -5,7 +5,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = current_user.games.create(game_params)
+    @game = Game.create(game_params)
       if @game.invalid?
         flash[:error] = 'New game not saved'
       end
