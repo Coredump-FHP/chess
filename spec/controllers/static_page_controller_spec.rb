@@ -4,7 +4,7 @@ RSpec.describe StaticPagesController, type: :controller do
   describe "static_pages#home action" do
     it "should successfuly show the page" do
       get :home
-      expect(response).to have_http_status(:success)
+      assert_response :success
     end
   end
 end
