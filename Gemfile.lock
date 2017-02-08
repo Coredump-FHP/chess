@@ -40,6 +40,11 @@ GEM
       tzinfo (~> 1.1)
     arel (7.1.4)
     ast (2.3.0)
+    autoprefixer-rails (6.7.2)
+      execjs
+    bootstrap-sass (3.3.5.1)
+      autoprefixer-rails (>= 5.0.0.1)
+      sass (>= 3.3.0)
     builder (3.2.3)
     byebug (9.0.6)
     coffee-rails (4.2.1)
@@ -197,6 +202,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-sass (~> 3.3.5.1)
   byebug
   coffee-rails (~> 4.2)
   factory_girl_rails
@@ -208,10 +214,11 @@ DEPENDENCIES
   rails (~> 5.0.1)
   rspec-rails (~> 3.5)
   rubocop (~> 0.47.1)
-  sass-rails (~> 5.0)
+  sass-rails
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
+  sprockets (~> 3.0)
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
