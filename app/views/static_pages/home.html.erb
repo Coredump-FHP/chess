@@ -2,3 +2,18 @@
 <%= image_tag("https://media.giphy.com/media/26E2gwqxVzvn7KZji/giphy.gif") %>
 <br />
 <%= link_to 'New Game', new_game_path %>
+
+<% if player_signed_in? %>
+    <li><%= link_to 'Sign out', destroy_player_session_path, method: :delete %></li>
+<% else %>
+    <li><%= link_to 'Sign in', new_player_session_path %></li>
+    <li><%= link_to 'Sign up', new_player_registration_path %></li>
+<% end %>
+
+<% if notice.present? %>
+    <p class="alert alert-info"><%= notice %></p>
+<% end %>
+<% if alert.present? %>
+    <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+

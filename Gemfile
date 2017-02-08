@@ -19,10 +19,13 @@ gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-#Bootstrap
+# Bootstrap
 gem 'bootstrap-sass', '~> 3.3.5.1'
-gem 'sprockets', '~> 3.0'
 gem 'sass-rails'
+gem 'sprockets', '~> 3.0'
+
+# devise
+gem 'devise', '>= 3.2.4'
 
 # Simpleform integreated
 gem 'simple_form'
