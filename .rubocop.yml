@@ -17,7 +17,7 @@ Metrics/ClassLength:
 
 # Increases "Module has too many lines" warning from 100 to 200
 Metrics/ModuleLength:
-  Max: 200
+  Max: 500
 
 # Increases "Assignment Branch Condition size" warning from 15 to 30
 Metrics/AbcSize:
@@ -44,3 +44,4 @@ MethodLength:
 # Do not use block comments.
 Style/BlockComments:
   Enabled: false
+
