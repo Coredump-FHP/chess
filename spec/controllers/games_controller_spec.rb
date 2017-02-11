@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'pry'
 
 RSpec.describe GamesController, type: :controller do
   describe 'games#create action' do
@@ -7,6 +8,7 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to redirect_to root_path
 
       game = Game.last
+      binding.pry
       expect(game.name).to eq 'test game'
     end
 

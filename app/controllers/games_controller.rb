@@ -7,7 +7,6 @@ class GamesController < ApplicationController
     @game = Game.create(game_params)
     flash[:error] = 'New game not saved' if @game.invalid?
     redirect_to root_path
-
   end
 
   def show
@@ -17,6 +16,6 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:name, :player_1_user_id, :player_2_user_id, :winning_user_id)
+    params.require(:game).permit(:name)
   end
 end
