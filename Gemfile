@@ -53,8 +53,8 @@ group :development, :test do
   # a debugger console
   gem 'byebug', platform: :mri
   gem 'factory_girl_rails'
-  gem 'rspec-rails', '~> 3.5'
   gem 'pry-rails'
+  gem 'rspec-rails', '~> 3.5'
 end
 
 group :development do
