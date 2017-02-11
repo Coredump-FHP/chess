@@ -4,11 +4,12 @@ require 'pry'
 RSpec.describe GamesController, type: :controller do
   describe 'games#create action' do
     it 'should create a new game in the database' do
+
       post :create, params: { game: { name: 'test game' } }
       expect(response).to redirect_to root_path
 
       game = Game.last
-      binding.pry
+
       expect(game.name).to eq 'test game'
     end
 
