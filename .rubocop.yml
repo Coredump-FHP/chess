@@ -1,4 +1,6 @@
 AllCops:
+# For debugging proposes
+  DisplayCopNames: true
   Exclude:
     - bin/**/*
     - db/**/*
@@ -18,6 +20,10 @@ Metrics/ClassLength:
 # Increases "Module has too many lines" warning from 100 to 200
 Metrics/ModuleLength:
   Max: 200
+
+# Disables "BlockLength"
+Metrics/BlockLength:
+  Enabled: false
 
 # Increases "Assignment Branch Condition size" warning from 15 to 30
 Metrics/AbcSize:
