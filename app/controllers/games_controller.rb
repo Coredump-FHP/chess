@@ -1,14 +1,11 @@
 class GamesController < ApplicationController
-
   def new
     @game = Game.new
   end
 
   def create
     @game = Game.create(game_params)
-      if @game.invalid?
-        flash[:error] = 'New game not saved'
-      end
+    flash[:error] = 'New game not saved' if @game.invalid?
     redirect_to root_path
   end
 
@@ -21,5 +18,5 @@ class GamesController < ApplicationController
   def game_params
     params.require(:game).permit(:name)
   end
-
 end
+
