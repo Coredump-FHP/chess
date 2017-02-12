@@ -9,7 +9,8 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to redirect_to root_path
 
       @game = Game.last
-      expect(game.name).to eq 'test game'
+
+      expect(@game.name).to eq 'test game'
     end
 
     it 'should deal with errors correctly' do
