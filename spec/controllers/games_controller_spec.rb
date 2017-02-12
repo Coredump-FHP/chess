@@ -9,7 +9,7 @@ RSpec.describe GamesController, type: :controller do
 
       @game = Game.last
 
-      expect(game.name).to eq 'test game'
+      expect(@game.name).to eq 'test game'
     end
 
     it 'should deal with errors correctly' do
