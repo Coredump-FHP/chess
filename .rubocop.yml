@@ -1,4 +1,7 @@
 AllCops:
+
+# For debugging proposes
+
   DisplayCopNames: true
   Exclude:
     - bin/**/*
@@ -20,6 +23,10 @@ Metrics/ClassLength:
 Metrics/ModuleLength:
   Max: 500
 
+Metrics/BlockLength:
+  Enabled: false
+
+# Disables "BlockLength"
 Metrics/BlockLength:
   Enabled: false
 
