@@ -1,5 +1,7 @@
 AllCops:
+
 # For debugging proposes
+
   DisplayCopNames: true
   Exclude:
     - bin/**/*
@@ -19,7 +21,10 @@ Metrics/ClassLength:
 
 # Increases "Module has too many lines" warning from 100 to 200
 Metrics/ModuleLength:
-  Max: 200
+  Max: 500
+
+Metrics/BlockLength:
+  Enabled: false
 
 # Disables "BlockLength"
 Metrics/BlockLength:
@@ -50,3 +55,4 @@ MethodLength:
 # Do not use block comments.
 Style/BlockComments:
   Enabled: false
+
