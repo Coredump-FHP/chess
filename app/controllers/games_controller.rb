@@ -1,9 +1,9 @@
 class GamesController < ApplicationController
   def new
     @game = Game.new
-    @game.save
-    @game.add_white_starting_pieces!
-    @game.add_black_starting_pieces!
+      @game.save
+      @game.add_white_starting_pieces!
+      @game.add_black_starting_pieces!
   end
 
   def create
