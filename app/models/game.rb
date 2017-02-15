@@ -14,7 +14,7 @@ class Game < ApplicationRecord
     (1..8).each do |i|
       pieces << Piece.create(
         game: self,
-        player: self.player_1,
+        player: player_1,
         color: 'white',
         x_coordinate: i,
         y_coordinate: 2,
@@ -23,7 +23,7 @@ class Game < ApplicationRecord
     end
     pieces << Piece.create(
       game: self,
-      player: self.player_1,
+      player: player_1,
       color: 'white',
       x_coordinate: 1,
       y_coordinate: 1,
@@ -32,7 +32,7 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_1,
+      player: player_1,
       color: 'white',
       x_coordinate: 8,
       y_coordinate: 1,
@@ -41,7 +41,7 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_1,
+      player: player_1,
       color: 'white',
       x_coordinate: 2,
       y_coordinate: 1,
@@ -50,7 +50,7 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_1,
+      player: player_1,
       color: 'white',
       x_coordinate: 7,
       y_coordinate: 1,
@@ -58,7 +58,7 @@ class Game < ApplicationRecord
     )
     pieces << Piece.create(
       game: self,
-      player: self.player_1,
+      player: player_1,
       color: 'white',
       x_coordinate: 3,
       y_coordinate: 1,
@@ -67,7 +67,7 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_1,
+      player: player_1,
       color: 'white',
       x_coordinate: 6,
       y_coordinate: 1,
@@ -76,7 +76,7 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_1,
+      player: player_1,
       color: 'white',
       x_coordinate: 4,
       y_coordinate: 1,
@@ -85,20 +85,20 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_1,
+      player: player_1,
       color: 'white',
       x_coordinate: 5,
       y_coordinate: 1,
       type: 'K'
     )
   end
-    # ----------ADD STARTING BLACK PIECES---------------
+
+  # ----------ADD STARTING BLACK PIECES---------------
   def add_black_starting_pieces!
     (1..8).each do |i|
-   
       pieces << Piece.create(
         game: self,
-        player: self.player_2,
+        player: player_2,
         color: 'black',
         x_coordinate: i,
         y_coordinate: 7,
@@ -108,7 +108,7 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_2,
+      player: player_2,
       color: 'black',
       x_coordinate: 1,
       y_coordinate: 8,
@@ -117,7 +117,7 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_2,
+      player: player_2,
       color: 'black',
       x_coordinate: 8,
       y_coordinate: 8,
@@ -126,7 +126,7 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_2,
+      player: player_2,
       color: 'black',
       x_coordinate: 7,
       y_coordinate: 8,
@@ -135,7 +135,7 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_2,
+      player: player_2,
       color: 'black',
       x_coordinate: 2,
       y_coordinate: 8,
@@ -143,7 +143,7 @@ class Game < ApplicationRecord
     )
     pieces << Piece.create(
       game: self,
-      player: self.player_2,
+      player: player_2,
       color: 'black',
       x_coordinate: 6,
       y_coordinate: 8,
@@ -152,7 +152,7 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_2,
+      player: player_2,
       color: 'black',
       x_coordinate: 3,
       y_coordinate: 8,
@@ -161,7 +161,7 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_2,
+      player: player_2,
       color: 'black',
       x_coordinate: 4,
       y_coordinate: 8,
@@ -170,7 +170,7 @@ class Game < ApplicationRecord
 
     pieces << Piece.create(
       game: self,
-      player: self.player_2,
+      player: player_2,
       color: 'black',
       x_coordinate: 5,
       y_coordinate: 8,

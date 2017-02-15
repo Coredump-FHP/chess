@@ -3,11 +3,14 @@ require 'pry'
 
 RSpec.describe GamesController, type: :controller do
   describe 'games#new action' do
-    it 'should initialize the pieces on the board' do
-      player = FactoryGirl.create(:player)
+    it 'should login players' do
+      player = FactoryGirl.build(:player)
       sign_in player
-      game = FactoryGirl.create(:game) 
-      piece = FactoryGirl.create(:piece)
+    end
+    
+    it 'should initialize pieces on the board' do
+      game = FactoryGirl.build(:game)
+      puts game.pieces.all
     end
   end
 
@@ -15,9 +18,7 @@ RSpec.describe GamesController, type: :controller do
     it 'should create a new game in the database' do
       post :create, params: { game: { name: 'test game' } }
       expect(response).to redirect_to root_path
-
       @game = Game.last
-
       expect(@game.name).to eq 'test game'
     end
 

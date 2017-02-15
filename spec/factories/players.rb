@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :player do
+  factory :player, aliases: [:player_1, :player_2] do
     sequence :email do |n|
       "fake#{n}@gmail.com"
     end
