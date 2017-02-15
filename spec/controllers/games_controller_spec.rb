@@ -7,10 +7,12 @@ RSpec.describe GamesController, type: :controller do
       player = FactoryGirl.build(:player)
       sign_in player
     end
-    
+
     it 'should initialize pieces on the board' do
-      game = FactoryGirl.build(:game)
-      puts game.pieces.all
+      @game = FactoryGirl.build(:game)
+      # gets all the pieces
+      # puts game.pieces.all
+      @piece = FactoryGirl.build(:piece)
     end
   end
 
