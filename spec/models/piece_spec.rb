@@ -2,12 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
   describe '#obstructed?' do
-    # current_chess_piece being a Piece object having (x_coord: 1, y_coor: 2), sq2 = [3, 8] for example
-    # what good inputs would be?
-    # current_chess_piece and sq2 have the same x value(current_chess_piece.x_coordinate == sq2[0]), but not the same y value(current_chess_piece.y_coordinate != sq2[1])
-    # current_chess_piece and sq2 have the same y value(current_chess_piece.y_coordinate] == sq2[1]), but not the same x value(current_chess_piece.x_coordinate != sq2[0])
-    # current_chess_piece and sq2 have the same x diff and y diff (current_chess_piece.x_coordinate-sq2[0] == current_chess_piece.y_coordinate-sq2[1])
-
     before do
       @player1 = FactoryGirl.create(:player)
       @player2 = FactoryGirl.create(:player)
@@ -23,7 +17,7 @@ RSpec.describe Piece, type: :model do
         it 'If current_chess_piece and sq2 have the same x and y coordinates' do
           current_chess_piece = create_chess(0, 1)
           destination_coord = { destination_x: 0, destination_y: 1 }
-    
+
           expect { current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y]) }.to raise_error ArgumentError
         end
 
@@ -31,7 +25,7 @@ RSpec.describe Piece, type: :model do
           it 'and the x differences and y differences are not the same' do
             current_chess_piece = create_chess(0, 5)
             destination_coord = { destination_x: 1, destination_y: 2 }
-        
+
             expect { current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y]) }.to raise_error ArgumentError
           end
         end
@@ -86,7 +80,7 @@ RSpec.describe Piece, type: :model do
           it 'if there is a piece in between them, the result should be true' do
             current_chess_piece = create_chess(0, 0)
             destination_coord = { destination_x: 3, destination_y: 3 }
-            
+
             # create a chess in-between
             create_chess(1, 1)
 
