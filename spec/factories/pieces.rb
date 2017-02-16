@@ -5,6 +5,7 @@ FactoryGirl.define do
       y_coordinate     '2'
       color 'white'
       game
+      type 'Pawn'
     end
 
     factory :queen do
@@ -12,6 +13,7 @@ FactoryGirl.define do
       y_coordinate     '1'
       color 'white'
       game
+      type 'Queen'
     end
 
     factory :knight do
@@ -19,6 +21,7 @@ FactoryGirl.define do
       y_coordinate     '1'
       color 'white'
       game
+      type 'Knight'
     end
 
     factory :bishop do
@@ -26,6 +29,7 @@ FactoryGirl.define do
       y_coordinate     '1'
       color 'white'
       game
+      type 'Bishop'
     end
 
     factory :rook do
@@ -33,6 +37,7 @@ FactoryGirl.define do
       y_coordinate     '1'
       color 'black'
       game
+      type 'Rook'
     end
 
     factory :king do
@@ -40,6 +45,7 @@ FactoryGirl.define do
       y_coordinate     '1'
       color 'white'
       game
+      type 'King'
     end
   end
 end
