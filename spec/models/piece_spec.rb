@@ -16,7 +16,7 @@ RSpec.describe Piece, type: :model do
           sq1 = [0,1]
           sq2 = [0,1]
           # assertion
-          expect(obstructed?(sq1, sq2)).to raise_error ArgumentError
+          expect(sq1.obstructed?(sq2)).to raise_error ArgumentError
         end
 
         describe "If sq1 and sq2 have different x and y coordinates" do
@@ -25,7 +25,7 @@ RSpec.describe Piece, type: :model do
             sq1 = [0,5]
             sq2 = [1,2]
             # assertion
-            expect(obstructed?(sq1, sq2)).to raise_error ArgumentError
+            expect(sq1.obstructed?(sq2)).to raise_error ArgumentError
           end  
         end    
       end
@@ -42,14 +42,14 @@ RSpec.describe Piece, type: :model do
             game = Game.create(name: 'my game', player_1: player1, player_2: player2)
             chess_piece = Piece.create(x_coordinate: 3, y_coordinate:4, player: player1, game: game)
         
-            expect(obstructed?(sq1, sq2)).to eq true
+            expect(sq1.obstructed?(sq2)).to eq true
           end
           
           it "If there is nothing in between them, the result should be false" do
             sq1 = [3, 3]
             sq2 = [3, 5]
             
-            expect(obstructed?(sq1, sq2)).to eq false
+            expect(sq1.obstructed?(sq2)).to eq false
           end
         end
       end
@@ -64,14 +64,14 @@ RSpec.describe Piece, type: :model do
             game = Game.create(name: 'my game', player_1: player1, player_2: player2)
             chess_piece = Piece.create(x_coordinate: 4, y_coordinate:3, player: player1, game: game)
             
-            expect(obstructed?(sq1, sq2)).to eq true
+            expect(sq1.obstructed?(sq2)).to eq true
           end
           
           it "If there is nothing in between them, the result should be false" do
             sq1 = [3, 3]
             sq2 = [5, 3]
             
-            expect(obstructed?(sq1, sq2)).to eq false
+            expect(sq1.obstructed?(sq2)).to eq false
           end
         end
       end
@@ -86,14 +86,14 @@ RSpec.describe Piece, type: :model do
             game = Game.create(name: 'my game', player_1: player1, player_2: player2)
             chess_piece = Piece.create(x_coordinate: 1, y_coordinate:1, player: player1, game: game)
             
-            expect(obstructed?(sq1, sq2)).to eq true
+            expect(sq1.obstructed?(sq2)).to eq true
           end
           
           it "if there is nothing in between them, the result should be false" do
             sq1 = [0, 0]
             sq2 = [3, 3]
           
-            expect(obstructed?(sq1, sq2)).to eq false
+            expect(sq1.obstructed?(sq2)).to eq false
           end
         end
       end
