@@ -2,14 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
   describe '#obstructed?' do
-    before do
-      @player1 = FactoryGirl.create(:player)
-      @player2 = FactoryGirl.create(:player)
-      @game = Game.create(name: 'my game', player_1: @player1, player_2: @player2)
-    end
+    
+    let(:player1) { FactoryGirl.create(:player) }
+    let(:player2) { FactoryGirl.create(:player) }
+    let(:game) { FactoryGirl.create(:game, player_1: player1, player_2: player2)}
 
     def create_chess(x, y)
-      Piece.create(x_coordinate: x, y_coordinate: y, player: @player1, game: @game)
+      FactoryGirl.create(:piece, x_coordinate: x, y_coordinate: y, player: player1, game: game)
     end
 
     describe 'When the inputs are invalid' do
