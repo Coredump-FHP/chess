@@ -5,10 +5,17 @@ RSpec.describe Piece, type: :model do
     
     let(:player1) { FactoryGirl.create(:player) }
     let(:player2) { FactoryGirl.create(:player) }
+<<<<<<< HEAD
     let(:game) { FactoryGirl.create(:game, player_1: player1, player_2: player2)}
 
     def create_chess(x, y)
       FactoryGirl.create(:piece, x_coordinate: x, y_coordinate: y, player: player1, game: game)
+=======
+    let(:game) { Game.create(name: 'my game', player_1: player1, player_2: player2) }
+
+    def create_chess(x, y)
+      Piece.create(x_coordinate: x, y_coordinate: y, player: player1, game: game)
+>>>>>>> fixed grammar of three rspec tests, utilized let method, used game.piece.where
     end
 
     describe 'When the inputs are invalid' do
@@ -30,7 +37,6 @@ RSpec.describe Piece, type: :model do
         end
       end
     end
-
     describe 'When the inputs are valid' do
       describe 'If current_chess_piece and sq2 have the same x coordinates' do
         describe 'but not the same y coordinates' do
@@ -44,7 +50,7 @@ RSpec.describe Piece, type: :model do
             expect(current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y])).to eq true
           end
 
-          it 'If there is nothing in between them, the result should be false' do
+          it 'returns false if no obstructions' do
             current_chess_piece = create_chess(3, 3)
             destination_coord = { destination_x: 3, destination_y: 5 }
 
@@ -65,7 +71,7 @@ RSpec.describe Piece, type: :model do
             expect(current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y])).to eq true
           end
 
-          it 'If there is nothing in between them, the result should be false' do
+          it 'returns false if no obstructions' do
             current_chess_piece = create_chess(3, 3)
             destination_coord = { destination_x: 5, destination_y: 3 }
 
@@ -86,7 +92,7 @@ RSpec.describe Piece, type: :model do
             expect(current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y])).to eq true
           end
 
-          it 'if there is nothing in between them, the result should be false' do
+          it 'it returns false if no obstructions' do
             current_chess_piece = create_chess(0, 0)
             destination_coord = { destination_x: 3, destination_y: 3 }
 
