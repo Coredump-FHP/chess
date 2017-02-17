@@ -4,9 +4,6 @@ class Game < ApplicationRecord
   belongs_to :player_1, class_name: 'Player', optional: true
   belongs_to :player_2, class_name: 'Player', optional: true
   belongs_to :winning_player, class_name: 'Player', optional: true
-  # Is called after  Base.save on new objects that have not been saved yet (no record exists).
-  # required for testing in console!  without after_create, color would not populate in the correct rows
-  after_create :populate_game!
 
   # Populate a game with all the pieces in the correct locations (x_coordinate, y_coordinate)
   def populate_game!
@@ -15,6 +12,8 @@ class Game < ApplicationRecord
     save
     self
   end
+
+  private
 
   def add_starting_pieces_for_color!(color)
     if color == 'white'

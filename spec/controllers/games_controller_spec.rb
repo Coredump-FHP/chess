@@ -4,13 +4,8 @@ require 'pry'
 RSpec.describe GamesController, type: :controller do
   describe 'games#new action' do
     it 'should login players' do
-      player = FactoryGirl.build(:player)
+      player = FactoryGirl.create(:player)
       sign_in player
-    end
-
-    it 'should initialize pieces on the board' do
-      @game = FactoryGirl.build(:game)
-      @piece = FactoryGirl.build(:piece)
     end
   end
 
