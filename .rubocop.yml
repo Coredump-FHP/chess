@@ -32,7 +32,7 @@ Metrics/BlockLength:
 
 # Increases "Assignment Branch Condition size" warning from 15 to 30
 Metrics/AbcSize:
-  Max: 100
+  Max: 50
 
 # Disables "Missing top-level class documentation comment" warning
 Documentation:

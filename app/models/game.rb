@@ -4,177 +4,49 @@ class Game < ApplicationRecord
   belongs_to :player_1, class_name: 'Player', optional: true
   belongs_to :player_2, class_name: 'Player', optional: true
   belongs_to :winning_player, class_name: 'Player', optional: true
+  # Is called after  Base.save on new objects that have not been saved yet (no record exists).
+  # required for testing in console!  without after_create, color would not populate in the correct rows
+  after_create :populate_game!
+
   # Populate a game with all the pieces in the correct locations (x_coordinate, y_coordinate)
   def populate_game!
-    # white player
-    (1..8).each do |i|
-      pieces << Piece.create(
-        game: self,
-        player: player_1,
-        color: 'white',
-        x_coordinate: i,
-        y_coordinate: 2,
-        type: 'Pawn',
-        captured: false
-      )
-    end
-    pieces << Piece.create(
-      game: self,
-      player: player_1,
-      color: 'white',
-      x_coordinate: 1,
-      y_coordinate: 1,
-      type: 'Rook',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_1,
-      color: 'white',
-      x_coordinate: 2,
-      y_coordinate: 1,
-      type: 'Knight',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_1,
-      color: 'white',
-      x_coordinate: 3,
-      y_coordinate: 1,
-      type: 'Bishop',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_1,
-      color: 'white',
-      x_coordinate: 4,
-      y_coordinate: 1,
-      type: 'Queen',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_1,
-      color: 'white',
-      x_coordinate: 5,
-      y_coordinate: 1,
-      type: 'King',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_1,
-      color: 'white',
-      x_coordinate: 6,
-      y_coordinate: 1,
-      type: 'Bishop',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_1,
-      color: 'white',
-      x_coordinate: 7,
-      y_coordinate: 1,
-      type: 'Knight',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_1,
-      color: 'white',
-      x_coordinate: 8,
-      y_coordinate: 1,
-      type: 'Rook',
-      captured: false
-    )
-    # black player
-    (1..8).each do |i|
-      pieces << Piece.create(
-        game: self,
-        player: player_2,
-        color: 'black',
-        x_coordinate: i,
-        y_coordinate: 7,
-        type: 'Pawn',
-        captured: false
-      )
-    end
-    pieces << Piece.create(
-      game: self,
-      player: player_2,
-      color: 'black',
-      x_coordinate: 1,
-      y_coordinate: 8,
-      type: 'Rook',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_2,
-      color: 'black',
-      x_coordinate: 2,
-      y_coordinate: 8,
-      type: 'Knight',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_2,
-      color: 'black',
-      x_coordinate: 3,
-      y_coordinate: 8,
-      type: 'Bishop',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_2,
-      color: 'black',
-      x_coordinate: 4,
-      y_coordinate: 8,
-      type: 'Queen',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_2,
-      color: 'black',
-      x_coordinate: 5,
-      y_coordinate: 8,
-      type: 'King',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_2,
-      color: 'black',
-      x_coordinate: 6,
-      y_coordinate: 8,
-      type: 'Bishop',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_2,
-      color: 'black',
-      x_coordinate: 7,
-      y_coordinate: 8,
-      type: 'Knight',
-      captured: false
-    )
-    pieces << Piece.create(
-      game: self,
-      player: player_2,
-      color: 'black',
-      x_coordinate: 8,
-      y_coordinate: 8,
-      type: 'Rook',
-      captured: false
-    )
+    add_starting_pieces_for_color!('white')
+    add_starting_pieces_for_color!('black')
     save
     self
+  end
+
+  def add_starting_pieces_for_color!(color)
+    if color == 'white'
+      king_row = 1
+      pawn_row = 2
+    else
+      king_row = 8
+      pawn_row = 7
+    end
+
+    (1..8).each do |i|
+      create_piece!(color, i, pawn_row, 'Pawn')
+    end
+    create_piece!(color, 1, king_row, 'Rook')
+    create_piece!(color, 2, king_row, 'Knight')
+    create_piece!(color, 3, king_row, 'Bishop')
+    create_piece!(color, 4, king_row, 'Queen')
+    create_piece!(color, 5, king_row, 'King')
+    create_piece!(color, 6, king_row, 'Bishop')
+    create_piece!(color, 7, king_row, 'Knight')
+    create_piece!(color, 8, king_row, 'Rook')
+  end
+
+  def create_piece!(color, row, col, piece)
+    pieces << Piece.create(
+      game: self,
+      player: color == 'white' ? player_1 : player_2,
+      color: color == 'white' ? 0 : 1,
+      x_coordinate: row,
+      y_coordinate: col,
+      type: piece,
+      captured: false
+    )
   end
 end
