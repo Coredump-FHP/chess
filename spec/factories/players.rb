@@ -5,7 +5,7 @@ FactoryGirl.define do
     sequence :email do |n|
       "player#{n}@gmail.com"
     end
-    
+
     factory :player_with_game do
       association :game
     end
