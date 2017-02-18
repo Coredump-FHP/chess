@@ -33,5 +33,4 @@ class Piece < ApplicationRecord
 
     !chess_in_between.empty?
   end
-
 end

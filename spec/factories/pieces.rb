@@ -32,7 +32,7 @@ FactoryGirl.define do
 
     factory :bishop do
       player 'player_1'
-      color 'white'      
+      color 'white'
       x_coordinate 3
       y_coordinate 1
       type 'Bishop'
