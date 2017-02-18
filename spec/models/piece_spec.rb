@@ -38,14 +38,14 @@ RSpec.describe Piece, type: :model do
             # create a chess in-between
             create_chess(3, 4)
 
-            expect(current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y])).to eq true
+            expect(current_chess_piece).to be_obstructed(destination_coord[:destination_x], destination_coord[:destination_y])
           end
 
           it 'returns false if no obstructions' do
             current_chess_piece = create_chess(3, 3)
             destination_coord = { destination_x: 3, destination_y: 5 }
 
-            expect(current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y])).to eq false
+            expect(current_chess_piece).not_to be_obstructed(destination_coord[:destination_x], destination_coord[:destination_y])
           end
         end
       end
@@ -58,15 +58,15 @@ RSpec.describe Piece, type: :model do
 
             # create a chess in-between
             create_chess(4, 3)
-
-            expect(current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y])).to eq true
+            
+            expect(current_chess_piece).to be_obstructed(destination_coord[:destination_x], destination_coord[:destination_y])
           end
 
           it 'returns false if no obstructions' do
             current_chess_piece = create_chess(3, 3)
             destination_coord = { destination_x: 5, destination_y: 3 }
 
-            expect(current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y])).to eq false
+            expect(current_chess_piece).not_to be_obstructed(destination_coord[:destination_x], destination_coord[:destination_y])
           end
         end
       end
@@ -79,15 +79,15 @@ RSpec.describe Piece, type: :model do
 
             # create a chess in-between
             create_chess(1, 1)
-
-            expect(current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y])).to eq true
+            
+            expect(current_chess_piece).to be_obstructed(destination_coord[:destination_x], destination_coord[:destination_y])
           end
 
           it 'it returns false if no obstructions' do
             current_chess_piece = create_chess(0, 0)
             destination_coord = { destination_x: 3, destination_y: 3 }
-
-            expect(current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y])).to eq false
+            
+            expect(current_chess_piece).not_to be_obstructed(destination_coord[:destination_x], destination_coord[:destination_y])
           end
         end
       end
