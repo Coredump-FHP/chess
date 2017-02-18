@@ -6,7 +6,6 @@ RSpec.describe Piece, type: :model do
     let(:player2) { FactoryGirl.create(:player) }
     let(:game) { FactoryGirl.create(:game, player_1: player1, player_2: player2) }
 
-
     def create_chess(x, y)
       FactoryGirl.create(:piece, x_coordinate: x, y_coordinate: y, player: player1, game: game)
     end
