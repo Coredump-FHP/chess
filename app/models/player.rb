@@ -4,6 +4,6 @@ class Player < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_one :game
+  has_many :games
   has_many :pieces
 end
