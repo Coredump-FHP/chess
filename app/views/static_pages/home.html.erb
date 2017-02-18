@@ -1,6 +1,13 @@
-<h1>Have fun coding :)</h1>
-<%= image_tag("https://media.giphy.com/media/26E2gwqxVzvn7KZji/giphy.gif") %>
-<br />
+<% if @open_games %>
+  <h1>All open games</h1>
+  <h3>Feel free to join the following games</h3>
+  <ul>
+    <% @open_games.each do |game| %>
+    <li><%= game.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= link_to 'New Game', new_game_path %>
 
 <% if player_signed_in? %>
