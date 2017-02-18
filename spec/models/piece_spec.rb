@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe Piece, type: :model do
   describe '#obstructed?' do
     let(:player1) { FactoryGirl.create(:player) }
-    let(:player2) { FactoryGirl.create(:player) }
-    let(:game) { FactoryGirl.create(:game, player_1: player1, player_2: player2) }
+    let(:game) { FactoryGirl.create(:game, player_1: player1) }
 
     def create_chess(x, y)
       FactoryGirl.create(:piece, x_coordinate: x, y_coordinate: y, player: player1, game: game)
