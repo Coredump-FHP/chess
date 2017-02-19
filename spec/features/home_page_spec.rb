@@ -15,6 +15,7 @@ describe 'Visit the home page', type: :feature do
 
     visit root_path
   end
+  
   describe 'If there is no open game' do
     it 'Should not see the open game section' do
       expect(page).to have_no_content 'All open games'
