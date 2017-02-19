@@ -54,7 +54,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'capybara'
   gem 'factory_girl_rails'
-  gem 'pry-rails'
+  gem 'pry-rails', group: :development
   gem 'rspec-rails', '~> 3.5'
 end
 

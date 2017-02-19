@@ -1,6 +1,8 @@
 class Piece < ApplicationRecord
-  belongs_to :player
+  belongs_to :player, class_name: 'Player', optional: true
   belongs_to :game
+
+  enum color: %w(white black)
 
   def obstructed?(destination_x, destination_y)
     x_difference = x_coordinate - destination_x

@@ -55,4 +55,3 @@ MethodLength:
 # Do not use block comments.
 Style/BlockComments:
   Enabled: false
-
