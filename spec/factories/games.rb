@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :game do
-    name 'Game'
-    association :player_1
-    association :player_2
+    name 'My Game'
+    association :player_1, factory: :player
+    association :player_2, factory: :player
   end
 end
