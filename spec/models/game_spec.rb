@@ -1,11 +1,77 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
-  describe 'populate game' do
-    it 'should populate the game with pieces' do
-      game = FactoryGirl.build(:game)
+  describe '#populate game' do
+    it 'should start with 32 pieces' do
+      game = Game.create
       game.populate_game!
-      expect(game.pieces.count).to eq(32)
+      array = game.pieces.map { |p| p }
+      expect(array.count).to eq(32)
+    end
+
+    it 'should populate the game with the correct starting locations' do
+      game = Game.create
+      game.populate_game!
+      # actual result from on spec\model\game.rb!
+      actual = game.pieces.map do |p|
+        { col: p.x_coordinate, row: p.y_coordinate,
+          color: p.color, type: p.type }
+      end
+
+      # this is what the board should look like.
+      # changes found on spec\model\game.rb, will cause test to fail
+      expected = [
+        { col: 1, row: 1, color: 'white', type: 'Rook', found: false },
+        { col: 2, row: 1, color: 'white', type: 'Knight', found: false },
+        { col: 3, row: 1, color: 'white', type: 'Bishop', found: false },
+        { col: 4, row: 1, color: 'white', type: 'Queen', found: false },
+        { col: 5, row: 1, color: 'white', type: 'King', found: false },
+        { col: 6, row: 1, color: 'white', type: 'Bishop', found: false },
+        { col: 7, row: 1, color: 'white', type: 'Knight', found: false },
+        { col: 8, row: 1, color: 'white', type: 'Rook', found: false },
+
+        { col: 1, row: 2, color: 'white', type: 'Pawn', found: false },
+        { col: 2, row: 2, color: 'white', type: 'Pawn', found: false },
+        { col: 3, row: 2, color: 'white', type: 'Pawn', found: false },
+        { col: 4, row: 2, color: 'white', type: 'Pawn', found: false },
+        { col: 5, row: 2, color: 'white', type: 'Pawn', found: false },
+        { col: 6, row: 2, color: 'white', type: 'Pawn', found: false },
+        { col: 7, row: 2, color: 'white', type: 'Pawn', found: false },
+        { col: 8, row: 2, color: 'white', type: 'Pawn', found: false },
+
+        { col: 1, row: 7, color: 'black', type: 'Pawn', found: false },
+        { col: 2, row: 7, color: 'black', type: 'Pawn', found: false },
+        { col: 3, row: 7, color: 'black', type: 'Pawn', found: false },
+        { col: 4, row: 7, color: 'black', type: 'Pawn', found: false },
+        { col: 5, row: 7, color: 'black', type: 'Pawn', found: false },
+        { col: 6, row: 7, color: 'black', type: 'Pawn', found: false },
+        { col: 7, row: 7, color: 'black', type: 'Pawn', found: false },
+        { col: 8, row: 7, color: 'black', type: 'Pawn', found: false },
+
+        { col: 1, row: 8, color: 'black', type: 'Rook', found: false },
+        { col: 2, row: 8, color: 'black', type: 'Knight', found: false },
+        { col: 3, row: 8, color: 'black', type: 'Bishop', found: false },
+        { col: 4, row: 8, color: 'black', type: 'Queen', found: false },
+        { col: 5, row: 8, color: 'black', type: 'King', found: false },
+        { col: 6, row: 8, color: 'black', type: 'Bishop', found: false },
+        { col: 7, row: 8, color: 'black', type: 'Knight', found: false },
+        { col: 8, row: 8, color: 'black', type: 'Rook', found: false }
+      ]
+      # goes through each expected piece and find the first matching one in actual,
+      # then mark both found
+      expected.each do |e|
+        first_actual = actual.select do |a|
+          (a[:color] == e[:color]) && (a[:type] == e[:type]) && (a[:row] == e[:row]) && (a[:col] == e[:col])
+        end.first
+
+        e[:found] = true if first_actual
+      end
+      # expects that every expected piece was found.
+      missing = expected.select { |p| !(p[:found]) }
+      missing.each do |p|
+        puts "Missing piece #{p}"
+      end
+      expect(missing.count).to eq(0)
     end
   end
 end
