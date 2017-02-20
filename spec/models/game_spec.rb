@@ -42,20 +42,18 @@ RSpec.describe Game, type: :model do
   end
 
   describe '#render_piece' do
-    let(:player) { FactoryGirl.create(:player) }
-    let(:game) { FactoryGirl.create(:game, player_1: player) }
+    let(:game) { FactoryGirl.create(:game) }
 
-    context ' when there is a piece for the coordinate' do
-      it 'should return the icon' do
-        # create a piece that has the coordinates we feed to the method as arguments
-        FactoryGirl.create(:piece, x_coordinate: 0, y_coordinate: 1, player: player, game: game, icon: 'myimage.png')
+    context 'When there is a piece for the coordinate' do
+      it 'Should return the icon' do
+        FactoryGirl.create(:piece, x_coordinate: 0, y_coordinate: 1, player: game.player_1, game: game, icon: 'myimage.png')
 
         expect(game.render_piece(0, 1)).to eq 'myimage.png'
       end
     end
 
-    context 'when there is not a piece for the coordinate' do
-      it "should return '' " do
+    context 'When there is not a piece for the coordinate' do
+      it 'Should return empty string' do
         expect(game.render_piece(0, 1)).to eq ''
       end
     end

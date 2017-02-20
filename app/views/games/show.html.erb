@@ -2,14 +2,10 @@
 <br />
 
 <table width= '800' height='800' align='center' border='2' class='chess-board'>
-<!--this will draw out the 7 rows-->
 
   <% (0..7).each do |row| %>
-      <!--even row index => black, odd row index => white-->
     <tr>
-      <!-- draw out the 7 columns inside each row -->
       <% (0..7).each do |column| %>
-          <!--even column index => black, odd column index => white-->
         <td width='100' height='100' class ='<%= column.even? ^ row.even? ? "white" : "black" %>'>
           <% if @game.render_piece(column, 7 - row) != '' %>
               <%= image_tag @game.render_piece(column, 7 - row) %>

@@ -36,16 +36,16 @@ class Game < ApplicationRecord
     end
 
     (0..7).each do |i|
-      create_piece!(color, i, pawn_row, 'Pawn', "pawn-#{color}.svg")
+      create_piece!(color, i, pawn_row, 'Pawn', "pawn-#{color}.png")
     end
-    create_piece!(color, 0, king_row, 'Rook', "rook-#{color}.svg")
-    create_piece!(color, 1, king_row, 'Knight', "knight-#{color}.svg")
-    create_piece!(color, 2, king_row, 'Bishop', "bishop-#{color}.svg")
-    create_piece!(color, 3, king_row, 'Queen', "queen-#{color}.svg")
-    create_piece!(color, 4, king_row, 'King', "king-#{color}.svg")
-    create_piece!(color, 5, king_row, 'Bishop', "bishop-#{color}.svg")
-    create_piece!(color, 6, king_row, 'Knight', "knight-#{color}.svg")
-    create_piece!(color, 7, king_row, 'Rook', "rook-#{color}.svg")
+    create_piece!(color, 0, king_row, 'Rook', "rook-#{color}.png")
+    create_piece!(color, 1, king_row, 'Knight', "knight-#{color}.png")
+    create_piece!(color, 2, king_row, 'Bishop', "bishop-#{color}.png")
+    create_piece!(color, 3, king_row, 'Queen', "queen-#{color}.png")
+    create_piece!(color, 4, king_row, 'King', "king-#{color}.png")
+    create_piece!(color, 5, king_row, 'Bishop', "bishop-#{color}.png")
+    create_piece!(color, 6, king_row, 'Knight', "knight-#{color}.png")
+    create_piece!(color, 7, king_row, 'Rook', "rook-#{color}.png")
   end
 
   def create_piece!(color, row, col, piece, icon)
