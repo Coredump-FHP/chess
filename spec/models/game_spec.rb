@@ -9,7 +9,7 @@ RSpec.describe Game, type: :model do
     end
 
     context 'When there are games' do
-      let(:game) { FactoryGirl.create(:game) }
+      let!(:game) { FactoryGirl.create(:game) }
 
       context 'When all games have both players' do
         it 'Should return an empty array' do
@@ -24,7 +24,7 @@ RSpec.describe Game, type: :model do
 
           # a game that has only one player (player2)
           game3 = FactoryGirl.create(:game, player_1: nil)
-          
+
           expect(Game.available.count).to eq 2
           expect(Game.available).to include game2
           expect(Game.available).to include game3

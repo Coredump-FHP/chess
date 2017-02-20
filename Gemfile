@@ -46,16 +46,17 @@ gem 'jbuilder', '~> 2.5'
 # use rubocop for Ruby style guide.
 gem 'rubocop', '~> 0.47.1', require: false
 
-gem 'simplecov', require: false, group: :test
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get
   # a debugger console
   gem 'byebug', platform: :mri
+end
+
+group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
-  gem 'pry-rails', group: :development
   gem 'rspec-rails', '~> 3.5'
+  gem 'simplecov', require: false
 end
 
 group :development do
@@ -65,6 +66,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the
   # background. Read more: https://github.com/rails/spring
+  gem 'pry-rails'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end

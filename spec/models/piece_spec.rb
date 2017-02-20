@@ -28,7 +28,7 @@ RSpec.describe Piece, type: :model do
         end
       end
     end
-    
+
     context 'When the inputs are valid' do
       context 'If current_chess_piece and sq2 have the same x coordinates' do
         context 'but not the same y coordinates' do
