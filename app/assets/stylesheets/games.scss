@@ -5,3 +5,12 @@
 .chess-board td {
   text-align: center;
 }
+
+.chess-board td.black {
+  background: url('blackmarble.png')
+}
+
+.chess-board td.white {
+  background: url('whitemarble.png')
+}
+  

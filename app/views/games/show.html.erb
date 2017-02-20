@@ -10,7 +10,7 @@
       <!-- draw out the 7 columns inside each row -->
       <% (0..7).each do |column| %>
           <!--even column index => black, odd column index => white-->
-        <td width='100' height='100' bgcolor='<%= column.even? ^ row.even? ? "white" : "#3a262b" %>'>
+        <td width='100' height='100' class ='<%= column.even? ^ row.even? ? "white" : "black" %>'>
           <% if @game.render_piece(column, 7 - row) != '' %>
               <%= image_tag @game.render_piece(column, 7 - row) %>
           <% end %>
