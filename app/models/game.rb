@@ -18,6 +18,10 @@ class Game < ApplicationRecord
     self
   end
 
+  def player_missing
+    player_1_id.nil? || player_2_id.nil?
+  end
+
   private
 
   def add_starting_pieces_for_color!(color)

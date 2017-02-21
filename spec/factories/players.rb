@@ -6,9 +6,9 @@ FactoryGirl.define do
 
     password 'welcome'
     password_confirmation 'welcome'
+  end
 
-    factory :player_with_game do
-      association :game
-    end
+  factory :player_with_game do
+    association :game
   end
 end
