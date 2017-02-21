@@ -4,6 +4,14 @@ class Piece < ApplicationRecord
 
   enum color: %w(white black)
 
+  def on_board?(destination_x, destination_y)
+    return false if destination_x < 1
+    return false if destination_x > 8
+    return false if destination_y < 1
+    return false if destination_y > 8
+    true
+  end
+
   def obstructed?(destination_x, destination_y)
     x_difference = x_coordinate - destination_x
     y_difference = y_coordinate - destination_y
