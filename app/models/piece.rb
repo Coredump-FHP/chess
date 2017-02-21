@@ -29,6 +29,7 @@ class Piece < ApplicationRecord
       # the two locations are on the same horizontal line
       chess_in_between = game.pieces.where(y_coordinate: y_coordinate)
                              .where(x_coordinate: x_coordinate + 1...destination_x)
+
     elsif x_difference != y_difference
       raise ArgumentError, 'destination must be on the diagonal of the origin'
     else
