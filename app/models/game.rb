@@ -13,7 +13,8 @@ class Game < ApplicationRecord
 
   def render_piece(x, y)
     piece = pieces.where(x_coordinate: x).where(y_coordinate: y)[0]
-    piece.nil? ? '' : piece.icon
+    return nil if piece.nil?
+    piece.icon
   end
 
   # Populate a game with all the pieces in the correct locations (x_coordinate, y_coordinate)

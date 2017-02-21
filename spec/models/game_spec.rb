@@ -54,7 +54,7 @@ RSpec.describe Game, type: :model do
 
     context 'When there is not a piece for the coordinate' do
       it 'Should return empty string' do
-        expect(game.render_piece(0, 1)).to eq ''
+        expect(game.render_piece(0, 1)).to eq nil
       end
     end
   end
