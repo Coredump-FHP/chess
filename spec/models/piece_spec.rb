@@ -94,4 +94,37 @@ RSpec.describe Piece, type: :model do
       end
     end
   end
+
+  describe '#on_board?' do
+    it 'should return true is the coords are from 1 to 8' do
+      piece = Piece.create
+      (1..8).each do |x|
+        (1..8).each do |y|
+          # all these are on the board
+          expect(piece.on_board?(x, y)).to (eq true), "expected (#{x},#{y}) to be on the chess board"
+        end
+      end
+    end
+
+    it 'should return false if the coords not from 1 to 8' do
+      piece = Piece.create
+      # Test with invalid x
+      [*-4..0, *9..12].each do |x|
+        [*-4..12].each do |y|
+          # puts "trying (#{x},#{y})"
+          # these aren't on the board because the x is wrong
+          expect(piece.on_board?(x, y)).to (eq false), "expected (#{x},#{y}) to be outside the chess board"
+        end
+      end
+
+      # Test with invalid y
+      # http://stackoverflow.com/questions/21404323/combining-two-different-ranges-to-one-in-ruby
+      [*-4..12].each do |x|
+        [*-4..0, *9..12].each do |y|
+          # these aren't on the board because the y is wrong
+          expect(piece.on_board?(x, y)).to (eq false), "expected (#{x},#{y}) to be outside the chess board"
+        end
+      end
+    end
+  end
 end
