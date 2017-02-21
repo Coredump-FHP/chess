@@ -51,10 +51,10 @@ RSpec.describe GamesController, type: :controller do
       player_2 = FactoryGirl.create(:player)
       sign_in player_2
 
-      patch :update, id: @game.id, params: { game: { name: 'test game' } }
+      patch :update, params: { id: @game.id }
       @game.reload
       expect(@game.name).to eq 'test game'
-      expect(@game.player_2_id).to eq player.id
+      expect(@game.player_2_id).to eq player_2.id
     end
   end
 end
