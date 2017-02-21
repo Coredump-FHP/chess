@@ -7,13 +7,12 @@ class GamesController < ApplicationController
     @game = Game.create(game_params)
     if @game.invalid?
       flash[:error] = 'New game not saved'
-      redirect_to root_path
     else
       @game.player_1_id = current_player.id
       @game.save
       @game.populate_game!
       redirect_to root_path
-   end
+    end
   end
 
   def edit

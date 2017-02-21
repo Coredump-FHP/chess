@@ -42,19 +42,19 @@ RSpec.describe GamesController, type: :controller do
 
   describe 'games#update action' do
     it 'should set player_2_id when a second player joins a created game' do
-      player_1 = FactoryGirl.create(:player)
-      sign_in player_1
+      player1 = FactoryGirl.create(:player)
+      sign_in player1
 
       post :create, params: { game: { name: 'test game' } }
       @game = Game.last
-      sign_out player_1
-      player_2 = FactoryGirl.create(:player)
-      sign_in player_2
+      sign_out player1
+      player2 = FactoryGirl.create(:player)
+      sign_in player2
 
       patch :update, params: { id: @game.id }
       @game.reload
       expect(@game.name).to eq 'test game'
-      expect(@game.player_2_id).to eq player_2.id
+      expect(@game.player_2_id).to eq player2.id
     end
   end
 end
