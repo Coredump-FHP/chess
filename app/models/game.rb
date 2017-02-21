@@ -1,9 +1,21 @@
+# noinspection ALL
 class Game < ApplicationRecord
   validates :name, presence: true, length: { minimum: 1 }
   has_many :pieces
   belongs_to :player_1, class_name: 'Player', optional: true
   belongs_to :player_2, class_name: 'Player', optional: true
   belongs_to :winning_player, class_name: 'Player', optional: true
+
+  scope :available, lambda {
+                      where('player_1_id IS NOT NULL AND player_2_id IS NULL')
+                        .or(Game.where('player_1_id IS NULL AND player_2_id IS NOT NULL'))
+                    }
+
+  def render_piece(x, y)
+    piece = pieces.where(x_coordinate: x).where(y_coordinate: y)[0]
+    return nil if piece.nil?
+    piece.icon
+  end
 
   # Populate a game with all the pieces in the correct locations (x_coordinate, y_coordinate)
   def populate_game!
@@ -17,27 +29,27 @@ class Game < ApplicationRecord
 
   def add_starting_pieces_for_color!(color)
     if color == 'white'
-      king_row = 1
-      pawn_row = 2
+      king_row = 0
+      pawn_row = 1
     else
-      king_row = 8
-      pawn_row = 7
+      king_row = 7
+      pawn_row = 6
     end
 
-    (1..8).each do |i|
-      create_piece!(color, i, pawn_row, 'Pawn')
+    (0..7).each do |i|
+      create_piece!(color, i, pawn_row, 'Pawn', "pawn-#{color}.png")
     end
-    create_piece!(color, 1, king_row, 'Rook')
-    create_piece!(color, 2, king_row, 'Knight')
-    create_piece!(color, 3, king_row, 'Bishop')
-    create_piece!(color, 4, king_row, 'Queen')
-    create_piece!(color, 5, king_row, 'King')
-    create_piece!(color, 6, king_row, 'Bishop')
-    create_piece!(color, 7, king_row, 'Knight')
-    create_piece!(color, 8, king_row, 'Rook')
+    create_piece!(color, 0, king_row, 'Rook', "rook-#{color}.png")
+    create_piece!(color, 1, king_row, 'Knight', "knight-#{color}.png")
+    create_piece!(color, 2, king_row, 'Bishop', "bishop-#{color}.png")
+    create_piece!(color, 3, king_row, 'Queen', "queen-#{color}.png")
+    create_piece!(color, 4, king_row, 'King', "king-#{color}.png")
+    create_piece!(color, 5, king_row, 'Bishop', "bishop-#{color}.png")
+    create_piece!(color, 6, king_row, 'Knight', "knight-#{color}.png")
+    create_piece!(color, 7, king_row, 'Rook', "rook-#{color}.png")
   end
 
-  def create_piece!(color, row, col, piece)
+  def create_piece!(color, row, col, piece, icon)
     pieces << Piece.create(
       game: self,
       player: color == 'white' ? player_1 : player_2,
@@ -45,6 +57,7 @@ class Game < ApplicationRecord
       x_coordinate: row,
       y_coordinate: col,
       type: piece,
+      icon: icon,
       captured: false
     )
   end

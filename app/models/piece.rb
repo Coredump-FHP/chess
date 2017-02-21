@@ -30,7 +30,6 @@ class Piece < ApplicationRecord
                              .where(y_coordinate: y_coordinate + 1...destination_y)
                              .where("(x_coordinate - #{x_coordinate}) = (y_coordinate- #{y_coordinate})")
 
-
     end
 
     !chess_in_between.empty?
