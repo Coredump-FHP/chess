@@ -4,6 +4,24 @@ class Piece < ApplicationRecord
 
   enum color: %w(white black)
 
+  # Note: This method does not check if a move is valid. We will be using the valid_move? method to do that.
+  def move_to!(new_x, new_y)
+    # http://apidock.com/rails/v4.2.7/ActiveRecord/FinderMethods/find_by
+    destination_piece = Piece.find_by(game: game, x_coordinate: new_x, y_coordinate: new_y, captured: false)
+
+    # Second, if there is a piece there, and it's the opposing color, remove the piece from the board.
+    if destination_piece
+      # Third, if the piece is there and it's the same color the move should fail - it should either raise an error message or do nothing.
+      raise ArgumentError, "Can't take your own piece!" if destination_piece.color == color
+
+      # You could set the piece's x/y coordinates to nil
+      raise ArgumentError, "Can't take destination piece" unless destination_piece.update_attributes(x_coordinate: nil, y_coordinate: nil, captured: true)
+    end
+    # Finally, it should call update_attributes on the piece and change the piece's x/y position.
+    # http://apidock.com/rails/ActiveRecord/Base/update_attributes
+    raise ArgumentError, "Can't move piece" unless update_attributes(x_coordinate: new_x, y_coordinate: new_y)
+  end
+
   def on_board?(destination_x, destination_y)
     return false if destination_x < 1
     return false if destination_x > 8

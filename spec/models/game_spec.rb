@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
-
   describe '#available' do
     context 'When there is no game at all' do
       it 'Should return an empty array' do
