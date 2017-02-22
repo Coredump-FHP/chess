@@ -28,6 +28,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    #look for params x or payams y (from show view) then highlight the square.
   end
 
   private

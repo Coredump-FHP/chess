@@ -13,4 +13,7 @@
 .chess-board td.white {
   background: url('whitemarble.png')
 }
-  
+
+.chess-board td a:hover {
+  background-color: yellow;
+}

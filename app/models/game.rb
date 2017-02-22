@@ -11,8 +11,15 @@ class Game < ApplicationRecord
                         .or(Game.where('player_1_id IS NULL AND player_2_id IS NOT NULL'))
                     }
 
+  # created a new method to break up the responsibility of assiging the coordinates and rendering the piece.
+  # render was doing 2 actions
+
+  def retrieve_piece(x, y)
+    pieces.where(x_coordinate: x).where(y_coordinate: y)[0]
+  end
+
   def render_piece(x, y)
-    piece = pieces.where(x_coordinate: x).where(y_coordinate: y)[0]
+    piece = retrieve_piece(x, y)
     return nil if piece.nil?
     piece.icon
   end
@@ -23,10 +30,6 @@ class Game < ApplicationRecord
     add_starting_pieces_for_color!('black')
     save
     self
-  end
-
-  def player_missing
-    player_1_id.nil? || player_2_id.nil?
   end
 
   private
