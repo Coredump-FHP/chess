@@ -4,6 +4,14 @@ class Piece < ApplicationRecord
 
   enum color: %w(white black)
 
+  def on_board?(destination_x, destination_y)
+    return false if destination_x < 1
+    return false if destination_x > 8
+    return false if destination_y < 1
+    return false if destination_y > 8
+    true
+  end
+
   def obstructed?(destination_x, destination_y)
     x_difference = x_coordinate - destination_x
     y_difference = y_coordinate - destination_y
@@ -11,9 +19,9 @@ class Piece < ApplicationRecord
     chess_in_between = []
 
     # first, raise an argument error when self and sq have the same coordinates
-    if x_difference.zero? && y_difference.zero?
-      raise ArgumentError, 'destination has to have a different location'
-    elsif x_difference.zero?
+    raise ArgumentError, 'destination has to have a different location' if x_difference.zero? && y_difference.zero?
+
+    if x_difference.zero?
       # the two locations are on the same vertical line
       chess_in_between = game.pieces.where(x_coordinate: x_coordinate)
                              .where(y_coordinate: y_coordinate + 1...destination_y)
