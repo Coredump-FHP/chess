@@ -7,9 +7,9 @@ class Piece < ApplicationRecord
 
   # Note: This method does not check if a move is valid. We will be using the valid_move? method to do that.
   def move_to!(new_x, new_y)
-    # check to see if there is a piece in the location it’s moving to.
+    # check to see if there is a piece in the location it`s moving to.
     destination_piece = Piece.find_by(game: game, x_coordinate: new_x, y_coordinate: new_y, captured: false)
-    
+
     # Second, if there is a piece there, and it's the opposing color, remove the piece from the board.
     if destination_piece
       # Third, if the piece is there and it's the same color the move should fail - it should either raise an error message or do nothing.

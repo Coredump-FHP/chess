@@ -47,7 +47,6 @@ RSpec.describe Game, type: :model do
 
       game.populate_game!
       expect(game.pieces.count).to eq 32
-
     end
 
     it 'should populate the game with the correct starting locations' do

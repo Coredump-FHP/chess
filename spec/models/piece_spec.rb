@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+require 'pry'
 RSpec.describe Piece, type: :model do
   let(:game) { FactoryGirl.create(:game) }
 
@@ -15,8 +15,9 @@ RSpec.describe Piece, type: :model do
           current_chess_piece = create_chess(0, 1)
           destination_coord = { destination_x: 0, destination_y: 1 }
 
-          expect { current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y]) 
-            }.to raise_error ArgumentError
+          expect do
+            current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y])
+          end.to raise_error ArgumentError
         end
 
         context 'If current_chess_piece and sq2 have different x and y coordinates' do
@@ -24,8 +25,9 @@ RSpec.describe Piece, type: :model do
             current_chess_piece = create_chess(0, 5)
             destination_coord = { destination_x: 1, destination_y: 2 }
 
-            expect { current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y]) 
-              }.to raise_error ArgumentError
+            expect do
+              current_chess_piece.obstructed?(destination_coord[:destination_x], destination_coord[:destination_y])
+            end.to raise_error ArgumentError
           end
         end
       end
@@ -98,49 +100,43 @@ RSpec.describe Piece, type: :model do
   end
 
   describe '#move_to!' do
-    # First
-    it ' should check to see if there is a piece in the location it’s moving to.' do 
-      destination_piece = FactoryGirl.create(:piece, x_coordinate: 2, y_coordinate: 2)
-      game = destination_piece.game
-      other_piece = FactoryGirl.create(:piece, x_coordinate: 3, y_coordinate: 3, game: game)
-
-      expect(game.other_piece).to (eq true)
-
-
-    end
-
-    # Second
-    context 'when there is a piece there, and it’s the opposing color' do
+    context 'when there is a piece there, and it`s the opposing color' do
       it 'should remove the piece from the board' do
-        destination_piece = FactoryGirl.create(:piece, x_coordinate: 1, y_coordinate: 1)
+        destination_piece = FactoryGirl.create(:piece, x_coordinate: 3, y_coordinate: 3, color: 'black')
         game = destination_piece.game
-        opponent_piece = FactoryGirl.create(:piece, game: game)
-        # check logic
-        expect(opponent_piece.move_to!(3,3)).to (eq nil)  
+        our_piece = FactoryGirl.create(:piece, game: game)
+
+        # move our piece
+        our_piece.move_to!(3, 3)
+        destination_piece.reload
+
+        # make sure the destination_piece's coordinates are removed
+        expect(destination_piece.x_coordinate).to be_nil
+        expect(destination_piece.y_coordinate).to be_nil
       end
     end
 
-    # Third
     context 'when there is a piece there, and it’s the same color' do
       it 'should raise an ArgumentError' do
         destination_piece = FactoryGirl.create(:piece, x_coordinate: 3, y_coordinate: 3)
         game = destination_piece.game
         our_piece = FactoryGirl.create(:piece, game: game)
-        
-        expect{our_piece.move_to!(3,3)}.to raise_error ArgumentError
+
+        expect { our_piece.move_to!(3, 3) }.to raise_error ArgumentError
       end
     end
 
-    # Last
     it'should update destination to new x/y opponent location' do
-    #raise ArgumentError, "Can't move piece" unless 
-    #update_attributes(x_coordinate: new_x, y_coordinate: new_y)
-      destination_piece = FactoryGirl.create(:piece, x_coordinate: 1, y_coordinate: 1)
+      destination_piece = FactoryGirl.create(:piece, x_coordinate: 1, y_coordinate: 1, color: 'black')
       game = destination_piece.game
       our_piece = FactoryGirl.create(:piece, x_coordinate: 5, y_coordinate: 1, game: game)
-      our_piece = destination_piece
-      
-      expect{our_piece.move_to!(5,1)}.to raise_error ArgumentError
+
+      # move our piece
+      our_piece.move_to!(1, 1)
+      our_piece.reload
+
+      expect(our_piece.x_coordinate).to eq 1
+      expect(our_piece.y_coordinate).to eq 1
     end
   end
 

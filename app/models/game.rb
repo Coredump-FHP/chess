@@ -12,7 +12,7 @@ class Game < ApplicationRecord
 
   # Populate a game with all the pieces in the correct locations (x_coordinate, y_coordinate)
   def populate_game!
-    # if there are already pieces in this game, 
+    # if there are already pieces in this game,
     # we don't want the game to be populated again.
     if pieces.count > 0
       self
