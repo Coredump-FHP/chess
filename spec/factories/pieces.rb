@@ -41,7 +41,6 @@ FactoryGirl.define do
       x_coordinate 1
       y_coordinate 1
       type 'Rook'
-      color 'black'
     end
 
     factory :king do
