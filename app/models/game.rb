@@ -12,15 +12,16 @@ class Game < ApplicationRecord
 
   # Populate a game with all the pieces in the correct locations (x_coordinate, y_coordinate)
   def populate_game!
+    # if there are already pieces in this game, 
+    # we don't want the game to be populated again.
+    if pieces.count > 0
+      self
+    else
       add_starting_pieces_for_color!('white')
       add_starting_pieces_for_color!('black')
       save
-      self
+    end
   end
-
-  # how do i say check to make sure to not have more than 32 pieces on the board 
-  # how do i make sure only to populate once?
-  # everytime i try, i get an 0 condition
 
   private
 
@@ -47,14 +48,14 @@ class Game < ApplicationRecord
   end
 
   def create_piece!(color, row, col, piece)
-      pieces << Piece.create(
-        game: self,
-        player: color == 'white' ? player_1 : player_2,
-        color: color == 'white' ? 0 : 1,
-        x_coordinate: row,
-        y_coordinate: col,
-        type: piece,
-        captured: false
-      )
+    pieces << Piece.create(
+      game: self,
+      player: color == 'white' ? player_1 : player_2,
+      color: color == 'white' ? 0 : 1,
+      x_coordinate: row,
+      y_coordinate: col,
+      type: piece,
+      captured: false
+    )
   end
 end

@@ -41,6 +41,15 @@ RSpec.describe Game, type: :model do
       expect(array.count).to eq(32)
     end
 
+    it 'should not populate the game again if it has already been populated' do
+      game = FactoryGirl.create(:game)
+      game.populate_game!
+
+      game.populate_game!
+      expect(game.pieces.count).to eq 32
+
+    end
+
     it 'should populate the game with the correct starting locations' do
       game = Game.create
       game.populate_game!
@@ -89,6 +98,7 @@ RSpec.describe Game, type: :model do
         { col: 7, row: 8, color: 'black', type: 'Knight', found: false },
         { col: 8, row: 8, color: 'black', type: 'Rook', found: false }
       ]
+
       # goes through each expected piece and find the first matching one in actual,
       # then mark both found
       expected.each do |e|
@@ -98,6 +108,7 @@ RSpec.describe Game, type: :model do
 
         e[:found] = true if first_actual
       end
+
       # expects that every expected piece was found.
       missing = expected.select { |p| !(p[:found]) }
       missing.each do |p|
