@@ -1,4 +1,5 @@
 class PiecesController < ApplicationController
+  helper PiecesHelper
   def show
     @piece = Piece.find(params[:id])
     @game = @piece.game
