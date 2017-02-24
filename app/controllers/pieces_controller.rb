@@ -1,12 +1,19 @@
 class PiecesController < ApplicationController
+  helper PiecesHelper
   def show
     @piece = Piece.find(params[:id])
     @game = @piece.game
-    # can either set flag here to render a highlight CSS class and then render the games show page again..
-    # or we can copy all the view code and show an entirely
-    # different view with the board duplicated, then highlight the piece.
-    # render "games/show"
   end
 
-  def update; end
+  def update
+    @piece = Piece.find(params[:id])
+    @piece.update_attributes(piece_params)
+    render :template => "games/show"
+  end
 end
+
+  private
+
+  def piece_params
+    params.require(:piece).permit(:x_coordinate, :y_coordinate)
+  end

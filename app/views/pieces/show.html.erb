@@ -6,12 +6,12 @@
   <% (0..7).each do |row| %>
     <tr>
       <% (0..7).each do |column| %>
-        <td width='100' height='100' class ='<%= column.even? ^ row.even? ? "white" : "black" %>' id='<%= piece.id %>'>
-          <% if @game.render_piece(column, 7 - row) != nil %>
-            <%= image_tag(@game.render_piece(column, 7 - row)) %>
-          <% end %>
+        <td width='100' height='100' class ='<%= column.even? ^ row.even? ? "white" : "black" %>' id='<%= @piece.id %>'>
+          <%= render_piece_highlight(column, 7 - row) %>
         </td>
       <% end %>
     </tr>
   <% end %>
 </table>
+
+<% @piece.move_to(3,4) %>

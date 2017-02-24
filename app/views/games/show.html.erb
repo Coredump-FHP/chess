@@ -10,7 +10,6 @@
           <% if @game.render_piece(column, 7 - row) != nil %>
               <% piece = @game.retrieve_piece(column, 7 - row) %>
               <%= link_to image_tag(@game.render_piece(column, 7 - row)), piece_path(piece) %>
-              <%= piece.id %>
           <% end %>
         </td>
       <% end %>

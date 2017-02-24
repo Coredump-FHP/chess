@@ -7,9 +7,15 @@
 }
 
 .chess-board td.black {
-  background: url('blackmarble.png')
+  background: url('blackmarble.png');
 }
 
 .chess-board td.white {
-  background: url('whitemarble.png')
+  background: url('whitemarble.png');
+}
+
+.highlight {
+  width: 80px;
+  height: 80px;
+  border: 5px yellow solid;
 }
