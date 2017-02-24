@@ -11,11 +11,26 @@ class Game < ApplicationRecord
                         .or(Game.where('player_1_id IS NULL AND player_2_id IS NOT NULL'))
                     }
 
+  def retrieve_piece(x, y)
+    pieces.where(x_coordinate: x).where(y_coordinate: y)[0]
+  end
+
   def render_piece(x, y)
-    piece = pieces.where(x_coordinate: x).where(y_coordinate: y)[0]
+    piece = retrieve_piece(x, y)
     return nil if piece.nil?
     piece.icon
   end
+
+  # def render_highlighted_piece(x, y)
+  #   piece = @game.pieces.find_by(x: x, y: y)
+  #   return unless piece.present?
+  #
+  #   if piece == @piece
+  #     #css for background here
+  #   end
+  #   piece.icon
+  # end
+
 
   # Populate a game with all the pieces in the correct locations (x_coordinate, y_coordinate)
   def populate_game!

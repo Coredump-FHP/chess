@@ -15,13 +15,13 @@
   <% if alert.present? %>
     <p class="alert alert-danger"><%= alert %></p>
   <% end %>
-  
+
   <% if !@open_games.empty? %>
     <h1>All open games</h1>
     <h3>Feel free to join the following games</h3>
     <ul>
       <% @open_games.each do |game| %>
-        <li><%= game.name %></li>
+        <li><%= link_to game.name, edit_game_path(game) %></li>
       <% end %>
     </ul>
   <% end %>
