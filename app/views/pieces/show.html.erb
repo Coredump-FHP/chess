@@ -6,7 +6,7 @@
   <% (0..7).each do |row| %>
     <tr>
       <% (0..7).each do |column| %>
-        <td width='100' height='100' class ='<%= column.even? ^ row.even? ? "white" : "black" %>'>
+        <td width='100' height='100' class ='<%= column.even? ^ row.even? ? "white" : "black" %>' id='<%= piece.id %>'>
           <% if @game.render_piece(column, 7 - row) != nil %>
             <%= image_tag(@game.render_piece(column, 7 - row)) %>
           <% end %>

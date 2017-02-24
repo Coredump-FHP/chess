@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
-
   describe '#available' do
     context 'When there is no game at all' do
       it 'Should return an empty array' do
@@ -105,7 +104,6 @@ RSpec.describe Game, type: :model do
         puts "Missing piece #{p}"
       end
       expect(missing.count).to eq(0)
-
     end
   end
 
@@ -124,7 +122,6 @@ RSpec.describe Game, type: :model do
       it 'Should return empty string' do
         expect(game.render_piece(0, 1)).to eq nil
       end
-
     end
   end
 end

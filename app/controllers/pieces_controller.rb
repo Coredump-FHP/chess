@@ -8,6 +8,5 @@ class PiecesController < ApplicationController
     # render "games/show"
   end
 
-  def update
-  end
+  def update; end
 end

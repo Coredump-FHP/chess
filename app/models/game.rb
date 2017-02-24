@@ -31,7 +31,6 @@ class Game < ApplicationRecord
   #   piece.icon
   # end
 
-
   # Populate a game with all the pieces in the correct locations (x_coordinate, y_coordinate)
   def populate_game!
     add_starting_pieces_for_color!('white')
