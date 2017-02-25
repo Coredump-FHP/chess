@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'pry'
 
 RSpec.describe Game, type: :model do
   describe '#available' do
@@ -34,11 +35,21 @@ RSpec.describe Game, type: :model do
   end
 
   describe '#populate game' do
+    def expect_a_piece(attributes)
+      piece = game.pieces.where(attributes).first
+      unless piece
+        puts 'Missing piece'
+        pp attributes
+      end
+      expect(piece).to be_a_kind_of(Piece)
+    end
+
+    let(:game) { FactoryGirl.create(:game) }
+
+    before(:each) { game.populate_game! }
+
     it 'should start with 32 pieces' do
-      game = Game.create
-      game.populate_game!
-      array = game.pieces.map { |p| p }
-      expect(array.count).to eq(32)
+      expect(game.pieces.size).to eq(32)
     end
 
     it 'should not populate the game again if it has already been populated' do
@@ -50,14 +61,25 @@ RSpec.describe Game, type: :model do
     end
 
     it 'should populate the game with the correct starting locations' do
-      game = Game.create
-      game.populate_game!
-      # actual result from on spec\model\game.rb!
-      actual = game.pieces.map do |p|
-        { col: p.x_coordinate, row: p.y_coordinate,
-          color: p.color, type: p.type }
-      end
+      expect_a_piece(x_coordinate: 0, y_coordinate: 0, color: 'white', type: 'Rook')
+      expect_a_piece(x_coordinate: 1, y_coordinate: 0, color: 'white', type: 'Knight')
+      expect_a_piece(x_coordinate: 2, y_coordinate: 0, color: 'white', type: 'Bishop')
+      expect_a_piece(x_coordinate: 3, y_coordinate: 0, color: 'white', type: 'Queen')
+      expect_a_piece(x_coordinate: 4, y_coordinate: 0, color: 'white', type: 'King')
+      expect_a_piece(x_coordinate: 5, y_coordinate: 0, color: 'white', type: 'Bishop')
+      expect_a_piece(x_coordinate: 6, y_coordinate: 0, color: 'white', type: 'Knight')
+      expect_a_piece(x_coordinate: 7, y_coordinate: 0, color: 'white', type: 'Rook')
 
+      expect_a_piece(x_coordinate: 0, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 1, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 2, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 3, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 4, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 5, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 6, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 7, y_coordinate: 1, color: 'white', type: 'Pawn')
+
+<<<<<<< HEAD
       # this is what the board should look like.
       # changes found on spec\model\game.rb, will cause test to fail
       expected = [
@@ -112,8 +134,43 @@ RSpec.describe Game, type: :model do
       missing = expected.select { |p| !(p[:found]) }
       missing.each do |p|
         puts "Missing piece #{p}"
+=======
+      expect_a_piece(x_coordinate: 0, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 1, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 2, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 3, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 4, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 5, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 6, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 7, y_coordinate: 6, color: 'black', type: 'Pawn')
+
+      expect_a_piece(x_coordinate: 0, y_coordinate: 7, color: 'black', type: 'Rook')
+      expect_a_piece(x_coordinate: 1, y_coordinate: 7, color: 'black', type: 'Knight')
+      expect_a_piece(x_coordinate: 2, y_coordinate: 7, color: 'black', type: 'Bishop')
+      expect_a_piece(x_coordinate: 3, y_coordinate: 7, color: 'black', type: 'Queen')
+      expect_a_piece(x_coordinate: 4, y_coordinate: 7, color: 'black', type: 'King')
+      expect_a_piece(x_coordinate: 5, y_coordinate: 7, color: 'black', type: 'Bishop')
+      expect_a_piece(x_coordinate: 6, y_coordinate: 7, color: 'black', type: 'Knight')
+      expect_a_piece(x_coordinate: 7, y_coordinate: 7, color: 'black', type: 'Rook')
+    end
+  end
+
+  describe '#render_piece' do
+    let(:game) { FactoryGirl.create(:game) }
+
+    context 'When there is a piece for the coordinate' do
+      it 'Should return the icon' do
+        FactoryGirl.create(:piece, x_coordinate: 0, y_coordinate: 1, player: game.player_1, game: game, icon: 'myimage.png')
+
+        expect(game.render_piece(0, 1)).to eq 'myimage.png'
       end
-      expect(missing.count).to eq(0)
+    end
+
+    context 'When there is not a piece for the coordinate' do
+      it 'Should return empty string' do
+        expect(game.render_piece(0, 1)).to eq nil
+>>>>>>> origin
+      end
     end
   end
 end

@@ -1,95 +1,3 @@
-<br />
-<br />
-<br />
-
-
-<table width= '800' height='800' align='center' border='2'>
-<tr>
-  <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-</tr>
-<tr>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-  <td width='100' height='100' bgcolor='black'></td>
-</tr>
-<tr>
-  <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-</tr>
-<tr>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-  <td width='100' height='100' bgcolor='black'></td>
-</tr>
-<tr>
-  <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-</tr>
-<tr>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-  <td width='100' height='100' bgcolor='black'></td>
-</tr>
-<tr>
-  <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-</tr>
-<tr>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-      <td width='100' height='100' bgcolor='black'></td>
-  <td width='100' height='100' bgcolor='white'></td>
-  <td width='100' height='100' bgcolor='black'></td>
-</tr>
-</table>
-
-
-<br />
-
-
 <div align='center'>
 
   <%= link_to 'New Game', new_game_path %></text>
@@ -97,6 +5,7 @@
   <% if player_signed_in? %>
     <li><%= link_to 'Sign out', destroy_player_session_path, method: :delete %></li>
   <% else %>
+    <li><%= link_to "Sign in with Facebook", player_facebook_omniauth_authorize_path %></li>
     <li><%= link_to 'Sign in', new_player_session_path %></li>
     <li><%= link_to 'Sign up', new_player_registration_path %></li>
   <% end %>

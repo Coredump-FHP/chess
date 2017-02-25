@@ -27,6 +27,10 @@ gem 'sprockets', '~> 3.0'
 # devise
 gem 'devise', '>= 3.2.4'
 
+# OmniAuth with facebook provider
+gem 'figaro'
+gem 'omniauth-facebook'
+
 # Simpleform integreated
 gem 'simple_form'
 # Use jquery as the JavaScript library
@@ -50,12 +54,12 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get
   # a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails', '~> 3.5'
 end
 
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
-  gem 'rspec-rails', '~> 3.5'
   gem 'simplecov', require: false
 end
 
