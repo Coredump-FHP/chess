@@ -52,6 +52,14 @@ RSpec.describe Game, type: :model do
       expect(game.pieces.size).to eq(32)
     end
 
+    it 'should not populate the game again if it has already been populated' do
+      game = FactoryGirl.create(:game)
+      game.populate_game!
+
+      game.populate_game!
+      expect(game.pieces.count).to eq 32
+    end
+
     it 'should populate the game with the correct starting locations' do
       expect_a_piece(x_coordinate: 0, y_coordinate: 0, color: 'white', type: 'Rook')
       expect_a_piece(x_coordinate: 1, y_coordinate: 0, color: 'white', type: 'Knight')
