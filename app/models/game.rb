@@ -19,14 +19,10 @@ class Game < ApplicationRecord
 
   # Populate a game with all the pieces in the correct locations (x_coordinate, y_coordinate)
   def populate_game!
-    return unless piece.count == 0
-    #if pieces.count > 0
-    #  self
-    #else
-      add_starting_pieces_for_color!('white')
-      add_starting_pieces_for_color!('black')
-      save
-    #end
+    return unless pieces.count.zero?
+    add_starting_pieces_for_color!('white')
+    add_starting_pieces_for_color!('black')
+    save
   end
 
   private
