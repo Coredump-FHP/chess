@@ -5,11 +5,8 @@ FactoryGirl.define do
     association :player
     association :game
     captured false
-<<<<<<< HEAD
-    color 'white'
-=======
     icon ''
->>>>>>> origin
+    color 'white'
 
     factory :pawn do
       player 'player_1'
@@ -45,7 +42,6 @@ FactoryGirl.define do
       x_coordinate 1
       y_coordinate 1
       type 'Rook'
-      color 'black'
     end
 
     factory :king do

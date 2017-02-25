@@ -79,62 +79,6 @@ RSpec.describe Game, type: :model do
       expect_a_piece(x_coordinate: 6, y_coordinate: 1, color: 'white', type: 'Pawn')
       expect_a_piece(x_coordinate: 7, y_coordinate: 1, color: 'white', type: 'Pawn')
 
-<<<<<<< HEAD
-      # this is what the board should look like.
-      # changes found on spec\model\game.rb, will cause test to fail
-      expected = [
-        { col: 1, row: 1, color: 'white', type: 'Rook', found: false },
-        { col: 2, row: 1, color: 'white', type: 'Knight', found: false },
-        { col: 3, row: 1, color: 'white', type: 'Bishop', found: false },
-        { col: 4, row: 1, color: 'white', type: 'Queen', found: false },
-        { col: 5, row: 1, color: 'white', type: 'King', found: false },
-        { col: 6, row: 1, color: 'white', type: 'Bishop', found: false },
-        { col: 7, row: 1, color: 'white', type: 'Knight', found: false },
-        { col: 8, row: 1, color: 'white', type: 'Rook', found: false },
-
-        { col: 1, row: 2, color: 'white', type: 'Pawn', found: false },
-        { col: 2, row: 2, color: 'white', type: 'Pawn', found: false },
-        { col: 3, row: 2, color: 'white', type: 'Pawn', found: false },
-        { col: 4, row: 2, color: 'white', type: 'Pawn', found: false },
-        { col: 5, row: 2, color: 'white', type: 'Pawn', found: false },
-        { col: 6, row: 2, color: 'white', type: 'Pawn', found: false },
-        { col: 7, row: 2, color: 'white', type: 'Pawn', found: false },
-        { col: 8, row: 2, color: 'white', type: 'Pawn', found: false },
-
-        { col: 1, row: 7, color: 'black', type: 'Pawn', found: false },
-        { col: 2, row: 7, color: 'black', type: 'Pawn', found: false },
-        { col: 3, row: 7, color: 'black', type: 'Pawn', found: false },
-        { col: 4, row: 7, color: 'black', type: 'Pawn', found: false },
-        { col: 5, row: 7, color: 'black', type: 'Pawn', found: false },
-        { col: 6, row: 7, color: 'black', type: 'Pawn', found: false },
-        { col: 7, row: 7, color: 'black', type: 'Pawn', found: false },
-        { col: 8, row: 7, color: 'black', type: 'Pawn', found: false },
-
-        { col: 1, row: 8, color: 'black', type: 'Rook', found: false },
-        { col: 2, row: 8, color: 'black', type: 'Knight', found: false },
-        { col: 3, row: 8, color: 'black', type: 'Bishop', found: false },
-        { col: 4, row: 8, color: 'black', type: 'Queen', found: false },
-        { col: 5, row: 8, color: 'black', type: 'King', found: false },
-        { col: 6, row: 8, color: 'black', type: 'Bishop', found: false },
-        { col: 7, row: 8, color: 'black', type: 'Knight', found: false },
-        { col: 8, row: 8, color: 'black', type: 'Rook', found: false }
-      ]
-
-      # goes through each expected piece and find the first matching one in actual,
-      # then mark both found
-      expected.each do |e|
-        first_actual = actual.select do |a|
-          (a[:color] == e[:color]) && (a[:type] == e[:type]) && (a[:row] == e[:row]) && (a[:col] == e[:col])
-        end.first
-
-        e[:found] = true if first_actual
-      end
-
-      # expects that every expected piece was found.
-      missing = expected.select { |p| !(p[:found]) }
-      missing.each do |p|
-        puts "Missing piece #{p}"
-=======
       expect_a_piece(x_coordinate: 0, y_coordinate: 6, color: 'black', type: 'Pawn')
       expect_a_piece(x_coordinate: 1, y_coordinate: 6, color: 'black', type: 'Pawn')
       expect_a_piece(x_coordinate: 2, y_coordinate: 6, color: 'black', type: 'Pawn')
@@ -169,7 +113,6 @@ RSpec.describe Game, type: :model do
     context 'When there is not a piece for the coordinate' do
       it 'Should return empty string' do
         expect(game.render_piece(0, 1)).to eq nil
->>>>>>> origin
       end
     end
   end
