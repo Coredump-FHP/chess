@@ -113,6 +113,8 @@ RSpec.describe Piece, type: :model do
         # make sure the destination_piece's coordinates are removed
         expect(destination_piece.x_coordinate).to be_nil
         expect(destination_piece.y_coordinate).to be_nil
+        # make sure the destination_piece is captured
+        expect(destination_piece.captured).to be true
       end
     end
 

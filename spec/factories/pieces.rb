@@ -5,6 +5,7 @@ FactoryGirl.define do
     association :player
     association :game
     captured false
+    icon ''
     color 'white'
 
     factory :pawn do
