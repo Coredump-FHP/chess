@@ -1,4 +1,3 @@
-require 'pry'
 class PiecesController < ApplicationController
   helper PiecesHelper
   def show
@@ -9,13 +8,13 @@ class PiecesController < ApplicationController
   def update
     @piece = Piece.find(params[:id])
     @piece.update_attributes(piece_params)
-    binding.pry
+    @game = @piece.game
     render :template => "games/show"
   end
 
   private
 
   def piece_params
-    params.require(:piece).permit(:x_coordinate, :y_coordinate)
+    params.permit(:x_coordinate, :y_coordinate)
   end
 end
