@@ -8,7 +8,7 @@ module PiecesHelper
         return image_tag(piece.icon)
       end
     else 
-      return content_tag(:div, link_to('dfsds', piece_path(@piece, x_coordinate: x, y_coordinate: y), method: "PUT"), class: 'highlight' )
+      return link_to(raw(content_tag(:div, ' ', class:'clickable-square')), piece_path(@piece, x_coordinate: x, y_coordinate: y), method: "PUT")
     end    
   end
 end

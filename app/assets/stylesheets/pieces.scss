@@ -1,3 +1,14 @@
 // Place all the styles related to the pieces controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.clickable-square {
+  width: 100px;
+  height: 100px;
+}
+
+.highlight {
+  width: 97px;
+  height: 97px;
+  border: 3px yellow solid;
+}
