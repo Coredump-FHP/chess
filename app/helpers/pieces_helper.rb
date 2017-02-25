@@ -7,6 +7,8 @@ module PiecesHelper
       else
         return image_tag(piece.icon)
       end
-    end
+    else 
+      return content_tag(:div, link_to('click me', piece_path(x_coordinate: x, y_coordinate:y)), class: 'highlight' )
+    end    
   end
 end
