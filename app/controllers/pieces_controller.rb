@@ -1,5 +1,3 @@
-require 'pry'
-
 class PiecesController < ApplicationController
   helper PiecesHelper
   def show
