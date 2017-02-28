@@ -24,10 +24,10 @@ class Piece < ApplicationRecord
   end
 
   def on_board?(destination_x, destination_y)
-    return false if destination_x < 1
-    return false if destination_x > 8
-    return false if destination_y < 1
-    return false if destination_y > 8
+    return false if destination_x < 0
+    return false if destination_x > 7
+    return false if destination_y < 0
+    return false if destination_y > 7
     true
   end
 
