@@ -7,9 +7,10 @@ class PiecesController < ApplicationController
 
   def update
     @piece = Piece.find(params[:id])
-    @piece.update_attributes(piece_params)
-    @game = @piece.game
-    render :template => "games/show"
+    if @piece.update(piece_params)
+      @game = @piece.game
+      head 204, location: @game
+    end
   end
 
   private
