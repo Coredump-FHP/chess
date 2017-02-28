@@ -4,7 +4,7 @@ class Piece < ApplicationRecord
 
   enum color: %w(white black)
 
-  def move_to(x,y)
+  def move_to(x, y)
     update_attributes(x_coordinate: x, y_coordinate: y)
   end
 
