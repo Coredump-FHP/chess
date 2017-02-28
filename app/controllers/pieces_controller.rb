@@ -9,7 +9,7 @@ class PiecesController < ApplicationController
     @piece = Piece.find(params[:id])
     if @piece.update(piece_params)
       @game = @piece.game
-      head 204, location: @game
+      head :ok, location: @game
     end
   end
 
