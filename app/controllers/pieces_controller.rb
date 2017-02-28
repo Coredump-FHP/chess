@@ -9,12 +9,12 @@ class PiecesController < ApplicationController
     @piece = Piece.find(params[:id])
     @piece.update_attributes(piece_params)
     @game = @piece.game
-    render :template => "games/show"
+    render template: 'games/show'
   end
 
   private
 
   def piece_params
-    params.permit(:x_coordinate, :y_coordinate)
+    params.require(:piece).permit(:x_coordinate, :y_coordinate)
   end
 end

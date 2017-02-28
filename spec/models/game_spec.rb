@@ -38,7 +38,7 @@ RSpec.describe Game, type: :model do
     def expect_a_piece(attributes)
       piece = game.pieces.where(attributes).first
       unless piece
-        puts "Missing piece"
+        puts 'Missing piece'
         pp attributes
       end
       expect(piece).to be_a_kind_of(Piece)
@@ -53,43 +53,42 @@ RSpec.describe Game, type: :model do
     end
 
     it 'should populate the game with the correct starting locations' do
-     expect_a_piece(x_coordinate: 0, y_coordinate: 0, color: 'white', type: 'Rook')
-     expect_a_piece(x_coordinate: 1, y_coordinate: 0, color: 'white', type: 'Knight')
-     expect_a_piece(x_coordinate: 2, y_coordinate: 0, color: 'white', type: 'Bishop')
-     expect_a_piece(x_coordinate: 3, y_coordinate: 0, color: 'white', type: 'Queen')
-     expect_a_piece(x_coordinate: 4, y_coordinate: 0, color: 'white', type: 'King')
-     expect_a_piece(x_coordinate: 5, y_coordinate: 0, color: 'white', type: 'Bishop')
-     expect_a_piece(x_coordinate: 6, y_coordinate: 0, color: 'white', type: 'Knight')
-     expect_a_piece(x_coordinate: 7, y_coordinate: 0, color: 'white', type: 'Rook')
+      expect_a_piece(x_coordinate: 0, y_coordinate: 0, color: 'white', type: 'Rook')
+      expect_a_piece(x_coordinate: 1, y_coordinate: 0, color: 'white', type: 'Knight')
+      expect_a_piece(x_coordinate: 2, y_coordinate: 0, color: 'white', type: 'Bishop')
+      expect_a_piece(x_coordinate: 3, y_coordinate: 0, color: 'white', type: 'Queen')
+      expect_a_piece(x_coordinate: 4, y_coordinate: 0, color: 'white', type: 'King')
+      expect_a_piece(x_coordinate: 5, y_coordinate: 0, color: 'white', type: 'Bishop')
+      expect_a_piece(x_coordinate: 6, y_coordinate: 0, color: 'white', type: 'Knight')
+      expect_a_piece(x_coordinate: 7, y_coordinate: 0, color: 'white', type: 'Rook')
 
-     expect_a_piece(x_coordinate: 0, y_coordinate: 1, color: 'white', type: 'Pawn')
-     expect_a_piece(x_coordinate: 1, y_coordinate: 1, color: 'white', type: 'Pawn')
-     expect_a_piece(x_coordinate: 2, y_coordinate: 1, color: 'white', type: 'Pawn')
-     expect_a_piece(x_coordinate: 3, y_coordinate: 1, color: 'white', type: 'Pawn')
-     expect_a_piece(x_coordinate: 4, y_coordinate: 1, color: 'white', type: 'Pawn')
-     expect_a_piece(x_coordinate: 5, y_coordinate: 1, color: 'white', type: 'Pawn')
-     expect_a_piece(x_coordinate: 6, y_coordinate: 1, color: 'white', type: 'Pawn')
-     expect_a_piece(x_coordinate: 7, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 0, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 1, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 2, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 3, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 4, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 5, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 6, y_coordinate: 1, color: 'white', type: 'Pawn')
+      expect_a_piece(x_coordinate: 7, y_coordinate: 1, color: 'white', type: 'Pawn')
 
-     expect_a_piece(x_coordinate: 0, y_coordinate: 6, color: 'black', type: 'Pawn')
-     expect_a_piece(x_coordinate: 1, y_coordinate: 6, color: 'black', type: 'Pawn')
-     expect_a_piece(x_coordinate: 2, y_coordinate: 6, color: 'black', type: 'Pawn')
-     expect_a_piece(x_coordinate: 3, y_coordinate: 6, color: 'black', type: 'Pawn')
-     expect_a_piece(x_coordinate: 4, y_coordinate: 6, color: 'black', type: 'Pawn')
-     expect_a_piece(x_coordinate: 5, y_coordinate: 6, color: 'black', type: 'Pawn')
-     expect_a_piece(x_coordinate: 6, y_coordinate: 6, color: 'black', type: 'Pawn')
-     expect_a_piece(x_coordinate: 7, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 0, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 1, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 2, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 3, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 4, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 5, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 6, y_coordinate: 6, color: 'black', type: 'Pawn')
+      expect_a_piece(x_coordinate: 7, y_coordinate: 6, color: 'black', type: 'Pawn')
 
-     expect_a_piece(x_coordinate: 0, y_coordinate: 7, color: 'black', type: 'Rook')
-     expect_a_piece(x_coordinate: 1, y_coordinate: 7, color: 'black', type: 'Knight')
-     expect_a_piece(x_coordinate: 2, y_coordinate: 7, color: 'black', type: 'Bishop')
-     expect_a_piece(x_coordinate: 3, y_coordinate: 7, color: 'black', type: 'Queen')
-     expect_a_piece(x_coordinate: 4, y_coordinate: 7, color: 'black', type: 'King')
-     expect_a_piece(x_coordinate: 5, y_coordinate: 7, color: 'black', type: 'Bishop')
-     expect_a_piece(x_coordinate: 6, y_coordinate: 7, color: 'black', type: 'Knight')
-     expect_a_piece(x_coordinate: 7, y_coordinate: 7, color: 'black', type: 'Rook')
-
-   end
+      expect_a_piece(x_coordinate: 0, y_coordinate: 7, color: 'black', type: 'Rook')
+      expect_a_piece(x_coordinate: 1, y_coordinate: 7, color: 'black', type: 'Knight')
+      expect_a_piece(x_coordinate: 2, y_coordinate: 7, color: 'black', type: 'Bishop')
+      expect_a_piece(x_coordinate: 3, y_coordinate: 7, color: 'black', type: 'Queen')
+      expect_a_piece(x_coordinate: 4, y_coordinate: 7, color: 'black', type: 'King')
+      expect_a_piece(x_coordinate: 5, y_coordinate: 7, color: 'black', type: 'Bishop')
+      expect_a_piece(x_coordinate: 6, y_coordinate: 7, color: 'black', type: 'Knight')
+      expect_a_piece(x_coordinate: 7, y_coordinate: 7, color: 'black', type: 'Rook')
+    end
   end
 
   describe '#render_piece' do
