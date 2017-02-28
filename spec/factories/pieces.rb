@@ -6,18 +6,18 @@ FactoryGirl.define do
     association :game
     captured false
     icon ''
+    color 'white'
 
     factory :pawn do
       player 'player_1'
-      color 'white'
       x_coordinate 2
       y_coordinate 2
       type 'Pawn'
+      color 'black'
     end
 
     factory :queen do
       player 'player_1'
-      color 'white'
       x_coordinate 4
       y_coordinate 1
       type 'Queen'
@@ -25,7 +25,6 @@ FactoryGirl.define do
 
     factory :knight do
       player 'player_1'
-      color 'white'
       x_coordinate 2
       y_coordinate 1
       type 'Knight'
@@ -33,7 +32,6 @@ FactoryGirl.define do
 
     factory :bishop do
       player 'player_1'
-      color 'white'
       x_coordinate 3
       y_coordinate 1
       type 'Bishop'
@@ -41,14 +39,12 @@ FactoryGirl.define do
 
     factory :rook do
       player 'player_2'
-      color 'black'
       x_coordinate 1
       y_coordinate 1
       type 'Rook'
     end
 
     factory :king do
-      color 'white'
       x_coordinate 5
       y_coordinate 1
       type 'King'
