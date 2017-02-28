@@ -6,9 +6,9 @@ class PiecesController < ApplicationController
   end
 
   def update
-    @piece = Piece.find(params[:id])
-    if @piece.update(piece_params)
-      @game = @piece.game
+    piece = Piece.find(params[:id])
+    if piece.update(piece_params)
+      @game = piece.game
       head :ok, location: @game
     end
   end
