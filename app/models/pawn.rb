@@ -28,7 +28,8 @@ class Pawn < Piece
   def first_move?(_x, y)
     (y_coordinate == 1 && color) || (y_coordinate == 6 && !color)
     y_diff = (y_coordinate - y).abs
-    return false unless y_diff == 1 || y_diff == 2
+    return true if y_diff == 1 || y_diff == 2
+    false
   end
 
   def proper_length?(y)
