@@ -1,7 +1,7 @@
 module PiecesHelper
   def render_piece_highlight(x, y)
     piece = @game.retrieve_piece(x, y)
-    if !piece.nil?
+    return unless piece.present?
       if piece == @piece
         return content_tag(:div, image_tag(piece.icon), class: 'highlight')
       else
