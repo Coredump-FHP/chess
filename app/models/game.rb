@@ -12,7 +12,7 @@ class Game < ApplicationRecord
                     }
 
   def retrieve_piece(x, y)
-    pieces.where(x_coordinate: x).where(y_coordinate: y)[0]
+    pieces.find_by(x_coordinate: x, y_coordinate: y)
   end
 
   def render_piece(x, y)

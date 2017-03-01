@@ -8,8 +8,7 @@ class GamesController < ApplicationController
     if @game.invalid?
       flash[:error] = 'New game not saved'
     else
-      @game.player_1_id = current_player.id
-      @game.save
+      @game.player_1 = current_player
       @game.populate_game!
       redirect_to root_path
     end
@@ -21,7 +20,7 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
-    @game.player_2_id = current_player.id
+    @game.player_2 = current_player
     @game.save
     redirect_to game_path(@game)
   end
