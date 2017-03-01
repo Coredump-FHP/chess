@@ -1,5 +1,5 @@
 class Pawn < Piece
-  def legal_move?(x, y)
+  def valid_move?(x, y)
     return false if backwards_move? y
     return false if horizontal_move? x
     return true if capture_move?(x, y)

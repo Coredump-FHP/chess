@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Pawn, type: :model do
-  describe 'legal_move?' do
+  describe 'valid_move?' do
     it 'can move up to 2 spaces on the first move' do
       pawn = Pawn.create(x_coordinate: 1, y_coordinate: 1)
 
@@ -11,14 +11,14 @@ RSpec.describe Pawn, type: :model do
     end
   end
 
-  describe 'legal_move?' do
+  describe 'valid_move?' do
     it 'cannot move backwards' do
       pawn = Pawn.create(x_coordinate: 1, y_coordinate: 1)
       expect(pawn.backwards_move?(0)).to eq false
     end
   end
 
-  describe 'legal_move?' do
+  describe 'valid_move?' do
     it 'cannot move horizontally on the board' do
       pawn = Pawn.create(x_coordinate: 1, y_coordinate: 1)
       expect(pawn.horizontal_move?(0)).to eq true
@@ -26,7 +26,7 @@ RSpec.describe Pawn, type: :model do
     end
   end
 
-  describe 'legal_move?' do
+  describe 'valid_move?' do
     it 'can capture a piece' do
       pawn = Pawn.create(x_coordinate: 1, y_coordinate: 1)
 
@@ -35,7 +35,7 @@ RSpec.describe Pawn, type: :model do
     end
   end
 
-  describe 'legal_move?' do
+  describe 'valid_move?' do
     it 'has a proper_length move of 1 (y) square at a time' do
       pawn = Pawn.create(x_coordinate: 1, y_coordinate: 1)
 
