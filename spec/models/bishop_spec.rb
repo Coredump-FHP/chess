@@ -30,29 +30,10 @@ RSpec.describe Bishop, type: :model do
     end
 
     it 'should move diagonally lt-top to rt-bottom any number of steps on the board' do
-      # 7 x
-      # 6  B2
-      # 5
-      # 4
-      # 3
-      # 2
-      # 1             B1
-      # 0               x
-      #  0 1 2 3 4 5 6 7
-      # can't sit on starting position.  7-7 = 0 => 7-distance
+      # This test will pass once obstructed diagonal bug is fixed.
       # bishop = create_bishop(0, 7)
 
-      # expect(bishop.valid_move?(1, 6)).to eq true
-      # expect(bishop.valid_move?(2, 5)).to eq true
-      # expect(bishop.valid_move?(3, 4)).to eq true
-      # expect(bishop.valid_move?(4, 3)).to eq true
-      # expect(bishop.valid_move?(5, 2)).to eq true
-      # expect(bishop.valid_move?(6, 1)).to eq true
-      # expect(bishop.valid_move?(7, 0)).to eq true
-
       # (1..7).each do |dist|
-      # (source_dist) + (7-dist) = (6) + (7 - 6) = 7
-      # (source_dist) + (7-dist) = (2) + (7 - 2) = 7
       #  expect(bishop.valid_move?(0 + dist, 7 - dist)).to eq true
       # end
     end

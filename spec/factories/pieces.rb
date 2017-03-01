@@ -7,7 +7,7 @@ FactoryGirl.define do
     captured false
     icon ''
     color 'white'
-
+    # http://stackoverflow.com/questions/13343876/how-to-define-factories-with-a-inheritance-user-model
     factory :king, class: King, parent: :piece do
     end
 
@@ -21,7 +21,6 @@ FactoryGirl.define do
     factory :bishop, class: Bishop, parent: :piece do
     end
 
-    # http://stackoverflow.com/questions/13343876/how-to-define-factories-with-a-inheritance-user-model
     factory :knight, class: Knight, parent: :piece do
     end
 

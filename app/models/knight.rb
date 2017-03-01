@@ -6,19 +6,11 @@ class Knight < Piece
     x_distance = (x_coordinate - destination_x).abs
     y_distance = (y_coordinate - destination_y).abs
 
-    # calculate vertical first
-    # x_dist [x + 0 - x - 1] = -1  abs => 1
-    # y_dist [y + 0 - y + 2] = +2  abs => 2
-
-    # calculate horizontal first
-    # x_dist [x + 0 - x - 2] = -2  abs => 2
-    # y_dist [y + 0 - y - 1] = -1  abs => 1
-
-    # knights move in L steps
+    # knights move in L vertical steps
     return true if [x_distance, y_distance] == [1, 2]
+    # knights move in L horizontal steps
     return true if [x_distance, y_distance] == [2, 1]
 
-    # Unconditional fail returns false even for nil
     false
   end
 end
