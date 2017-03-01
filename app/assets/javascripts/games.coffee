@@ -13,8 +13,8 @@ $ ->
             return
 
     snapToMiddle = (dragger, target) ->
-        topMove = target.position().top - (dragger.data('position').top) + (target.outerHeight(true) - dragger.outerHeight(true)) * 2.5
-        leftMove = target.position().left - (dragger.data('position').left) + (target.outerWidth(true) - dragger.outerWidth(true)) * 2.5
+        topMove = target.position().top - (dragger.data('position').top) + (target.outerHeight(true) - dragger.outerHeight(true)) * .5
+        leftMove = target.position().left - (dragger.data('position').left) + (target.outerWidth(true) - dragger.outerWidth(true)) * .5
         dragger.animate {
             top: topMove
             left: leftMove
