@@ -29,7 +29,6 @@ RSpec.describe Pawn, type: :model do
   describe 'legal_move?' do
     it 'can capture a piece' do
       pawn = Pawn.create(x_coordinate: 1, y_coordinate: 1)
-      pawn_to_capture = Pawn.create(x_coordinate: 2, y_coordinate: 2)
 
       expect(pawn.capture_move?(2, 2)).to eq true
       expect(pawn.capture_move?(3, 3)).to eq false
