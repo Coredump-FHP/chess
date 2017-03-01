@@ -7,6 +7,7 @@ class Bishop < Piece
     return false if obstructed?(destination_x, destination_y)
 
     # find the absolute value of the distance between the starting coordinates and the destination coordinates
+    # obstructed is already checking the diagonal, but also allows rook moves.  so we have to check the diagonals
     x_distance = (x_coordinate - destination_x).abs
     y_distance = (y_coordinate - destination_x).abs
 

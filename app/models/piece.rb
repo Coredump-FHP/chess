@@ -32,31 +32,32 @@ class Piece < ApplicationRecord
   end
 
   def obstructed?(destination_x, destination_y)
-    x_difference = x_coordinate - destination_x
-    y_difference = y_coordinate - destination_y
+    # absolute catches negative coordinate conditions (when x and y go in opposite directions)
+    x_distance = (x_coordinate - destination_x).abs
+    y_distance = (y_coordinate - destination_y).abs
 
     chess_in_between = []
 
     # first, raise an argument error when self and sq have the same coordinates
-    raise ArgumentError, 'destination has to have a different location' if x_difference.zero? && y_difference.zero?
+    raise ArgumentError, 'destination has to have a different location' if x_distance.zero? && y_distance.zero?
 
-    if x_difference.zero?
+    if x_distance.zero?
       # the two locations are on the same vertical line
       chess_in_between = game.pieces.where(x_coordinate: x_coordinate)
                              .where(y_coordinate: y_coordinate + 1...destination_y)
-    elsif y_difference.zero?
+    elsif y_distance.zero?
       # the two locations are on the same horizontal line
       chess_in_between = game.pieces.where(y_coordinate: y_coordinate)
                              .where(x_coordinate: x_coordinate + 1...destination_x)
 
-    elsif x_difference != y_difference
-      raise ArgumentError, 'destination must be on the diagonal of the origin'
+    elsif x_distance != y_distance
+      raise ArgumentError, "destination (#{destination_x}, #{destination_y}) must be on the diagonal of the origin (#{x_coordinate},#{y_coordinate})"
     else
+      # TODO: coordinate + 1 but does not catch -1.
       # the two locations are on the same diagonal line
       chess_in_between = game.pieces.where(x_coordinate: x_coordinate + 1...destination_x)
                              .where(y_coordinate: y_coordinate + 1...destination_y)
                              .where("(x_coordinate - #{x_coordinate}) = (y_coordinate- #{y_coordinate})")
-
     end
 
     !chess_in_between.empty?
