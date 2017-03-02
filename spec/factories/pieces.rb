@@ -7,6 +7,10 @@ FactoryGirl.define do
     captured false
     icon ''
     color 'white'
+
+    factory :pawn, class: Pawn, parent: :piece do
+    end
+
     # http://stackoverflow.com/questions/13343876/how-to-define-factories-with-a-inheritance-user-model
     factory :king, class: King, parent: :piece do
     end
@@ -29,14 +33,6 @@ FactoryGirl.define do
       x_coordinate 1
       y_coordinate 1
       type 'Rook'
-    end
-
-    factory :pawn do
-      player 'player_1'
-      x_coordinate 2
-      y_coordinate 2
-      type 'Pawn'
-      color 'black'
     end
   end
 end
