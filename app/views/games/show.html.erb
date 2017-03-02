@@ -1,6 +1,5 @@
 <br />
 <br />
-
 <table width= '800' height='800' align='center' border='2' class='chess-board'>
 
   <% (0..7).each do |row| %>
@@ -15,3 +14,12 @@
     </tr>
   <% end %>
 </table>
+<br /><br />
+<div class="gravatars">
+  <div class="col-xs-6 col-xs-3 text-center">
+    <%= image_tag gravatar_url(current_player.email, 64), alt: "" %>
+  </div>
+  <div class="col-xs-6 col-xs-3 text-center">
+    <%= image_tag gravatar_url(current_player.email, 64), alt: "" %>
+  </div>
+</div>
