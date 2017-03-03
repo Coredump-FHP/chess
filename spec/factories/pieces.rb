@@ -8,12 +8,11 @@ FactoryGirl.define do
     icon ''
     color 'white'
 
-    factory :pawn do
-      player 'player_1'
-      x_coordinate 2
-      y_coordinate 2
-      type 'Pawn'
-      color 'black'
+    factory :pawn, class: Pawn, parent: :piece do
+    end
+
+    # http://stackoverflow.com/questions/13343876/how-to-define-factories-with-a-inheritance-user-model
+    factory :king, class: King, parent: :piece do
     end
 
     factory :queen do
@@ -23,18 +22,10 @@ FactoryGirl.define do
       type 'Queen'
     end
 
-    factory :knight do
-      player 'player_1'
-      x_coordinate 2
-      y_coordinate 1
-      type 'Knight'
+    factory :bishop, class: Bishop, parent: :piece do
     end
 
-    factory :bishop do
-      player 'player_1'
-      x_coordinate 3
-      y_coordinate 1
-      type 'Bishop'
+    factory :knight, class: Knight, parent: :piece do
     end
 
     factory :rook do
@@ -42,12 +33,6 @@ FactoryGirl.define do
       x_coordinate 1
       y_coordinate 1
       type 'Rook'
-    end
-
-    factory :king do
-      x_coordinate 5
-      y_coordinate 1
-      type 'King'
     end
   end
 end

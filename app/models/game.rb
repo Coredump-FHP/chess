@@ -11,8 +11,12 @@ class Game < ApplicationRecord
                         .or(Game.where('player_1_id IS NULL AND player_2_id IS NOT NULL'))
                     }
 
+  def retrieve_piece(x, y)
+    pieces.find_by(x_coordinate: x, y_coordinate: y)
+  end
+
   def render_piece(x, y)
-    piece = pieces.where(x_coordinate: x).where(y_coordinate: y)[0]
+    piece = retrieve_piece(x, y)
     return nil if piece.nil?
     piece.icon
   end
