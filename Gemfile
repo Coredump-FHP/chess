@@ -51,6 +51,8 @@ group :development, :test do
   # a debugger console
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
+  gem 'selenium-webdriver'
+  gem 'pry-rails'
 end
 
 group :test do
@@ -67,7 +69,6 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the
   # background. Read more: https://github.com/rails/spring
-  gem 'pry-rails'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end

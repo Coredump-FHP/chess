@@ -13,8 +13,8 @@ $ ->
             return
 
     snapToMiddle = (dragger, target) ->
-        topMove = target.position().top - (dragger.data('position').top) + (target.outerHeight(true) - dragger.outerHeight(true)) * .5
-        leftMove = target.position().left - (dragger.data('position').left) + (target.outerWidth(true) - dragger.outerWidth(true)) * .5
+        topMove = target.position().top - (dragger.data('position').top) + (target.outerHeight(true) - dragger.outerHeight(true)) * 2.5
+        leftMove = target.position().left - (dragger.data('position').left) + (target.outerWidth(true) - dragger.outerWidth(true)) * 2.5
         dragger.animate {
             top: topMove
             left: leftMove
@@ -38,8 +38,9 @@ $ ->
         to_square = $('td[data-x="' + new_x_coord + '"][data-y="' + new_y_coord + '"]')
         to_square.removeClass 'droppable ui-droppable'
         # update the data-x and data-y of the chess piece
-        ui.draggable.data 'x', new_x_coord
-        ui.draggable.data 'y', new_y_coord
+        ui.draggable.attr 'data-x', new_x_coord
+        ui.draggable.attr 'data-y', new_y_coord
+  
         $.ajax
             url: '/pieces/' + id
             type: 'PUT'

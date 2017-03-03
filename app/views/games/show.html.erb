@@ -7,7 +7,7 @@
         <tr>
             <% (0..7).each do |column| %>
                 <% if @game.render_piece(column, 7 - row) != nil %>
-                    <td width='100' height='100' class='<%= column.even? ^ row.even? ? "white" : "black" %>' data-x='<%= column %>' data-y='<%= 7 - row %>'>
+                    <td width='100' height='100' class='<%= column.even? ^ row.even? ? "white" : "black" %> droppable' data-x='<%= column %>' data-y='<%= 7 - row %>'>
                         <% piece = @game.retrieve_piece(column, 7 - row) %>
                         <%= image_tag(@game.render_piece(column, 7 - row), class: "draggable", id: piece.id, data: {x: column, y: 7-row} ) %>
                     </td>

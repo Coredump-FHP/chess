@@ -5,7 +5,7 @@ FactoryGirl.define do
     association :player
     association :game
     captured false
-    icon ''
+    icon 'pawn-black.png'
 
     factory :pawn do
       player 'player_1'
