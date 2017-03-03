@@ -8,7 +8,6 @@ FactoryGirl.define do
     icon ''
 
     factory :pawn do
-      player 'player_1'
       color 'white'
       x_coordinate 2
       y_coordinate 2
@@ -16,7 +15,6 @@ FactoryGirl.define do
     end
 
     factory :queen do
-      player 'player_1'
       color 'white'
       x_coordinate 4
       y_coordinate 1
@@ -24,7 +22,6 @@ FactoryGirl.define do
     end
 
     factory :knight do
-      player 'player_1'
       color 'white'
       x_coordinate 2
       y_coordinate 1
@@ -32,7 +29,6 @@ FactoryGirl.define do
     end
 
     factory :bishop do
-      player 'player_1'
       color 'white'
       x_coordinate 3
       y_coordinate 1
@@ -40,7 +36,6 @@ FactoryGirl.define do
     end
 
     factory :rook do
-      player 'player_2'
       color 'black'
       x_coordinate 1
       y_coordinate 1
