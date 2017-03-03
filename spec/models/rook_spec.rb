@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Rook, type: :model do 
+RSpec.describe Rook, type: :model do
   def create_rook(x, y)
     FactoryGirl.create(:rook, x_coordinate: x, y_coordinate: y)
-  end 
+  end
 
-  describe '#valid_move?' do 
+  describe '#valid_move?' do
     it 'can move horizontally' do
       rook = create_rook(0, 0)
       expect(rook.valid_move?(5, 0)).to eq true
@@ -20,9 +20,5 @@ RSpec.describe Rook, type: :model do
       rook = create_rook(0, 0)
       expect(rook.valid_move?(1, 1)).to eq false
     end
-
   end
-
-end 
-
-
+end
