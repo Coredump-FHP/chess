@@ -19,9 +19,9 @@
 <br /><br />
 <div class="gravatars">
   <div class="col-xs-6 col-xs-3 text-center">
-    <%= image_tag gravatar_url(current_player.email, 64), alt: "" %>
+    <%= image_tag gravatar_url(@game.player_1.email, 64), alt: "" %>
   </div>
   <div class="col-xs-6 col-xs-3 text-center">
-    <%= image_tag gravatar_url(current_player.email, 64), alt: "" %>
+    <%= image_tag gravatar_url(@game.player_2.email, 64), alt: "" %>
   </div>
 </div>
