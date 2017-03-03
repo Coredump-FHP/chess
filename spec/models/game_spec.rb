@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'pry'
 
 RSpec.describe Game, type: :model do
-
   describe '#available' do
     context 'When there is no game at all' do
       it 'Should return an empty array' do
@@ -39,7 +38,7 @@ RSpec.describe Game, type: :model do
     def expect_a_piece(attributes)
       piece = game.pieces.where(attributes).first
       unless piece
-        puts "Missing piece"
+        puts 'Missing piece'
         pp attributes
       end
       expect(piece).to be_a_kind_of(Piece)
@@ -51,6 +50,14 @@ RSpec.describe Game, type: :model do
 
     it 'should start with 32 pieces' do
       expect(game.pieces.size).to eq(32)
+    end
+
+    it 'should not populate the game again if it has already been populated' do
+      game = FactoryGirl.create(:game)
+      game.populate_game!
+
+      game.populate_game!
+      expect(game.pieces.count).to eq 32
     end
 
     it 'should populate the game with the correct starting locations' do
@@ -89,7 +96,6 @@ RSpec.describe Game, type: :model do
       expect_a_piece(x_coordinate: 5, y_coordinate: 7, color: 'black', type: 'Bishop')
       expect_a_piece(x_coordinate: 6, y_coordinate: 7, color: 'black', type: 'Knight')
       expect_a_piece(x_coordinate: 7, y_coordinate: 7, color: 'black', type: 'Rook')
-
     end
   end
 
@@ -108,7 +114,6 @@ RSpec.describe Game, type: :model do
       it 'Should return empty string' do
         expect(game.render_piece(0, 1)).to eq nil
       end
-
     end
   end
 end

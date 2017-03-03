@@ -5,6 +5,7 @@
   <% if player_signed_in? %>
     <li><%= link_to 'Sign out', destroy_player_session_path, method: :delete %></li>
   <% else %>
+    <li><%= link_to "Sign in with Facebook", player_facebook_omniauth_authorize_path %></li>
     <li><%= link_to 'Sign in', new_player_session_path %></li>
     <li><%= link_to 'Sign up', new_player_registration_path %></li>
   <% end %>
@@ -15,13 +16,13 @@
   <% if alert.present? %>
     <p class="alert alert-danger"><%= alert %></p>
   <% end %>
-  
+
   <% if !@open_games.empty? %>
     <h1>All open games</h1>
     <h3>Feel free to join the following games</h3>
     <ul>
       <% @open_games.each do |game| %>
-        <li><%= game.name %></li>
+        <li><%= link_to game.name, edit_game_path(game) %></li>
       <% end %>
     </ul>
   <% end %>
