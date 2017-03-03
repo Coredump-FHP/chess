@@ -8,7 +8,8 @@
       <% (0..7).each do |column| %>
         <td width='100' height='100' class ='<%= column.even? ^ row.even? ? "white" : "black" %>'>
           <% if @game.render_piece(column, 7 - row) != nil %>
-              <%= image_tag @game.render_piece(column, 7 - row) %>
+              <% piece = @game.retrieve_piece(column, 7 - row) %>
+              <%= link_to image_tag(@game.render_piece(column, 7 - row)), piece_path(piece) %>
           <% end %>
         </td>
       <% end %>
