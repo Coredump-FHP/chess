@@ -7,42 +7,42 @@ FactoryGirl.define do
     captured false
     icon ''
 
-    factory :pawn do
+    factory :pawn, class: Pawn do
       color 'white'
       x_coordinate 2
       y_coordinate 2
       type 'Pawn'
     end
 
-    factory :queen do
+    factory :queen, class: Queen do
       color 'white'
       x_coordinate 4
       y_coordinate 1
       type 'Queen'
     end
 
-    factory :knight do
+    factory :knight, class: Knight do
       color 'white'
       x_coordinate 2
       y_coordinate 1
       type 'Knight'
     end
 
-    factory :bishop do
+    factory :bishop, class: Bishop do
       color 'white'
       x_coordinate 3
       y_coordinate 1
       type 'Bishop'
     end
 
-    factory :rook do
+    factory :rook, class: Rook do
       color 'black'
       x_coordinate 1
       y_coordinate 1
       type 'Rook'
     end
 
-    factory :king do
+    factory :king, class: King do
       color 'white'
       x_coordinate 5
       y_coordinate 1
