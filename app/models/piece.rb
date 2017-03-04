@@ -19,7 +19,6 @@ class Piece < ApplicationRecord
       destination_piece.update_attributes(x_coordinate: nil, y_coordinate: nil, captured: true)
     end
     # Finally, it should call update_attributes on the piece and change the piece's x/y position.
-    # http://apidock.com/rails/ActiveRecord/Base/update_attributes
     raise ArgumentError, "Can't move piece" unless update_attributes(x_coordinate: new_x, y_coordinate: new_y)
   end
 
@@ -32,34 +31,89 @@ class Piece < ApplicationRecord
   end
 
   def obstructed?(destination_x, destination_y)
-    # absolute catches negative coordinate conditions (when x and y go in opposite directions)
+    return true if invalid?(destination_x, destination_y)
+
+    return true if vertically_obstructed?(destination_y)
+    return true if horizontally_obstructed?(destination_x)
+    return true if diagonally_obstructed?(destination_x, destination_y)
+    false
+  end
+
+  def square_is_occupied(destination_x, destination_y)
+    # returns the square is occupied
+    game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y, captured: false).exists?
+  end
+
+  def invalid?(destination_x, destination_y)
+    # check destination piece is on the board
+    raise ArgumentError, 'Error: Illegal Move' unless on_board?(destination_x, destination_y)
+
+    x_distance = (x_coordinate - destination_x).abs
+    y_distance = (y_coordinate - destination_y).abs
+    return true if x_distance.zero? && y_distance.zero?
+  end
+
+  # check diagonal obstruction
+  def diagonally_obstructed?(destination_x, destination_y)
     x_distance = (x_coordinate - destination_x).abs
     y_distance = (y_coordinate - destination_y).abs
 
-    chess_in_between = []
-
-    # first, raise an argument error when self and sq have the same coordinates
-    raise ArgumentError, 'destination has to have a different location' if x_distance.zero? && y_distance.zero?
-
-    if x_distance.zero?
-      # the two locations are on the same vertical line
-      chess_in_between = game.pieces.where(x_coordinate: x_coordinate)
-                             .where(y_coordinate: y_coordinate + 1...destination_y)
-    elsif y_distance.zero?
-      # the two locations are on the same horizontal line
-      chess_in_between = game.pieces.where(y_coordinate: y_coordinate)
-                             .where(x_coordinate: x_coordinate + 1...destination_x)
-
-    elsif x_distance != y_distance
-      raise ArgumentError, "destination (#{destination_x}, #{destination_y}) must be on the diagonal of the origin (#{x_coordinate},#{y_coordinate})"
-    else
-      # TODO: coordinate + 1 but does not catch -1.
-      # the two locations are on the same diagonal line
-      chess_in_between = game.pieces.where(x_coordinate: x_coordinate + 1...destination_x)
-                             .where(y_coordinate: y_coordinate + 1...destination_y)
-                             .where("(x_coordinate - #{x_coordinate}) = (y_coordinate- #{y_coordinate})")
+    return false if (x_distance < 2) && (y_distance < 2)
+    
+    if destination_x > x_coordinate && destination_y > y_coordinate # slide rt top
+      (1..(x_distance - 1)).each do |step|
+        return true if square_is_occupied(x_coordinate + step, y_coordinate + step)
+      end
+    elsif destination_x < x_coordinate && destination_y < y_coordinate # slide lt bottom
+      (1..(x_distance - 1)).each do |step|
+        return true if square_is_occupied(x_coordinate - step, y_coordinate - step)
+      end
+    elsif destination_x < x_coordinate && destination_y > y_coordinate # slide lt top
+      (1..(x_distance - 1)).each do |step|
+        return true if square_is_occupied(x_coordinate - step, y_coordinate + step)
+      end
+    elsif destination_x > x_coordinate && destination_y < y_coordinate # slide rt bottom
+      (1..(x_distance - 1)).each do |step|
+        return true if square_is_occupied(x_coordinate + step, y_coordinate - step)
+      end
     end
+    false
+  end
 
-    !chess_in_between.empty?
+  # checks for horizontal obstruction
+  def horizontally_obstructed?(destination_x)
+    x_distance = (x_coordinate - destination_x).abs
+
+    return false if x_distance < 2
+
+    if destination_x > x_coordinate
+      (1..(x_distance - 1)).each do |step| # slide right
+        return true if square_is_occupied(x_coordinate + step, y_coordinate)
+      end
+    else
+      (1..(x_distance - 1)).each do |step| # slide left
+        return true if square_is_occupied(x_coordinate - step, y_coordinate)
+      end
+    end
+    false
+  end
+
+  # checks for vertical obstruction
+  def vertically_obstructed?(destination_y)
+    y_distance = (y_coordinate - destination_y).abs
+
+    return false if y_distance < 2
+
+    if destination_y > y_coordinate
+      # distance -1 means we go one less than the distance because we don't count the end distance
+      (1..(y_distance - 1)).each do |step| # slide up
+        return true if square_is_occupied(x_coordinate, y_coordinate + step)
+      end
+    else
+      (1..(y_distance - 1)).each do |step| # slide down
+        return true if square_is_occupied(x_coordinate, y_coordinate - step)
+      end
+    end
+    false
   end
 end
