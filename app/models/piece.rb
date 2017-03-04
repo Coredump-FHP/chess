@@ -1,4 +1,3 @@
-require 'pry'
 class Piece < ApplicationRecord
   belongs_to :player, class_name: 'Player', optional: true
   belongs_to :game
@@ -45,8 +44,8 @@ class Piece < ApplicationRecord
       # the two locations are on the same vertical line
       chess_in_between = game.pieces.where(x_coordinate: x_coordinate)
                              .where(y_coordinate: y_coordinate + 1...destination_y).pluck(:id)
-      
-    elsif y_difference.zero?
+
+    elsif y_distance.zero?
 
       # the two locations are on the same horizontal line
       chess_in_between = game.pieces.where(y_coordinate: y_coordinate)

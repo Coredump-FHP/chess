@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe Bishop, type: :model do
   def create_bishop(x, y)

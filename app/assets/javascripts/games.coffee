@@ -38,11 +38,13 @@ $ ->
         # update the data-x and data-y of the chess piece
         ui.draggable.attr 'data-x', new_x_coord
         ui.draggable.attr 'data-y', new_y_coord
+        
+        param = { piece: {x_coordinate: new_x_coord, y_coordinate: new_y_coord}}
   
         $.ajax
             url: '/pieces/' + id
             type: 'PUT'
-            data: 'x_coordinate=' + new_x_coord + '&y_coordinate=' + new_y_coord
+            data: param
             success: (data) ->
         return
 
