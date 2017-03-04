@@ -12,7 +12,7 @@ class Game < ApplicationRecord
                     }
 
   def retrieve_piece(x, y)
-    pieces.where(x_coordinate: x).where(y_coordinate: y)[0]
+    pieces.find_by(x_coordinate: x, y_coordinate: y)
   end
 
   def render_piece(x, y)
@@ -23,10 +23,10 @@ class Game < ApplicationRecord
 
   # Populate a game with all the pieces in the correct locations (x_coordinate, y_coordinate)
   def populate_game!
+    return unless pieces.count.zero?
     add_starting_pieces_for_color!('white')
     add_starting_pieces_for_color!('black')
     save
-    self
   end
 
   private

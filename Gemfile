@@ -27,6 +27,10 @@ gem 'sprockets', '~> 3.0'
 # devise
 gem 'devise', '>= 3.2.4'
 
+# OmniAuth with facebook provider
+gem 'figaro'
+gem 'omniauth-facebook'
+
 # Simpleform integreated
 gem 'simple_form'
 # Use jquery as the JavaScript library
