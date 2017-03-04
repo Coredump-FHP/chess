@@ -8,12 +8,12 @@ describe 'Visit the game page', type: :feature do
 
       visit game_path(game)
 
-      piece_to_drag = page.find_by(id: piece.id)
+      piece_to_drag = page.find("#piece-#{piece.id}")
       target = page.find('td[data-x="0"][data-y="4"]')
 
       piece_to_drag.drag_to(target)
 
-      sleep 2
+      sleep 4
 
       piece.reload
 

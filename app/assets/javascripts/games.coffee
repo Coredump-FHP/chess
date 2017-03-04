@@ -13,8 +13,8 @@ $ ->
             return
 
     snapToMiddle = (dragger, target) ->
-        topMove = target.position().top - (dragger.data('position').top) + (target.outerHeight(true) - dragger.outerHeight(true)) * 2.5
-        leftMove = target.position().left - (dragger.data('position').left) + (target.outerWidth(true) - dragger.outerWidth(true)) * 2.5
+        topMove = target.position().top - (dragger.data('position').top) + (target.outerHeight(true) - dragger.outerHeight(true)) * .5
+        leftMove = target.position().left - (dragger.data('position').left) + (target.outerWidth(true) - dragger.outerWidth(true)) * .5
         dragger.animate {
             top: topMove
             left: leftMove
@@ -30,13 +30,11 @@ $ ->
         old_y_coord = ui.draggable.attr('data-y')
         new_x_coord = $(this).data('x')
         new_y_coord = $(this).data('y')
-        id = ui.draggable.attr('id')
-        # update the "from square" to be droppable
-        from_square = $('td[data-x="' + old_x_coord + '"][data-y="' + old_y_coord + '"]')
-        from_square.addClass 'droppable ui-droppable'
-        # update the "to square" to not be droppable
-        to_square = $('td[data-x="' + new_x_coord + '"][data-y="' + new_y_coord + '"]')
-        to_square.removeClass 'droppable ui-droppable'
+        id_including_string = ui.draggable.attr('id')
+    
+        # id is going to be something like "piece-12"
+        id = id_including_string.split('-')[1]
+        
         # update the data-x and data-y of the chess piece
         ui.draggable.attr 'data-x', new_x_coord
         ui.draggable.attr 'data-y', new_y_coord
