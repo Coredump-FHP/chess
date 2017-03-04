@@ -59,7 +59,7 @@ class Piece < ApplicationRecord
     y_distance = (y_coordinate - destination_y).abs
 
     return false if (x_distance < 2) && (y_distance < 2)
-    
+
     if destination_x > x_coordinate && destination_y > y_coordinate # slide rt top
       (1..(x_distance - 1)).each do |step|
         return true if square_is_occupied(x_coordinate + step, y_coordinate + step)

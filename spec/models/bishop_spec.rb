@@ -17,7 +17,7 @@ RSpec.describe Bishop, type: :model do
     it 'should move diagonally lt-top to rt-bottom any number of steps on the board' do
       bishop = create_bishop(0, 7)
       (1..7).each do |dist|
-        expect(bishop.valid_move?(0 + dist, 7 - dist)).to eq true
+        expect(bishop.valid_move?(dist, 7 - dist)).to eq true
       end
     end
 
