@@ -28,6 +28,9 @@ FactoryGirl.define do
     factory :knight, class: Knight, parent: :piece do
     end
 
+    factory :queen, class: Queen, parent: :piece do
+    end
+
     factory :rook do
       player 'player_2'
       x_coordinate 1
