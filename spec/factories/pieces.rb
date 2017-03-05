@@ -15,13 +15,6 @@ FactoryGirl.define do
     factory :king, class: King, parent: :piece do
     end
 
-    factory :queen do
-      player 'player_1'
-      x_coordinate 4
-      y_coordinate 1
-      type 'Queen'
-    end
-
     factory :bishop, class: Bishop, parent: :piece do
     end
 
