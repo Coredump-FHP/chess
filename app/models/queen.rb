@@ -6,14 +6,12 @@ class Queen < Piece
     x_diff = (x_coordinate - destination_x).abs
     y_diff = (y_coordinate - destination_y).abs
 
-    if x_diff == y_diff
-      return true
-    elsif x_diff.zero?
-      return true
-    elsif y_diff.zero?
-      return true
-    else
-      return false
-    end
+    return true if x_diff == y_diff
+
+    return true if x_diff.zero?
+
+    return true if y_diff.zero?
+
+    false
   end
 end
