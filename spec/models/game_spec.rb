@@ -121,11 +121,12 @@ RSpec.describe Game, type: :model do
     let(:game) { create(:game) }
     # player2's king
     let(:player2_king) { create(:king, player: game.player_2, game: game, x_coordinate: 3, y_coordinate: 3, color: 'black') }
-    let(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0) }
+    let!(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0) }
+    
     context "When no chess piece from the opponent can capture the current player's king" do
       it "Returns false" do
         player2_king
-        player1_king
+        
         expect(game.check?).to be false
       end
     end
@@ -139,11 +140,9 @@ RSpec.describe Game, type: :model do
         context "With the rook on the same vertical line and no obstruction in between" do
           it "returns true" do
             # data setup
-            # player1's rook
             player1_rook = create(:rook, player: game.player_1, game: game, x_coordinate: 3, y_coordinate: 1, color: 'white')
             player2_king
-            player1_king
-            # assertation
+      
             expect(game.check?).to be true 
           end  
         end
@@ -151,11 +150,9 @@ RSpec.describe Game, type: :model do
         context "With the rook on the same horizontal line and no obstruction in between" do
           it "returns true" do
             # data setup
-            # player1's rook
             player1_rook = create(:rook, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 3, color: 'white')
             player2_king
-            player1_king
-            # assertation
+      
             expect(game.check?).to be true 
           end
         end
@@ -176,11 +173,9 @@ RSpec.describe Game, type: :model do
         context "With the bishop on the bottom left diagonal and no obstruction in between" do
           it "returns true" do
             # data setup
-            # player1's bishop
             player1_bishop = create(:bishop, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 1)
             player2_king
-            player1_king
-            # assertation
+          
             expect(game.check?).to be true 
           end
         end
@@ -188,11 +183,9 @@ RSpec.describe Game, type: :model do
         context "With the bishop on the bottom right diagonal and no obstruction in between" do
           it "returns true" do
             # data setup
-            # player1's bishop
             player1_bishop = create(:bishop, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 1)
             player2_king
-            player1_king
-            # assertation
+      
             expect(game.check?).to be true 
           end
         end
@@ -200,11 +193,9 @@ RSpec.describe Game, type: :model do
         context "With the bishop on the top left diagonal and no obstruction in between" do
           it "returns true" do
             # data setup
-            # player1's bishop
             player1_bishop = create(:bishop, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 5)
             player2_king
-            player1_king
-            # assertation
+      
             expect(game.check?).to be true 
           end
         end
@@ -212,11 +203,9 @@ RSpec.describe Game, type: :model do
         context "With the bishop on the top right diagonal and no obstruction in between" do
           it "returns true" do
             # data setup
-            # player1's bishop
             player1_bishop = create(:bishop, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 5)
             player2_king
-            player1_king
-            # assertation
+        
             expect(game.check?).to be true 
           end
         end
@@ -232,11 +221,9 @@ RSpec.describe Game, type: :model do
         context "With the queen on the same vertical line and no obstruction in between" do
           it "returns true" do
             # data setup
-            # player1's queen, player2's king
             player1_queen = create(:queen, player: game.player_1, game: game, x_coordinate: 3, y_coordinate: 1)
             player2_king
-            player1_king
-            # assertation
+        
             expect(game.check?).to be true 
           end
         end
@@ -244,11 +231,9 @@ RSpec.describe Game, type: :model do
         context "With the queen on the same horizontal line and no obstruction in between" do
           it "returns true" do 
             # data setup
-            # player1's queen
             player1_queen = create(:queen, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 3)
             player2_king
-            player1_king
-            # assertation
+  
             expect(game.check?).to be true 
           end
         end
@@ -256,11 +241,9 @@ RSpec.describe Game, type: :model do
         context "With the queen on the bottom left diagonal and no obstruction in between" do
           it "returns true" do 
             # data setup
-            # player1's queen, player2's king
             player1_queen = create(:queen, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 1)
             player2_king
-            player1_king
-            # assertation
+    
             expect(game.check?).to be true 
           end
         end
@@ -268,11 +251,9 @@ RSpec.describe Game, type: :model do
         context "With the queen on the bottom right diagonal and no obstruction in between" do
           it "returns true" do 
             # data setup
-            # player1's queen
             player1_queen = create(:queen, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 1)
             player2_king
-            player1_king
-            # assertation
+    
             expect(game.check?).to be true 
           end
         end
@@ -280,11 +261,9 @@ RSpec.describe Game, type: :model do
         context "With the queen on the top left diagonal and no obstruction in between" do
           it "returns true" do 
             # data setup
-            # player1's queen
             player1_queen = create(:queen, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 5)
             player2_king
-            player1_king
-            # assertation
+  
             expect(game.check?).to be true 
           end
         end
@@ -292,11 +271,9 @@ RSpec.describe Game, type: :model do
         context "With the queen on the top right diagonal and no obstruction in between" do
           it "returns true" do 
             # data setup
-            # player1's queen
             player1_queen = create(:queen, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 5)
             player2_king
-            player1_king
-            # assertation
+      
             expect(game.check?).to be true 
           end
         end
@@ -310,11 +287,9 @@ RSpec.describe Game, type: :model do
         context "With the pawn on the immediate diagnal square below the king on the left" do
           it "returns true" do
             # data setup
-            # player1's pawn
             player1_pawn = create(:pawn, player: game.player_1, game: game, x_coordinate: 2, y_coordinate: 2)
             player2_king
-            player1_king
-            # assertation
+        
             expect(game.check?).to be true 
           end
         end
@@ -322,11 +297,9 @@ RSpec.describe Game, type: :model do
         context "With the pawn on the immediate diagnal square below the king on the right" do
           it "returns true" do
             # data setup
-            # player1's pawn
             player1_pawn = create(:pawn, player: game.player_1, game: game, x_coordinate: 4, y_coordinate: 2)
             player2_king
-            player1_king
-            # assertation
+      
             expect(game.check?).to be true 
           end
         end
@@ -342,16 +315,13 @@ RSpec.describe Game, type: :model do
         #   1   2  3  4  5
         
         # player1's knight
-        let(:player1_knight){ create(:knight, player: game.player_1, game: game, x_coordinate: 3, y_coordinate: 3) }
+        let!(:player1_knight){ create(:knight, player: game.player_1, game: game, x_coordinate: 3, y_coordinate: 3) }
       
         context "with the king on location 1 (L1)" do
           it 'returns true' do
             # data setup
-            # player2's king (override default)
-            player1_knight
-            player1_king
             player2_king = create(:king, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 5, color: 'black')
-            # assertation
+            
             expect(game.check?).to be true 
           end
         end
@@ -359,11 +329,8 @@ RSpec.describe Game, type: :model do
         context "with the king on location 2 (L2)" do
           it 'returns true' do
             # data setup
-            # player2's king (override default)
-            player1_knight
-            player1_king
             player2_king = create(:king, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 5, color: 'black')
-            # assertation
+      
             expect(game.check?).to be true 
           end
         end
@@ -371,11 +338,8 @@ RSpec.describe Game, type: :model do
         context "with the king on location 3 (L3)" do
           it 'returns true' do
             # data setup
-            # player2's king (override default)
-            player1_knight
-            player1_king
             player2_king = create(:king, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 4, color: 'black')
-            # assertation
+          
             expect(game.check?).to be true
           end 
         end
@@ -383,11 +347,8 @@ RSpec.describe Game, type: :model do
         context "with the king on location 4 (L4)" do
           it 'returns true' do
             # data setup
-            # player2's king (override default)
-            player1_knight
-            player1_king
             player2_king = create(:king, player: game.player_2, game: game, x_coordinate: 5, y_coordinate: 4, color: 'black')
-            # assertation
+            
             expect(game.check?).to be true 
           end
         end
@@ -395,11 +356,8 @@ RSpec.describe Game, type: :model do
         context "with the king on location 5 (L5)" do
           it 'returns true' do
             # data setup
-            # player2's king (override default)
-            player1_knight
-            player1_king
             player2_king = create(:king, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 2, color: 'black')
-            # assertation
+    
             expect(game.check?).to be true 
           end
         end
@@ -407,11 +365,8 @@ RSpec.describe Game, type: :model do
         context "with the king on location 6 (L6)" do
           it 'returns true' do
             # data setup
-            # player2's king (override default)
-            player1_knight
-            player1_king
             player2_king = create(:king, player: game.player_2, game: game, x_coordinate: 5, y_coordinate: 2, color: 'black')
-            # assertation
+        
             expect(game.check?).to be true 
           end
         end
@@ -419,11 +374,8 @@ RSpec.describe Game, type: :model do
         context "with the king on location 7 (L7)" do
           it 'returns true' do
             # data setup
-            # player2's king (override default)
-            player1_knight
-            player1_king
             player2_king = create(:king, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 1, color: 'black')
-            # assertation
+          
             expect(game.check?).to be true 
           end
         end
@@ -431,11 +383,8 @@ RSpec.describe Game, type: :model do
         context "with the king on location 8 (L8)" do
           it 'returns true' do
             # data setup
-            # player2's king (override default)
-            player1_knight
-            player1_king
             player2_king = create(:king, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 1, color: 'black')
-            # assertation
+        
             expect(game.check?).to be true 
           end
         end
