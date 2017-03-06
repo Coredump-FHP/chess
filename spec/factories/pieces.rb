@@ -32,15 +32,12 @@ FactoryGirl.define do
     factory :queen, class: Queen, parent: :piece do
     end
 
-
-
     factory :rook, class: Rook do
       color 'black'
 
       x_coordinate 1
       y_coordinate 1
       type 'Rook'
-      end
     end
   end
-
+end
