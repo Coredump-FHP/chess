@@ -32,8 +32,7 @@ FactoryGirl.define do
     factory :queen, class: Queen, parent: :piece do
     end
 
-    factory :rook do
-      player 'player_2'
+
 
     factory :rook, class: Rook do
       color 'black'
@@ -41,6 +40,7 @@ FactoryGirl.define do
       x_coordinate 1
       y_coordinate 1
       type 'Rook'
+      end
     end
   end
-end
+
