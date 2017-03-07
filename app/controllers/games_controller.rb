@@ -22,6 +22,9 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @game.player_2 = current_player
     @game.save
+    if @game.turn.nil? && @game.player_2_id.present?
+       @game.update_attributes(turn: @game.player_1_id)
+     end
     redirect_to game_path(@game)
   end
 

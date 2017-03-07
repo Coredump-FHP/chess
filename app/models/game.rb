@@ -29,6 +29,17 @@ class Game < ApplicationRecord
     save
   end
 
+  def switch_player
+    if @game.turn == player_1_id
+      @game.update_attributes(turn: @game.player_2_id)
+    elsif
+      @game.turn == player_2_id
+      @game.update_attributes(turn: @game.player_1_id)
+    else
+    return nil
+    end
+  end
+
   private
 
   def add_starting_pieces_for_color!(color)
