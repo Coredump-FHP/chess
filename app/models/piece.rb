@@ -43,6 +43,7 @@ class Piece < ApplicationRecord
   end
 
   def obstructed?(destination_x, destination_y)
+
     return true if vertically_obstructed?(destination_y)
     return true if horizontally_obstructed?(destination_x)
     return true if diagonally_obstructed?(destination_x, destination_y)
@@ -99,6 +100,7 @@ class Piece < ApplicationRecord
     false
   end
 
+
   # checks for vertical obstruction
   def vertically_obstructed?(destination_y)
     y_distance = (y_coordinate - destination_y).abs
@@ -108,7 +110,7 @@ class Piece < ApplicationRecord
 
     # this checks if there are any steps in between the coordinate and destination
     return false if y_distance < 2
-
+    # distance -1 means we go one less than the distance because we don't count the end distance
     (1..(y_distance - 1)).each do |step| # number of steps vertically
       x_steps = step + 0
       y_steps = step * y_dir
