@@ -8,14 +8,9 @@ class PiecesController < ApplicationController
   def update
     @piece = Piece.find(params[:id])
     @piece.update_attributes(piece_params)
-    if !your_turn?
-    render text: 'It must be your turn',
-           status: :unauthorized
-    else
     @game = @piece.game
     render template: 'games/show'
-    @game.update_attributes(turn: @game.switch_player)
-    end
+    # @game.update_attributes(turn: @game.switch_player)
   end
 
   private
@@ -25,6 +20,6 @@ class PiecesController < ApplicationController
   end
 
   def your_turn?
-    @game.turn == current_player.id
+    current_player
   end
 end

@@ -57,4 +57,16 @@ RSpec.describe GamesController, type: :controller do
       expect(@game.player_2_id).to eq player2.id
     end
   end
+    it 'sets the first turn to the player that created the game' do
+      player1 = FactoryGirl.create(:player)
+      sign_in player1
+      post :create, params: { game: { turn: '' } }
+      @game = Game.last
+      player2 = FactoryGirl.create(:player)
+      sign_in player2
+
+      patch :update, params: { game: { turn: player1.id  } }
+      @game.reload
+      expect(response).to eq player1.id
+  end
 end

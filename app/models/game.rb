@@ -30,14 +30,7 @@ class Game < ApplicationRecord
   end
 
   def switch_player
-    if @game.turn == player_1_id
-      @game.update_attributes(turn: @game.player_2_id)
-    elsif
-      @game.turn == player_2_id
-      @game.update_attributes(turn: @game.player_1_id)
-    else
-    return nil
-    end
+    your_turn == current_player ? player_1_id : player_2_id
   end
 
   private
