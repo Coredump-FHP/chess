@@ -8,21 +8,22 @@ RSpec.describe Piece, type: :model do
     FactoryGirl.create(:piece, x_coordinate: x, y_coordinate: y, player: player1, game: game)
   end
 
-  describe '#obstructed?' do
+  describe 'valid_move?' do
     context 'if the piece doesn`t move' do
       it 'should return true' do
         current_chess_piece = create_chess(0, 1)
-        expect(current_chess_piece.obstructed?(0, 1)).to eq true
-      end
-
-      context 'if destination coordinates are not on the board' do
-        it 'should raise an argument error' do
-          current_chess_piece = create_chess(0, 5)
-          expect { current_chess_piece.obstructed?(9, 2) }.to raise_error(ArgumentError)
-        end
+        expect(current_chess_piece.invalid?(0, 1)).to eq true
       end
     end
+    context 'if destination coordinates are not on the board' do
+      it 'should raise an argument error' do
+        current_chess_piece = create_chess(0, 5)
+        expect { current_chess_piece.invalid?(9, 2) }.to raise_error(ArgumentError)
+      end
+    end
+  end
 
+  describe '#obstructed?' do
     context 'when the inputs are valid' do
       context 'if the piece moves vertically' do
         it 'should returns true if obstructed' do
