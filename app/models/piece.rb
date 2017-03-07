@@ -5,6 +5,21 @@ class Piece < ApplicationRecord
 
   enum color: %w(white black)
 
+  # if a user tries to move a piece to an invalid position the move will fail.
+  def valid_move?(_x, _y)
+    # check destination piece is on the board
+    return false unless on_board?(destination_x, destination_y)
+    # check that there is nothing in between source and dest
+    return false if obstructed?(destination_x, destination_y)
+
+    return false unless move_to!(new_x, new_y)
+
+    x_distance = (x_coordinate - destination_x).abs
+    y_distance = (y_coordinate - destination_y).abs
+    returns false unless x_distance.zero? && y_distance.zero?
+    true
+  end
+
   def on_board?(destination_x, destination_y)
     return false if destination_x < 0 || destination_x > 7 || destination_y < 0 || destination_y > 7
     true
@@ -27,23 +42,7 @@ class Piece < ApplicationRecord
     raise ArgumentError, "Can't move piece" unless update_attributes(x_coordinate: new_x, y_coordinate: new_y)
   end
 
-  # if a user tries to move a piece to an invalid position the move will fail.
-  def valid_move?(_x, _y)
-    # check destination piece is on the board
-    return false unless on_board?(destination_x, destination_y)
-    # check that there is nothing in between source and dest
-    return false if obstructed?(destination_x, destination_y)
-
-    return false unless move_to!(new_x, new_y)
-
-    x_distance = (x_coordinate - destination_x).abs
-    y_distance = (y_coordinate - destination_y).abs
-    returns false unless x_distance.zero? && y_distance.zero?
-    true
-  end
-
   def obstructed?(destination_x, destination_y)
-
     return true if vertically_obstructed?(destination_y)
     return true if horizontally_obstructed?(destination_x)
     return true if diagonally_obstructed?(destination_x, destination_y)
@@ -67,7 +66,7 @@ class Piece < ApplicationRecord
 
     # this checks if there are any steps in between the coordinate and destination
     return false if (x_distance < 2) && (y_distance < 2)
-
+    # distance -1 means we go one less than the distance because we don't count the end distance
     (1..(x_distance - 1)).each do |step|
       x_steps = step * x_dir
       y_steps = step * y_dir
@@ -88,7 +87,7 @@ class Piece < ApplicationRecord
 
     # this checks if there are any steps in between the coordinate and destination
     return false if x_distance < 2
-
+    # distance -1 means we go one less than the distance because we don't count the end distance
     (1..(x_distance - 1)).each do |step| # number of steps horizontally
       x_steps = step * x_dir
       y_steps = step * 0
@@ -99,7 +98,6 @@ class Piece < ApplicationRecord
     end
     false
   end
-
 
   # checks for vertical obstruction
   def vertically_obstructed?(destination_y)
@@ -112,7 +110,7 @@ class Piece < ApplicationRecord
     return false if y_distance < 2
     # distance -1 means we go one less than the distance because we don't count the end distance
     (1..(y_distance - 1)).each do |step| # number of steps vertically
-      x_steps = step + 0
+      x_steps = step * 0
       y_steps = step * y_dir
       x_square = x_coordinate + x_steps
       y_square = y_coordinate + y_steps

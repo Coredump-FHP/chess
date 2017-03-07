@@ -12,7 +12,7 @@ RSpec.describe Piece, type: :model do
     context 'if the piece doesn`t move' do
       it 'should return true' do
         current_chess_piece = create_chess(0, 1)
-        expect(current_chess_piece.invalid?(0, 1)).to eq true
+        expect { current_chess_piece.invalid?(1, 1) }.to raise_error(ArgumentError)
       end
     end
     context 'if destination coordinates are not on the board' do
