@@ -1,14 +1,13 @@
 class Bishop < Piece
-  def valid_move?(destination_x, destination_y)
-    return false unless on_board?(destination_x, destination_x)
-    return false if obstructed?(destination_x, destination_y)
+  def valid_move?(x, y)
+    return false unless on_board?(x, y)
+    return true if diagonal?(x, y) && !obstructed_diagonally?(x, y)
+    false # if not horizontal or vertical or obstructed
+  end
 
-    # find the absolute value of the distance between the starting coordinates and the destination coordinates
-    x_distance = (x_coordinate - destination_x).abs
-    y_distance = (y_coordinate - destination_y).abs
+  private
 
-    # bishops moves diagonally any number of steps.
-    return true if x_distance == y_distance
-    false
+  def diagonal?(x, y)
+    (x_coordinate - x).abs == (y_coordinate - y).abs
   end
 end

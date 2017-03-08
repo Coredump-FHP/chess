@@ -8,7 +8,7 @@ RSpec.describe Piece, type: :model do
     FactoryGirl.create(:piece, x_coordinate: x, y_coordinate: y, player: player1, game: game)
   end
 
-  describe 'valid_move?' do
+  describe '#valid_move?' do
     context 'if the piece doesn`t move' do
       it 'should return true' do
         current_chess_piece = create_chess(0, 1)
@@ -26,7 +26,7 @@ RSpec.describe Piece, type: :model do
   describe '#obstructed?' do
     context 'when the inputs are valid' do
       context 'if the piece moves vertically' do
-        it 'should returns true if obstructed' do
+        it 'should returns true if it`s obstructed' do
           current_chess_piece = create_chess(3, 3)
 
           # create an obstruction
@@ -100,7 +100,7 @@ RSpec.describe Piece, type: :model do
       end
 
       context 'If the piece moves diagonally from rt bottom to lt top' do
-        it 'should return true if if there is a piece in the way' do
+        it 'should return true if there is a piece in the way' do
           current_chess_piece = create_chess(7, 0)
 
           # create an obstacle
@@ -123,7 +123,7 @@ RSpec.describe Piece, type: :model do
   end
 
   describe '#move_to!' do
-    context 'when there is a piece there, and it`s the opposing color' do
+    context 'when there is a piece there, and it`s the opponents color' do
       it 'should remove the piece from the board' do
         destination_piece = FactoryGirl.create(:piece, x_coordinate: 3, y_coordinate: 3, color: 'black')
         game = destination_piece.game

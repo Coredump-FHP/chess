@@ -1,21 +1,24 @@
 class Rook < Piece
   def valid_move?(x, y)
-    on_board?(destination_x, destination_x)  && !obstructed?(x, y) && vertical?(x, y) && !obstructed?(x, y) || horizontal?(x, y)
+    return false unless on_board?(x, y)
+    return true if vertical?(x, y) && !obstructed_vertically?(y)
+    return true if horizontal?(x, y) && !obstructed_horizontally?(x)
+    false # if not horizontal or vertical or obstructed
   end
 
   private
 
-  def vertical?(destination_x, destination_y)
-    x_difference = x_coordinate - destination_x
-    y_difference = y_coordinate - destination_y
+  def vertical?(x, y)
+    x_distance = (x_coordinate - x).abs
+    y_distance = (y_coordinate - y).abs
 
-    x_difference.zero? && y_difference.nonzero?
+    x_distance.zero? && y_distance.nonzero?
   end
 
-  def horizontal?(destination_x, destination_y)
-    x_difference = x_coordinate - destination_x
-    y_difference = y_coordinate - destination_y
+  def horizontal?(x, y)
+    x_distance = (x_coordinate - x).abs
+    y_distance = (y_coordinate - y).abs
 
-    x_difference.nonzero? && y_difference.zero?
+    x_distance.nonzero? && y_distance.zero?
   end
 end
