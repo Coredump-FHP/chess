@@ -1,9 +1,10 @@
 class Pawn < Piece
   def valid_move?(x, y)
+    return false unless on_board?(destination_x, destination_x)
     return false if backwards_move? y
     return false if horizontal_move? x
     return true if capture_move?(x, y)
-    # return false if game.obstructed?(x, y)
+    return false if game.obstructed?(x, y)
     return true if first_move?(y)
 
     proper_length?(y)

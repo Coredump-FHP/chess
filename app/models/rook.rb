@@ -1,6 +1,6 @@
 class Rook < Piece
   def valid_move?(x, y)
-    vertical?(x, y) && !obstructed?(x, y) || horizontal?(x, y) && !obstructed?(x, y)
+    on_board?(destination_x, destination_x)  && !obstructed?(x, y) && vertical?(x, y) && !obstructed?(x, y) || horizontal?(x, y)
   end
 
   private
