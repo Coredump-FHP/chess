@@ -34,6 +34,13 @@ RSpec.describe GamesController, type: :controller do
       expect(@game.player_1_id).to eq player.id
     end
 
+    it 'sets the first turn of the game to the player that created the game' do
+      player1 = FactoryGirl.create(:player)
+      sign_in player1
+      @game = FactoryGirl.create(:game)
+      expect(@game.turn).to eq 1
+    end
+
     it 'should deal with errors correctly' do
       post :create, params: { game: { name: '' } }
       expect(Game.count).to eq 0
@@ -56,17 +63,5 @@ RSpec.describe GamesController, type: :controller do
       expect(@game.name).to eq 'test game'
       expect(@game.player_2_id).to eq player2.id
     end
-  end
-    it 'sets the first turn to the player that created the game' do
-      player1 = FactoryGirl.create(:player)
-      sign_in player1
-      post :create, params: { game: { turn: '' } }
-      @game = Game.last
-      player2 = FactoryGirl.create(:player)
-      sign_in player2
-
-      patch :update, params: { game: { turn: player1.id  } }
-      @game.reload
-      expect(response).to eq player1.id
   end
 end
