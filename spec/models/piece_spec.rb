@@ -157,7 +157,9 @@ RSpec.describe Piece, type: :model do
 
       it 'should return false if there are no pieces in the way' do
         current_chess_piece = create_chess(0, 0)
-        expect(current_chess_piece).not_to be_obstructed(3, 3)
+        expect(current_chess_piece).not_to be_obstructed(1, 1)
+        expect(current_chess_piece).not_to be_obstructed(4, 4)
+        expect(current_chess_piece).not_to be_obstructed(7, 7)
       end
     end
 
@@ -169,17 +171,17 @@ RSpec.describe Piece, type: :model do
         create_chess(6, 1)
 
         expect(current_chess_piece).to be_obstructed(5, 2)
-        expect(current_chess_piece).to be_obstructed(4, 3)
-        expect(current_chess_piece).to be_obstructed(3, 4)
         expect(current_chess_piece).to be_obstructed(2, 5)
-        expect(current_chess_piece).to be_obstructed(1, 6)
         expect(current_chess_piece).to be_obstructed(0, 7)
       end
 
       it 'should return false if there are no pieces in the way' do
         current_chess_piece = create_chess(7, 0)
+        expect(current_chess_piece).not_to be_obstructed(6, 1)
         expect(current_chess_piece).not_to be_obstructed(4, 3)
+        expect(current_chess_piece).not_to be_obstructed(0, 7)
       end
+
     end
   end
 end

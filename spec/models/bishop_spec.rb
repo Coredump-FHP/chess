@@ -43,6 +43,9 @@ RSpec.describe Bishop, type: :model do
       # test horizontally
       expect(bishop.valid_move?(5, 1)).to eq false
       expect(bishop.valid_move?(7, 1)).to eq false
+      # test other
+      expect(bishop.valid_move?(3, 1)).to eq false
+      expect(bishop.valid_move?(4, 0)).to eq false
     end
   end
 end
