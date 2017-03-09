@@ -9,8 +9,12 @@ class PiecesController < ApplicationController
     @piece = Piece.find(params[:id])
     @piece.update_attributes(piece_params)
     @game = @piece.game
-    @game.update_attributes!(turn: @game.inactive_player)
-    render template: 'games/show'
+    if @game.not_your_turn
+      flash[:error] = 'Not your turn!'
+    else
+      @game.update_attributes!(turn: @game.inactive_player)
+      render template: 'games/show'
+    end
   end
 
   private
@@ -18,6 +22,4 @@ class PiecesController < ApplicationController
   def piece_params
     params.require(:piece).permit(:x_coordinate, :y_coordinate)
   end
-
-  def your_turn?; end
 end

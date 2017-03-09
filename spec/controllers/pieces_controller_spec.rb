@@ -30,7 +30,7 @@ RSpec.describe PiecesController, type: :controller do
       sign_in player2
 
       @game = FactoryGirl.create(:game, player_1: player1, player_2: player2)
-      @game.update_attributes!(turn: player1.id)
+      @game.update_attributes(turn: player1.id)
       piece = FactoryGirl.create(:piece, game: @game)
 
       patch :update, params: { id: piece.id, piece: { x_coordinate: 5, y_coordinate: 8 } }
@@ -40,6 +40,21 @@ RSpec.describe PiecesController, type: :controller do
       expect(piece.x_coordinate).to eq 5
       expect(piece.y_coordinate).to eq 8
       expect(@game.reload.turn).to eq player2.id
+    end
+
+    it 'will not allow the wrong player to move a piece' do
+      player1 = FactoryGirl.create(:player)
+      player2 = FactoryGirl.create(:player)
+      sign_in player1
+      sign_in player2
+
+      @game = FactoryGirl.create(:game, player_1: player1, player_2: player2)
+      @game.update_attributes(turn: player1.id)
+
+      piece = FactoryGirl.create(:piece, game: @game)
+      patch :update, params: { id: piece.id, piece: { x_coordinate: 5, y_coordinate: 8 } }
+      piece.reload
+      expect(@game.turn).to eq player1.id
     end
   end
 end

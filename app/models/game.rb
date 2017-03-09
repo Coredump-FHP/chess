@@ -35,6 +35,10 @@ class Game < ApplicationRecord
     return player_2_id if turn == player_1_id
   end
 
+  def not_your_turn
+    !inactive_player
+  end
+
   private
 
   def add_starting_pieces_for_color!(color)
