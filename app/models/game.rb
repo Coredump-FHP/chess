@@ -5,6 +5,7 @@ class Game < ApplicationRecord
   belongs_to :player_1, class_name: 'Player', optional: true
   belongs_to :player_2, class_name: 'Player', optional: true
   belongs_to :winning_player, class_name: 'Player', optional: true
+  belongs_to :active_player, class_name: 'Player', optional: true
 
   scope :available, lambda {
                       where('player_1_id IS NOT NULL AND player_2_id IS NULL')
@@ -29,8 +30,9 @@ class Game < ApplicationRecord
     save
   end
 
-  def switch_player
-    your_turn == current_player ? player_1_id : player_2_id
+  def whos_turn?
+    return player_1_id if turn.even?
+    return player_2_id if turn.odd?
   end
 
   private

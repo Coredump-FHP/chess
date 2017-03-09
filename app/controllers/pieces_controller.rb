@@ -10,7 +10,7 @@ class PiecesController < ApplicationController
     @piece.update_attributes(piece_params)
     @game = @piece.game
     render template: 'games/show'
-    # @game.update_attributes(turn: @game.switch_player)
+    @game.update_attributes(turn: @game.whos_turn?)
   end
 
   private
