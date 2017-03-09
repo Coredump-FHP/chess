@@ -33,9 +33,10 @@ class Piece < ApplicationRecord
   end
 
   def obstructed?(x, y)
-    return true if obstructed_horizontally?(x)
-    return true if obstructed_vertically?(y)
-    return true if obstructed_diagonally?(x, y)
+    # only check if obstructed in the direction you are moving
+    return true if vertical?(x, y) && obstructed_vertically?(y)
+    return true if horizontal?(x, y) && obstructed_horizontally?(x)
+    return true if diagonal?(x, y) && obstructed_diagonally?(x, y)
     false
   end
 
@@ -110,6 +111,7 @@ class Piece < ApplicationRecord
     false
   end
 
+  # used by the different pieces in the subclasses
   def vertical?(x, y)
     x_distance = (x_coordinate - x).abs
     y_distance = (y_coordinate - y).abs
