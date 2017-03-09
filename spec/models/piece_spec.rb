@@ -181,7 +181,6 @@ RSpec.describe Piece, type: :model do
         expect(current_chess_piece).not_to be_obstructed(4, 3)
         expect(current_chess_piece).not_to be_obstructed(0, 7)
       end
-
     end
   end
 end

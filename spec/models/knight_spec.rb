@@ -32,7 +32,6 @@ RSpec.describe Knight, type: :model do
       expect(knight.valid_move?(0, 0)).to eq false
       # test incorrect steps
       expect(knight.valid_move?(7, 5)).to eq false
-
     end
 
     it 'should not stand still' do
