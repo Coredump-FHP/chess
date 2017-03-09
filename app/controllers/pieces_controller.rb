@@ -9,8 +9,8 @@ class PiecesController < ApplicationController
     @piece = Piece.find(params[:id])
     @piece.update_attributes(piece_params)
     @game = @piece.game
+    @game.update_attributes!(turn: @game.inactive_player)
     render template: 'games/show'
-    @game.update_attributes(turn: @game.whos_turn?)
   end
 
   private
@@ -19,7 +19,5 @@ class PiecesController < ApplicationController
     params.require(:piece).permit(:x_coordinate, :y_coordinate)
   end
 
-  def your_turn?
-    current_player
-  end
+  def your_turn?; end
 end

@@ -37,8 +37,9 @@ RSpec.describe GamesController, type: :controller do
     it 'sets the first turn of the game to the player that created the game' do
       player1 = FactoryGirl.create(:player)
       sign_in player1
-      @game = FactoryGirl.create(:game)
-      expect(@game.turn).to eq 1
+      @game = FactoryGirl.create(:game, player_1: player1)
+      @game.update_attributes!(turn: player1.id)
+      expect(@game.reload.turn).to eq player1.id
     end
 
     it 'should deal with errors correctly' do

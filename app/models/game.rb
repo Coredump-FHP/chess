@@ -30,9 +30,9 @@ class Game < ApplicationRecord
     save
   end
 
-  def whos_turn?
-    return player_1_id if turn.even?
-    return player_2_id if turn.odd?
+  def inactive_player
+    return player_1_id if turn == player_2_id
+    return player_2_id if turn == player_1_id
   end
 
   private
