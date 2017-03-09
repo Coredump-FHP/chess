@@ -6,24 +6,4 @@ class Queen < Piece
     return true if diagonal?(x, y) && !obstructed_diagonally?(x, y)
     false # if not horizontal or vertical or obstructed
   end
-
-  private
-
-  def vertical?(x, y)
-    x_distance = (x_coordinate - x).abs
-    y_distance = (y_coordinate - y).abs
-
-    x_distance.zero? && y_distance.nonzero?
-  end
-
-  def horizontal?(x, y)
-    x_distance = (x_coordinate - x).abs
-    y_distance = (y_coordinate - y).abs
-
-    x_distance.nonzero? && y_distance.zero?
-  end
-
-  def diagonal?(x, y)
-    (x_coordinate - x).abs == (y_coordinate - y).abs
-  end
 end
