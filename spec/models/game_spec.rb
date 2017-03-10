@@ -284,7 +284,7 @@ RSpec.describe Game, type: :model do
         # |__|__|👑|__|__|
         # |__|L1|__|L2|__|
       
-        context "With the pawn on the immediate diagnal square below the king on the left" do
+        context "With the pawn on the immediate diagonal square below the king on the left" do
           it "returns true" do
             # data setup
             player1_pawn = create(:pawn, player: game.player_1, game: game, x_coordinate: 2, y_coordinate: 2)

@@ -9,7 +9,12 @@ class PiecesController < ApplicationController
   def update
     @piece.update_attributes(piece_params)
     @game = @piece.game
-    render template: 'games/show'
+    if @game.not_your_turn
+      flash[:error] = 'Not your turn!'
+    else
+      @game.update_attributes!(turn: @game.inactive_player)
+      render template: 'games/show'
+    end
   end
 
   private

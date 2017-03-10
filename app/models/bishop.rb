@@ -1,20 +1,7 @@
 class Bishop < Piece
-  def valid_move?(destination_x, destination_y)
-    # check destination piece is on the board
-    return false unless on_board?(destination_x, destination_x)
-    
-    # find the absolute value of the distance between the starting coordinates and the destination coordinates
-    # obstructed is already checking the diagonal, but also allows rook moves.  so we have to check the diagonals
-    x_distance = (x_coordinate - destination_x).abs
-    y_distance = (y_coordinate - destination_y).abs
-    
-    return false if x_distance != y_distance
-    
-    # check that there is nothing in between source and dest
-    return false if obstructed?(destination_x, destination_y)
-
-    # bishops moves diagonally any number of steps.
-    # return true if x_distance == y_distance
-    true
+  def valid_move?(x, y)
+    return false unless on_board?(x, y)
+    return true if diagonal?(x, y) && !obstructed_diagonally?(x, y)
+    false # if not horizontal or vertical or obstructed
   end
 end
