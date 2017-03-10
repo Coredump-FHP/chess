@@ -11,8 +11,8 @@ RSpec.describe Pawn, type: :model do
     end
 
     it 'cannot move backwards' do
-      pawn = Pawn.create(x_coordinate: 1, y_coordinate: 1)
-      expect(pawn.backwards_move?(0)).to eq false
+      pawn = Pawn.create(x_coordinate: 4, y_coordinate: 4)
+      expect(pawn.north?(3)).to eq true
     end
 
     it 'cannot move horizontally on the board' do
