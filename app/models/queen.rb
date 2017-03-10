@@ -1,16 +1,8 @@
 class Queen < Piece
-  def valid_move?(destination_x, destination_y)
-    return false if obstructed?(destination_x, destination_y)
-
-    x_diff = (x_coordinate - destination_x).abs
-    y_diff = (y_coordinate - destination_y).abs
-
-    return true if x_diff == y_diff
-
-    return true if x_diff.zero?
-
-    return true if y_diff.zero?
-
-    false
+  def valid_move?(x, y)
+    return false unless on_board?(x, y)
+    return false if obstructed?(x, y)
+    return true if vertical?(x, y) || horizontal?(x, y) || diagonal?(x, y)
+    false # if not horizontal or vertical or obstructed
   end
 end
