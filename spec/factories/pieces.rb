@@ -15,11 +15,11 @@ FactoryGirl.define do
       type 'Pawn'
     end
 
-    factory :queen, class: Queen do
-      color 'white'
-      x_coordinate 4
-      y_coordinate 1
-      type 'Queen'
+    # http://stackoverflow.com/questions/13343876/how-to-define-factories-with-a-inheritance-user-model
+    factory :king, class: King, parent: :piece do
+    end
+
+    factory :bishop, class: Bishop, parent: :piece do
     end
 
     factory :knight, class: Knight do
@@ -29,25 +29,15 @@ FactoryGirl.define do
       type 'Knight'
     end
 
-    factory :bishop, class: Bishop do
-      color 'white'
-      x_coordinate 3
-      y_coordinate 1
-      type 'Bishop'
+    factory :queen, class: Queen, parent: :piece do
     end
 
     factory :rook, class: Rook do
       color 'black'
+
       x_coordinate 1
       y_coordinate 1
       type 'Rook'
-    end
-
-    factory :king, class: King do
-      color 'white'
-      x_coordinate 5
-      y_coordinate 1
-      type 'King'
     end
   end
 end
