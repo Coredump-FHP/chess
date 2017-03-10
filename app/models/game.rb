@@ -5,6 +5,7 @@ class Game < ApplicationRecord
   belongs_to :player_1, class_name: 'Player', optional: true
   belongs_to :player_2, class_name: 'Player', optional: true
   belongs_to :winning_player, class_name: 'Player', optional: true
+  belongs_to :active_player, class_name: 'Player', optional: true
 
   scope :available, lambda {
                       where('player_1_id IS NOT NULL AND player_2_id IS NULL')
@@ -27,6 +28,15 @@ class Game < ApplicationRecord
     add_starting_pieces_for_color!('white')
     add_starting_pieces_for_color!('black')
     save
+  end
+
+  def inactive_player
+    return player_1_id if turn == player_2_id
+    return player_2_id if turn == player_1_id
+  end
+
+  def not_your_turn
+    !inactive_player
   end
 
   private
