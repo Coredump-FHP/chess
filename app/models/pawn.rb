@@ -1,11 +1,12 @@
 class Pawn < Piece
   def valid_move?(x, y)
     return false unless on_board?(x, y)
-    return false if backwards_move? y
     return false if horizontal_move? x
     return true if capture_move?(x, y)
     return false if obstructed_vertically?(x, y)
     return true if first_move?(y)
+    return false if color == 'white' && south?(y)
+    return false if color == 'black' && north(y)
 
     proper_length?(y)
   end
@@ -22,8 +23,12 @@ class Pawn < Piece
     x_diff != 0
   end
 
-  def backwards_move?(y)
-    color ? y_coordinate > y : y_coordinate < y
+  def north?(y)
+    ((y_coordinate - y) > 0)
+  end
+
+  def south?(y)
+    ((y_coordinate - y) < 0)
   end
 
   def first_move?(_x, y)
