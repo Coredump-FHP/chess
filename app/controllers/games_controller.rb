@@ -10,6 +10,7 @@ class GamesController < ApplicationController
     else
       @game.player_1 = current_player
       @game.populate_game!
+      @game.update_attributes(turn: @game.player_1_id)
       redirect_to root_path
     end
   end
@@ -32,6 +33,6 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:name)
+    params.require(:game).permit(:name, :turn)
   end
 end
