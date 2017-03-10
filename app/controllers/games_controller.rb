@@ -29,7 +29,18 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
   end
 
+  def forfeit
+    current_game.forfeit(current_player_id)
+    flash[:alert] = 'You have forfeitted the game, #{User.find(current_game.winning_player_id).email} wins the game.'
+    redirect_to games_path
+  end
+
+
   private
+
+  def current_game
+    @game ||= Game.find(params[:id])
+  end
 
   def game_params
     params.require(:game).permit(:name)
