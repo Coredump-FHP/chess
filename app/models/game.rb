@@ -30,7 +30,14 @@ class Game < ApplicationRecord
     save
   end
 
-<<<<<<< HEAD
+  def forfeit(current_player_id)
+    if current_player_id = player_1_id
+      update_attributes(winning_player_id: player_2_id)
+    else
+      update_attributes(winning_player_id: player_1_id)
+    end
+  end
+
   def inactive_player
     return player_1_id if turn == player_2_id
     return player_2_id if turn == player_1_id

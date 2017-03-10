@@ -32,7 +32,7 @@ class GamesController < ApplicationController
 
   def forfeit
     current_game.forfeit(current_player_id)
-    flash[:alert] = 'You have forfeitted the game, #{User.find(current_game.winning_player_id).email} wins the game.'
+    flash[:alert] = 'The game has been forfeitted!'
     redirect_to games_path
   end
 
