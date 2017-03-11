@@ -22,7 +22,7 @@ class Pawn < Piece
   def horizontal_move?(x, y)
     x_diff = (x_coordinate - x).abs
     y_diff = (y_coordinate - y).abs
-    x_diff != 0 && y_diff == 0
+    x_diff != 0 && y_diff.zero?
   end
 
   def north?(y)

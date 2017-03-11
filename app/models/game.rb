@@ -40,7 +40,7 @@ class Game < ApplicationRecord
 
     # self is going to be the game
     # game.check?
-    white_king = pieces.where(type: 'King').where(color: 'white').first
+    white_king = pieces.where(type: 'King').find_by(color: 'white')
     black_pieces = pieces.where(color: 'black')
 
     black_pieces.each do |black_piece|
@@ -49,7 +49,7 @@ class Game < ApplicationRecord
       end
     end
 
-    black_king = pieces.where(type: 'King').where(color: 'black').first
+    black_king = pieces.where(type: 'King').find_by(color: 'black')
     white_pieces = pieces.where(color: 'white')
 
     white_pieces.each do |white_piece|
