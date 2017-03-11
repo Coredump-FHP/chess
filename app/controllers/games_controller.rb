@@ -36,6 +36,7 @@ class GamesController < ApplicationController
     redirect_to game_path(current_game)
   end
 
+
   private
 
   def current_game
