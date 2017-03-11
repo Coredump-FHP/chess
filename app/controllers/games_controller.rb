@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :find_game, only: [:edit, :update, :show]
-  
+
   def new
     @game = Game.new
   end
@@ -17,8 +17,7 @@ class GamesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @game.player_2 = current_player
@@ -26,11 +25,10 @@ class GamesController < ApplicationController
     redirect_to game_path(@game)
   end
 
-  def show
-  end
+  def show; end
 
   private
-  
+
   def find_game
     @game = Game.find(params[:id])
   end
