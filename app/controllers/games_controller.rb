@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  before_action :find_game, only: [:edit, :update, :show]
+  
   def new
     @game = Game.new
   end
@@ -16,21 +18,22 @@ class GamesController < ApplicationController
   end
 
   def edit
-    @game = Game.find(params[:id])
   end
 
   def update
-    @game = Game.find(params[:id])
     @game.player_2 = current_player
     @game.save
     redirect_to game_path(@game)
   end
 
   def show
-    @game = Game.find(params[:id])
   end
 
   private
+  
+  def find_game
+    @game = Game.find(params[:id])
+  end
 
   def game_params
     params.require(:game).permit(:name, :turn)
