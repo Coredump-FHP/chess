@@ -1,7 +1,7 @@
 class Pawn < Piece
   def valid_move?(x, y)
     return false unless on_board?(x, y)
-    return false if horizontal_move? x
+    return false if horizontal_move?(x, y)
     return true if capture_move?(x, y)
     return false if obstructed_vertically?(x, y)
     return true if first_move?(y)
@@ -14,13 +14,15 @@ class Pawn < Piece
   def capture_move?(x, y)
     x_diff = (x_coordinate - x).abs
     y_diff = (y_coordinate - y).abs
+
     return true if x_diff == 1 && y_diff == 1
     return false if x_diff > 1 && y_diff > 1
   end
 
-  def horizontal_move?(x)
+  def horizontal_move?(x, y)
     x_diff = (x_coordinate - x).abs
-    x_diff != 0
+    y_diff = (y_coordinate - y).abs
+    x_diff != 0 && y_diff == 0
   end
 
   def north?(y)
@@ -31,7 +33,7 @@ class Pawn < Piece
     ((y_coordinate - y) < 0)
   end
 
-  def first_move?(_x, y)
+  def first_move?(y)
     (y_coordinate == 1 && color) || (y_coordinate == 6 && !color)
     y_diff = (y_coordinate - y).abs
     return true if y_diff == 1 || y_diff == 2
