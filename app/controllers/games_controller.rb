@@ -32,7 +32,7 @@ class GamesController < ApplicationController
 
   def forfeit
     current_game.forfeit_game(current_player.id, current_game)
-    flash[:alert] = 'The game has been forfeitted!'
+    flash[:alert] = 'The game has been forfeited!'
     redirect_to game_path(current_game)
   end
 

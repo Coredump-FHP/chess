@@ -38,4 +38,4 @@
   <h1>It is Player <%= @game.turn %>'s turn</h1>
 </div>
 
- <%= link_to 'Forfeit', { controller: 'games', action: 'forfeit', id: @game.id }, method: :post %>
+ <%= button_to 'Forfeit', { controller: 'games', action: 'forfeit', id: @game.id }, method: :post %>

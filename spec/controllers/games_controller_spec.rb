@@ -64,5 +64,17 @@ RSpec.describe GamesController, type: :controller do
       expect(@game.name).to eq 'test game'
       expect(@game.player_2_id).to eq player2.id
     end
+    it 'should not update if winning_player_id is present' do
+     player1 = FactoryGirl.create(:player)
+     sign_in player1
+
+     post :create, params: { game: { name: 'test game' } }
+     @game = Game.last
+     sign_out player1
+     player2 = FactoryGirl.create(:player)
+     sign_in player2
+
+
+    end
   end
 end
