@@ -5,9 +5,9 @@ RSpec.describe Pawn, type: :model do
     it 'should move up to 2 spaces on the first move' do
       pawn = Pawn.create(x_coordinate: 1, y_coordinate: 1)
 
-      expect(pawn.first_move?(1, 2)).to eq true
-      expect(pawn.first_move?(1, 3)).to eq true
-      expect(pawn.first_move?(1, 6)).to eq false
+      expect(pawn.first_move?(2)).to eq true
+      expect(pawn.first_move?(3)).to eq true
+      expect(pawn.first_move?(6)).to eq false
     end
 
     it 'cannot move backwards' do
@@ -17,8 +17,8 @@ RSpec.describe Pawn, type: :model do
 
     it 'cannot move horizontally on the board' do
       pawn = Pawn.create(x_coordinate: 1, y_coordinate: 1)
-      expect(pawn.horizontal_move?(0)).to eq true
-      expect(pawn.horizontal_move?(4)).to eq true
+      expect(pawn.horizontal_move?(0, 1)).to eq true
+      expect(pawn.horizontal_move?(4, 1)).to eq true
     end
 
     it 'can capture a piece' do

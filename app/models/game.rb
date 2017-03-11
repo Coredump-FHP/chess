@@ -29,30 +29,29 @@ class Game < ApplicationRecord
     add_starting_pieces_for_color!('black')
     save
   end
-  
+
   def check?
-    # suppose we have a king at a fixed arbitrary location 
+    # suppose we have a king at a fixed arbitrary location
     # we will need to verify if any of the opponent player's chess can capture the king
     # if any of the following chess pieces is able to capture the king...
     # we will just short-circuit it and return true
-    
-    # just some thoughts... we can iterate through all the opponent player's pieces, and check if each has a valid_move towards the king, and if it does have a valid_move, then it means that it can caputer the king if it wants to. 
-    
+
+    # just some thoughts... we can iterate through all the opponent player's pieces, and check if each has a valid_move towards the king, and if it does have a valid_move, then it means that it can caputer the king if it wants to.
+
     # self is going to be the game
-    # game.check?  
+    # game.check?
     white_king = pieces.where(type: 'King').where(color: 'white').first
     black_pieces = pieces.where(color: 'black')
-    
+
     black_pieces.each do |black_piece|
       if black_piece.valid_move?(white_king.x_coordinate, white_king.y_coordinate)
-        binding.pry
-        return true 
+        return true
       end
     end
-    
+
     black_king = pieces.where(type: 'King').where(color: 'black').first
     white_pieces = pieces.where(color: 'white')
-    
+
     white_pieces.each do |white_piece|
       return true if white_piece.valid_move?(black_king.x_coordinate, black_king.y_coordinate)
     end
@@ -106,5 +105,4 @@ class Game < ApplicationRecord
       captured: false
     )
   end
-
 end
