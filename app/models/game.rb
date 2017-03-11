@@ -40,8 +40,12 @@ class Game < ApplicationRecord
   end
 
   def forfeit_game(current_player_id, game_id)
-    winning_player = (current_player_id == player_1_id) ? player_2_id : player_1_id
-    Game.find(game_id).update_attributes(winning_player)
+    game = Game.find(game_id)
+    if current_player_id == player_1_id
+      game.update_attributes(winning_player_id: player_2_id)
+    else
+      game.update_attributes(winning_player_id: player_1_id)
+    end
   end
 
   private
