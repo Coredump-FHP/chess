@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   resources :games
   resources :pieces
-  resources :users
+  get '/players/:id', to: 'players#show'
 end
