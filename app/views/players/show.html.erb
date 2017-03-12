@@ -1,1 +1,6 @@
-<h1> <%= @player.email %> Dashboard </h1>
+
+
+<div class="booyah-box">
+  <h1> <%= @player.email %> Dashboard </h1>
+  <h3> Member Since: <%= @player.created_at.strftime("%B %d, %Y") %></h3>
+</div>
