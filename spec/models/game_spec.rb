@@ -118,15 +118,16 @@ RSpec.describe Game, type: :model do
   end
 
   describe '#check?' do
+
     let(:game) { create(:game) }
     # player2's king
-    let(:player2_king) { create(:king, player: game.player_2, game: game, x_coordinate: 3, y_coordinate: 3, color: 'black') }
-    let!(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0) }
-
+    let(:player2_king) { create(:king, player: game.player_2, game: game, x_coordinate: 3, y_coordinate: 3, color: opposite_color) }
+    let!(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: opposite_color) }
+  
     context "When no chess piece from the opponent can capture the current player's king" do
       it 'Returns false' do
         player2_king
-
+        #binding.pry
         expect(game.check?).to be false
       end
     end
