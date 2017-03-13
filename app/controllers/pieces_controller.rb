@@ -1,12 +1,12 @@
 class PiecesController < ApplicationController
   helper PiecesHelper
+  before_action :find_piece
+
   def show
-    @piece = Piece.find(params[:id])
     @game = @piece.game
   end
 
   def update
-    @piece = Piece.find(params[:id])
     @piece.update_attributes(piece_params)
     @game = @piece.game
     if @game.not_your_turn
@@ -18,6 +18,10 @@ class PiecesController < ApplicationController
   end
 
   private
+
+  def find_piece
+    @piece = Piece.find(params[:id])
+  end
 
   def piece_params
     params.require(:piece).permit(:x_coordinate, :y_coordinate)

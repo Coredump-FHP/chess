@@ -30,6 +30,20 @@ class Game < ApplicationRecord
     save
   end
 
+  def check?
+    white_king = pieces.find_by(type: 'King', color: 'white')
+    black_pieces = pieces.where(color: 'black')
+
+    black_pieces.each { |black_piece| return true if black_piece.valid_move?(white_king.x_coordinate, white_king.y_coordinate) }
+
+    black_king = pieces.find_by(type: 'King', color: 'black')
+    white_pieces = pieces.where(color: 'white')
+
+    white_pieces.each { |white_piece| return true if white_piece.valid_move?(black_king.x_coordinate, black_king.y_coordinate) }
+
+    false
+  end
+
   def inactive_player
     return player_1_id if turn == player_2_id
     return player_2_id if turn == player_1_id
