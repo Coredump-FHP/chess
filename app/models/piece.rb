@@ -4,6 +4,11 @@ class Piece < ApplicationRecord
   belongs_to :game
 
   enum color: %w(white black)
+
+  def opposite_color
+    (color == 'white') ? 'black' : 'white'
+  end
+
   # x = destination_x for readability
   # y = destination_y for readability
   def on_board?(x, y)
