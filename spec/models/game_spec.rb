@@ -116,4 +116,14 @@ RSpec.describe Game, type: :model do
       end
     end
   end
+  describe '#forfeit_game' do
+    it 'should assgin winning player id' do
+      player1 = FactoryGirl.create(:player)
+      player2 = FactoryGirl.create(:player)
+
+      @game = FactoryGirl.create(:game, player_1: player1, player_2: player2)
+      @game.update_attributes(winning_player_id: player2.id)
+      expect(@game.winning_player_id).to eq player2.id
+    end
+  end
 end

@@ -56,5 +56,27 @@ RSpec.describe PiecesController, type: :controller do
       piece.reload
       expect(@game.turn).to eq player1.id
     end
+
+    it 'updates the piece with the new destination coordinates' do
+      piece = FactoryGirl.create(:piece)
+
+      patch :update, params: { id: piece.id, piece: { x_coordinate: 5, y_coordinate: 8 } }
+      expect(response).to have_http_status(:success)
+      piece.reload
+      expect(piece.x_coordinate).to eq 5
+      expect(piece.y_coordinate).to eq 8
+    end
+
+    it 'displays Game Over after forfeit' do
+      player1 = FactoryGirl.create(:player)
+      player2 = FactoryGirl.create(:player)
+      sign_in player1
+      sign_in player2
+
+      @game = FactoryGirl.create(:game, player_1: player1, player_2: player2, winning_player_id: player1.id)
+
+      expect(response).to have_http_status(:success)
+      expect(@game.winning_player_id).to eq player1.id
+    end
   end
 end
