@@ -5,6 +5,14 @@ class Piece < ApplicationRecord
 
   enum color: %w(white black)
 
+  # This uses ActiveRecords transactions determine potential moves of pieces being put in check
+  # Remembers the moves and rolls back out
+  def potential_move
+    Piece.transaction do 
+      return false unless Piece.in_check?
+    end
+  end
+
   def opposite_color
     (color == 'white') ? 'black' : 'white'
   end
