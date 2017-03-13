@@ -156,10 +156,6 @@ RSpec.describe Game, type: :model do
             expect(game.check?).to be true
           end
         end
-
-        context 'possibly castling??' do
-          # raise "WRITE ME!"
-        end
       end
 
       context "When the oppnent player's bishop can capture the current player's king" do
