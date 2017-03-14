@@ -399,17 +399,16 @@ RSpec.describe Game, type: :model do
   end
 
   describe '#checkmate?' do
-    #  let(:game) { create(:game) }
-    #  let(:color) { 'black' }
-    #  let!(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white', captured: false) }
-    #  let(:player2_queen) { create(:king, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 1, color: 'black', captured: false) }
+    let(:game) { create(:game) }
+    let(:color) { 'black' }
+    let!(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white', captured: false) }
+    let!(:player2_queen) { create(:queen, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 1, color: 'black', captured: false) }
 
     context 'if the king cannot get out of check' do
       it 'returns true for checkmate' do
-        # data setup
-        #      player2_queen
 
-        #      expect(game.checkmate?(color)).to be true
+        binding.pry
+        expect(game.checkmate?(color)).to be true
       end
     end
   end

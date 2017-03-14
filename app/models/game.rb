@@ -39,24 +39,6 @@ class Game < ApplicationRecord
     save
   end
 
-  # def check?
-  #  return true if check?('white')
-  #  return true if check?('black')
-  #  white_king = pieces.find_by(type: 'King', color: 'white')
-  #  black_pieces = pieces.where(color: 'black')
-
-  #  black_pieces.each { |black_piece| return true if black_piece.valid_move?(white_king.x_coordinate, white_king.y_coordinate) }
-
-  #  black_king = pieces.find_by(type: 'King', color: 'black')
-  #  white_pieces = pieces.where(color: 'white')
-
-  #  white_pieces.each { |white_piece| return true if white_piece.valid_move?(black_king.x_coordinate, black_king.y_coordinate) }
-
-  #  false
-  # end
-
-  #-----------------------------------------------------------------------------------------------------------------------------
-
   # Keep track of current king.  We don't care what the other king is doing.
   def check?(color)
     king = pieces.find_by(type: 'King', color: color)
@@ -67,49 +49,25 @@ class Game < ApplicationRecord
   end
 
   def checkmate?(color)
-    # 1. Get king
-    # checked_king = pieces.find_by(type: 'King', color: color)
-
     #  a. king has to be in check
     return false unless check?(color)
 
     #  b. king cannot get out of check (has no more valid moves to get out of check)
-    #     remember the king is not moving in this method, but checking if he is in checkmate
-    # checked_king.valid_moves.each {
-    #  |move| return false if !in_check_if(checked_king, move.x, move.y)
-    # }
-
     #  c. king cannot be blocked by another piece (any color)
-    # binding.pry
-    # pieces =
-    pieces.find_by(color: color, captured: false).each do |piece|
-      #
-      piece.valid_move?(x, y).each do |move|
+    #  d. pieces causing check cannot be captured
+    #pieces.find_by(color: color, captured: false).each do |piece|
+    pieces.where(color: color, captured: false).each { |piece| 
+      piece.valid_move?(x, y).each { |move|
         return false unless check_if_move(piece, move.x, move.y)
-      end
-    end
-
-    #  e. pieces causing check cannot be captured
-    # TODO: write captured
-
+      }
+    }
     true
   end
-
-  # a piece can block the king
-  # def can_block(king, x, y)
-  # king = pieces.find_by(type: 'King', color: piece.color)
-  #  blocking_piece = pieces.where(color: color)
-
-  #  blocking_piece.each { |blocking_piece| return true if blocking_piece.obstructed?(x, y)}
-  #  return false
-  # end
 
   # opposing pieces check if king is in_check_if it moves towards the king
   def check_if_move?(moving_piece, move_to_x, move_to_y)
     moving_piece.move_to(move_to_x, move_to_y)
     check?(moving_piece.color)
-
-    # if mutated move_to() method move test pieces for checkmate works, we won't need active record code
   end
 
   private
