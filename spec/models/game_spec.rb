@@ -306,7 +306,7 @@ RSpec.describe Game, type: :model do
         #  _______________
         # 5|__|L1|__|L2|__|
         # 4|L3|__|__|__|L4|
-        # 3|__|__|k |__|__|
+        # 3|__|__|N |__|__|
         # 2|L5|__|__|__|L6|
         # 1|__|L7|__|L8|__|
         #   1   2  3  4  5
@@ -385,7 +385,34 @@ RSpec.describe Game, type: :model do
             expect(game.check?(opposite_color)).to be true
           end
         end
+
+        context 'with the king getting out of check' do
+          it 'returns false' do
+            # data setup
+            create(:king, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 0, color: 'black')
+
+            expect(game.check?(opposite_color)).to be false
+          end
+        end
       end
     end
   end
+
+  describe '#checkmate?' do
+    let(:game) { create(:game) }
+    let(:color) { 'black' }
+    let!(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white', captured: false) }
+    let(:player2_queen) { create(:king, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 1, color: 'black', captured: false) }
+
+    context 'if the king cannot get out of check' do
+      it 'returns true for checkmate' do
+         # data setup
+        player2_queen
+
+        expect(game.checkmate?(color)).to be true
+      end
+    end
+  end
+
 end
+

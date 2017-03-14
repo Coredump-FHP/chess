@@ -70,8 +70,8 @@ class Game < ApplicationRecord
     #1. Get king
     checked_king = pieces.find_by(type: 'King', color: color)
 
-    #  a. king has to be in_check
-    return false unless in_check?(color)
+    #  a. king has to be in check
+    return false unless check?(color)
 
     #  b. king cannot get out of check (has no more valid moves to get out of check)
     #     remember the king is not moving in this method, but checking if he is in checkmate
@@ -80,10 +80,11 @@ class Game < ApplicationRecord
     #}
 
     #  c. king cannot be blocked by another piece (any color)
+    # binding.pry
     pieces = pieces.find_by(color: color, captured: false).each { |piece| 
       # 
-      piece.valid_moves.each {
-        |move| return false if !in_check_if(piece, move.x, move.y)
+      piece.valid_move?(x, y).each {
+        |move| return false if !check_if_move(piece, move.x, move.y)
       }
     }
 
@@ -95,22 +96,22 @@ class Game < ApplicationRecord
   end
 
   # a piece can block the king
-  def can_block(king, x, y)
+  # def can_block(king, x, y)
     #king = pieces.find_by(type: 'King', color: piece.color)
-    blocking_piece = pieces.where(color: color)
+  #  blocking_piece = pieces.where(color: color)
 
-    blocking_piece.each { |blocking_piece| return true if blocking_piece.obstructed?(x, y)}
-    return false
-  end
+  #  blocking_piece.each { |blocking_piece| return true if blocking_piece.obstructed?(x, y)}
+  #  return false
+  # end
 
 
   # opposing pieces check if king is in_check_if it moves towards the king
-  def check_if?(king, x, y)
-    #king = pieces.find_by(type: 'King', color: piece.color)
-    opposing_pieces = pieces.where(color: king.opposite_color)
-    #opposing piece can move toward king to put him in check
-    opposing_pieces.each { |opposing_piece| return true if opposing_piece.valid_move?(x, y) }
-    false
+  def check_if_move?(moving_piece, move_to_x, move_to_y)
+
+    moving_piece.move_to(move_to_x, move_to_y)
+    return check?(moving_piece.color)
+  
+    #if mutated move_to() method move test pieces for checkmate works, we won't need active record code
   end
 
   private
