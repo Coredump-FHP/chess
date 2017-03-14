@@ -59,7 +59,7 @@ class Game < ApplicationRecord
     your_pieces.each do |piece|
       0.upto(7) do |x|
         0.upto(7) do |y|
-          if piece.valid_move?(x, y) && !piece.check?(x, y)
+          if piece.valid_move?(x, y) && !piece.check?
             available_moves << [x, y]
           end
         end

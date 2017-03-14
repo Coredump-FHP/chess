@@ -117,6 +117,22 @@ RSpec.describe Game, type: :model do
     end
   end
 
+  describe '#stalemate?(color)' do
+    let(:game) { FactoryGirl.create(:game) }
+    let(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 4, y_coordinate: 4, color: 'white') }
+    let!(:player2_rook1) { create(:rook, player: game.player_2, game: game, x_coordinate: 3, y_coordinate: 1, color: 'black') }
+    let!(:player2_rook2) { create(:rook, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 3, color: 'black') }
+    let!(:player2_rook3) { create(:rook, player: game.player_2, game: game, x_coordinate: 5, y_coordinate: 1, color: 'black') }
+    let!(:player2_rook4) { create(:rook, player: game.player_2, game: game, x_coordinate: 7, y_coordinate: 5, color: 'black') }
+
+    context 'When a white player has no valid moves' do
+      it 'returns Stalemate as true' do
+        player1_king
+        expect(game.stalemate?('white')).to be true
+      end
+    end
+  end
+
   describe '#check?' do
     let(:game) { create(:game) }
     # player2's king
