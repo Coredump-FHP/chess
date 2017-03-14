@@ -9,17 +9,14 @@ class King < Piece
 
   # moves to every spot on the board and push the piece on to the board if it's a valid move
   def valid_moves
+    moves = []
 
-  	moves = []
+    (0..7).each do |x|
+      (0..7).each do |y|
+        moves.push(x, y) if valid_move?(x, y)
+      end
+    end
 
-  	(0..7).each do |x|
-  	  (0..7).each do |y|
-  	  	if valid_move?(x,y)
-  	  		moves.push(x,y) 
-  	  	end
-  	  end 
-  	end
-
-  	return moves
-  end 
+    moves
+  end
 end

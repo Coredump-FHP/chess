@@ -10,4 +10,3 @@ describe 'Visit the games show page', type: :feature do
     end
   end
 end
-

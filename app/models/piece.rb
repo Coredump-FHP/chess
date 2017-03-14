@@ -8,13 +8,13 @@ class Piece < ApplicationRecord
   # This uses ActiveRecords transactions determine potential moves of pieces being put in check
   # Remembers the moves and rolls back out
   def potential_move
-    Piece.transaction do 
+    Piece.transaction do
       return false unless Piece.in_check?
     end
   end
 
   def opposite_color
-    (color == 'white') ? 'black' : 'white'
+    color == 'white' ? 'black' : 'white'
   end
 
   # x = destination_x for readability
@@ -53,7 +53,7 @@ class Piece < ApplicationRecord
     false
   end
 
-def move_to(x, y)
+  def move_to(x, y)
     # check to see if there is a piece in the location it`s moving to.
     test_destination_piece = Piece.find_by(game: game, x_coordinate: x, y_coordinate: y, captured: false)
 
@@ -69,15 +69,6 @@ def move_to(x, y)
     # http://apidock.com/rails/ActiveRecord/Base/update_attributes
     raise ArgumentError, "Can't move piece" unless update_attributes(x_coordinate: x, y_coordinate: y)
   end
-
-  def obstructed?(x, y)
-    # only check if obstructed in the direction you are moving
-    return true if vertical?(x, y) && obstructed_vertically?(y)
-    return true if horizontal?(x, y) && obstructed_horizontally?(x)
-    return true if diagonal?(x, y) && obstructed_diagonally?(x, y)
-    false
-  end
-
 
   def square_is_occupied(x, y)
     # returns the square is occupied
