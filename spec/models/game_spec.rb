@@ -118,17 +118,17 @@ RSpec.describe Game, type: :model do
   end
 
   describe '#check?' do
-
+    let(:opposite_color) { 'black' }
     let(:game) { create(:game) }
     # player2's king
-    let(:player2_king) { create(:king, player: game.player_2, game: game, x_coordinate: 3, y_coordinate: 3, color: opposite_color) }
-    let!(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: opposite_color) }
+    let(:player2_king) { create(:king, player: game.player_2, game: game, x_coordinate: 3, y_coordinate: 3, color: 'black') }
+    let!(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white') }
   
     context "When no chess piece from the opponent can capture the current player's king" do
       it 'Returns false' do
         player2_king
         #binding.pry
-        expect(game.check?).to be false
+        expect(game.check?(opposite_color)).to be false
       end
     end
 
@@ -144,7 +144,7 @@ RSpec.describe Game, type: :model do
             create(:rook, player: game.player_1, game: game, x_coordinate: 3, y_coordinate: 1, color: 'white')
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -154,12 +154,8 @@ RSpec.describe Game, type: :model do
             create(:rook, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 3, color: 'white')
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
-        end
-
-        context 'possibly castling??' do
-          # raise "WRITE ME!"
         end
       end
 
@@ -177,7 +173,7 @@ RSpec.describe Game, type: :model do
             create(:bishop, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 1)
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -187,7 +183,7 @@ RSpec.describe Game, type: :model do
             create(:bishop, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 1)
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -197,7 +193,7 @@ RSpec.describe Game, type: :model do
             create(:bishop, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 5)
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -207,7 +203,7 @@ RSpec.describe Game, type: :model do
             create(:bishop, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 5)
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
       end
@@ -225,7 +221,7 @@ RSpec.describe Game, type: :model do
             create(:queen, player: game.player_1, game: game, x_coordinate: 3, y_coordinate: 1)
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -235,7 +231,7 @@ RSpec.describe Game, type: :model do
             create(:queen, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 3)
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -245,7 +241,7 @@ RSpec.describe Game, type: :model do
             create(:queen, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 1)
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -255,7 +251,7 @@ RSpec.describe Game, type: :model do
             create(:queen, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 1)
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -265,7 +261,7 @@ RSpec.describe Game, type: :model do
             create(:queen, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 5)
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -275,7 +271,7 @@ RSpec.describe Game, type: :model do
             create(:queen, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 5)
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
       end
@@ -291,7 +287,7 @@ RSpec.describe Game, type: :model do
             create(:pawn, player: game.player_1, game: game, x_coordinate: 2, y_coordinate: 2)
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -301,7 +297,7 @@ RSpec.describe Game, type: :model do
             create(:pawn, player: game.player_1, game: game, x_coordinate: 4, y_coordinate: 2)
             player2_king
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
       end
@@ -323,7 +319,7 @@ RSpec.describe Game, type: :model do
             # data setup
             create(:king, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 5, color: 'black')
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -332,7 +328,7 @@ RSpec.describe Game, type: :model do
             # data setup
             create(:king, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 5, color: 'black')
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -341,7 +337,7 @@ RSpec.describe Game, type: :model do
             # data setup
             create(:king, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 4, color: 'black')
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -350,7 +346,7 @@ RSpec.describe Game, type: :model do
             # data setup
             create(:king, player: game.player_2, game: game, x_coordinate: 5, y_coordinate: 4, color: 'black')
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -359,7 +355,7 @@ RSpec.describe Game, type: :model do
             # data setup
             create(:king, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 2, color: 'black')
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -368,7 +364,7 @@ RSpec.describe Game, type: :model do
             # data setup
             create(:king, player: game.player_2, game: game, x_coordinate: 5, y_coordinate: 2, color: 'black')
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -377,7 +373,7 @@ RSpec.describe Game, type: :model do
             # data setup
             create(:king, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 1, color: 'black')
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
 
@@ -386,7 +382,7 @@ RSpec.describe Game, type: :model do
             # data setup
             create(:king, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 1, color: 'black')
 
-            expect(game.check?).to be true
+            expect(game.check?(opposite_color)).to be true
           end
         end
       end
