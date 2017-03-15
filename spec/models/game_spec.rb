@@ -392,13 +392,12 @@ RSpec.describe Game, type: :model do
   describe '#checkmate?' do
     let(:game) { create(:game) }
     let!(:player2_king) { create(:king, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 1, color: 'black', captured: false) }
-    let(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white', captured: false) } 
-    let(:player1_queen) { create(:queen, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white', captured: false) } 
+    let(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white', captured: false) }
+    let(:player1_queen) { create(:queen, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white', captured: false) }
     let(:opposite_color) { 'black' }
-    
+
     context 'with the king getting out of check' do
       it 'returns false' do
-
         expect(game.checkmate?(opposite_color)).to be false
       end
     end
