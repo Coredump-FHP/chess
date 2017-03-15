@@ -53,19 +53,11 @@ class Game < ApplicationRecord
     !inactive_player
   end
 
-  def stalemate?(color)
-    your_pieces = pieces_remaining(color)
-    available_moves = []
-    your_pieces.each do |piece|
-      0.upto(7) do |x|
-        0.upto(7) do |y|
-          if piece.valid_move?(x, y) && !piece.check?
-            available_moves << [x, y]
-          end
-        end
-      end
+  def stalemate?(king)
+    king = pieces.find_by(type: 'King')
+    pieces.each do |piece|
+      return false if piece.valid_move?(king.x_coordinate, king.y_coordinate) && !check?(king)
     end
-    return false if available_moves.any?
     true
   end
 
@@ -74,10 +66,6 @@ class Game < ApplicationRecord
   end
 
   private
-
-  def pieces_remaining(color)
-    pieces.where(x_coordinate: 0..7, y_coordinate: 0..7, color: color.to_s).to_a
-  end
 
   def add_starting_pieces_for_color!(color)
     if color == 'white'
