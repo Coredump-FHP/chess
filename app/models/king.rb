@@ -7,16 +7,5 @@ class King < Piece
     false # if not horizontal or vertical or diagonal or obstructed
   end
 
-  # moves to every spot on the board and push the piece on to the board if it's a valid move
-  def valid_moves
-    moves = []
 
-    (0..7).each do |x|
-      (0..7).each do |y|
-        moves.push(x, y) if valid_move?(x, y)
-      end
-    end
-
-    moves
-  end
 end
