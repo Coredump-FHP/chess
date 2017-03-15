@@ -385,30 +385,21 @@ RSpec.describe Game, type: :model do
             expect(game.check?(opposite_color)).to be true
           end
         end
-
-        context 'with the king getting out of check' do
-          it 'returns false' do
-            # data setup
-            create(:king, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 0, color: 'black')
-
-            expect(game.check?(opposite_color)).to be false
-          end
-        end
       end
     end
   end
 
   describe '#checkmate?' do
     let(:game) { create(:game) }
-    let(:color) { 'black' }
-    let!(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white', captured: false) }
-    let!(:player2_queen) { create(:queen, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 1, color: 'black', captured: false) }
+    let!(:player2_king) { create(:king, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 1, color: 'black', captured: false) }
+    let(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white', captured: false) } 
+    let(:player1_queen) { create(:queen, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white', captured: false) } 
+    let(:opposite_color) { 'black' }
+    
+    context 'with the king getting out of check' do
+      it 'returns false' do
 
-    context 'if the king cannot get out of check' do
-      it 'returns true for checkmate' do
-
-        binding.pry
-        expect(game.checkmate?(color)).to be true
+        expect(game.checkmate?(opposite_color)).to be false
       end
     end
   end

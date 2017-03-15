@@ -52,15 +52,14 @@ class Game < ApplicationRecord
     #  a. king has to be in check
     return false unless check?(color)
 
-    #  b. king cannot get out of check (has no more valid moves to get out of check)
-    #  c. king cannot be blocked by another piece (any color)
-    #  d. pieces causing check cannot be captured
-    #pieces.find_by(color: color, captured: false).each do |piece|
-    pieces.where(color: color, captured: false).each { |piece| 
-      piece.valid_move?(x, y).each { |move|
+    #  a1. king cannot get out of check (has no more valid moves to get out of check)
+    #  a2. king cannot be blocked by another piece (any color)
+    #  a3. pieces checking king check cannot be captured
+    pieces.find_by(color: color, captured: false).each do |piece|
+      piece.valid_move?(x, y).each do |move|
         return false unless check_if_move(piece, move.x, move.y)
-      }
-    }
+      end
+    end
     true
   end
 
