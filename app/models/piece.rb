@@ -15,6 +15,7 @@ class Piece < ApplicationRecord
   # x = destination_x for readability
   # y = destination_y for readability
   def on_board?(x, y)
+    return false if captured # ensure that dead pieces have no valid moves
     return false if x < 0
     return false if y < 0
     return false if x > 7
@@ -23,7 +24,7 @@ class Piece < ApplicationRecord
   end
 
   # Note: This method does not check if a move is valid. We will be using the valid_move? method to do that.
-  def move_to!(x, y)
+  def move_to!(x, y) # capture logic to be used in controller to handle moving pieces
     # check to see if there is a piece in the location it`s moving to.
     destination_piece = Piece.find_by(game: game, x_coordinate: x, y_coordinate: y, captured: false)
 
@@ -153,6 +154,11 @@ class Piece < ApplicationRecord
   end
 
   def diagonal?(x, y)
+    return false if nil_move?(x, y)
     (x_coordinate - x).abs == (y_coordinate - y).abs
+  end
+
+  def nil_move?(x, y)
+    (x_coordinate - x).zero? && (y_coordinate - y).zero?
   end
 end

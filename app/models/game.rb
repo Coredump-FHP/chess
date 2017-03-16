@@ -42,7 +42,7 @@ class Game < ApplicationRecord
   # Keep track of current king.  We don't care what the other king is doing.
   def check?(color)
     king = pieces.find_by(type: 'King', color: color)
-    opposing_pieces = pieces.where(color: king.opposite_color)
+    opposing_pieces = pieces.where(color: king.opposite_color, captured: false)
 
     opposing_pieces.each { |opposing_piece| return true if opposing_piece.valid_move?(king.x_coordinate, king.y_coordinate) }
     false
@@ -55,18 +55,28 @@ class Game < ApplicationRecord
     #  a1. king cannot get out of check (has no more valid moves to get out of check)
     #  a2. king cannot be blocked by another piece (any color)
     #  a3. pieces checking king check cannot be captured
+
+    # Go through every possible move for every single piece I have and see if you can get out of checkmate
     pieces.find_by(color: color, captured: false).each do |piece|
-      piece.valid_move?(x, y).each do |move|
-        return false unless check_if_move(piece, move.x, move.y)
+      piece.valid_moves(x, y).each do |move|
+        return false unless misstep?(piece, move.x, move.y)
       end
     end
     true
   end
 
-  # opposing pieces check if king is in_check_if it moves towards the king
-  def check_if_move?(moving_piece, move_to_x, move_to_y)
-    moving_piece.move_to(move_to_x, move_to_y)
-    check?(moving_piece.color)
+  # Make the move and check to see if it was a mis step, and move back.
+  def misstep?(moving_piece, move_to_x, move_to_y)
+    # starting position
+    x = moving_piece.x_coordinate
+    y = moving_piece.y_coordinate
+    # move to see if it puts you in check. if true, it's a misstep
+    moving_piece.move_to!(move_to_x, move_to_y)
+    misstep = check?(moving_piece.color)
+
+    # move it back to starting position
+    moving_piece.move_to!(x, y)
+    misstep
   end
 
   private

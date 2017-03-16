@@ -127,7 +127,7 @@ RSpec.describe Game, type: :model do
     context "When no chess piece from the opponent can capture the current player's king" do
       it 'Returns false' do
         player2_king
-        # binding.pry
+
         expect(game.check?(opposite_color)).to be false
       end
     end
@@ -399,6 +399,152 @@ RSpec.describe Game, type: :model do
     context 'with the king getting out of check' do
       it 'returns false' do
         expect(game.checkmate?(opposite_color)).to be false
+      end
+    end
+  end
+
+  describe '#misstep?' do
+    # White King at bottom (4,0), Black King at top (4,7)
+    let(:game) { create(:game) }
+    let!(:black_king) { create(:king, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 7, color: 'black', captured: false) }
+    let!(:white_king) { create(:king, player: game.player_1, game: game, x_coordinate: 4, y_coordinate: 0, color: 'white', captured: false) }
+    let(:opposite_color) { 'black' }
+
+    context 'with the white king already in check' do
+      # _______________
+      # |__|__|__|__|BK| 7
+      # |__|__|__|__|BQ| 6
+      # |__|__|__|__|__| 5
+      # |__|__|__|__|__| 4
+      # |__|__|__|__|__| 3
+      # |wb|__|wn|__|__| 2
+      # |__|__|__|__|__| 1
+      # |__|__|__|__|wk| 0
+      # | 0  1  2  3  4
+      # White king is in check by the Black Queen
+      let!(:black_queen) { create(:queen, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 6, color: 'black', captured: false) }
+      # White knight could block queen
+      let!(:white_knight) { create(:knight, player: game.player_1, game: game, x_coordinate: 2, y_coordinate: 2, color: 'white', captured: false) }
+      # White bishop could capture queen
+      let!(:white_bishop) { create(:bishop, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 2, color: 'white', captured: false) }
+
+      context 'if the move does not break the check' do
+        it 'should return true (moving king is still in check)' do
+          # _______________
+          # |__|__|__|__|BK| 7
+          # |__|__|__|__|BQ| 6
+          # |__|__|__|__|__| 5
+          # |__|__|__|__|__| 4
+          # |__|__|__|__|__| 3
+          # |wb|__|wn|__|__| 2
+          # |__|__|__|__|wk| 1
+          # |__|__|__|__|^_| 0
+          # | 0  1  2  3  4
+          expect(game.check?('white')).to be true
+          expect(game.misstep?(white_king, 4, 1)).to be true
+        end
+
+        it 'should return true (moving unrelated piece not affecting check)' do
+          # _______________
+          # |__|__|__|__|BK| 7
+          # |__|__|__|__|BQ| 6
+          # |__|__|__|__|__| 5
+          # |__|__|__|__|__| 4
+          # |__|__|__|__|__| 3
+          # |_\|__|wn|__|__| 2
+          # |__|wb|__|__|__| 1
+          # |__|__|__|__|wk| 0
+          # | 0  1  2  3  4
+          expect(game.check?('white')).to be true
+          expect(game.misstep?(white_bishop, 1, 1)).to be true
+        end
+      end
+
+      context 'if the moves breaks the check' do
+        it 'should return false (moving king runs away)' do
+          # _______________
+          # |__|__|__|__|BK| 7
+          # |__|__|__|__|BQ| 6
+          # |__|__|__|__|__| 5
+          # |__|__|__|__|__| 4
+          # |__|__|__|__|__| 3
+          # |wb|__|wn|__|__| 2
+          # |__|__|__|__|__| 1
+          # |__|__|__|wk<--| 0
+          # | 0  1  2  3  4
+          expect(game.check?('white')).to be true
+          expect(game.misstep?(white_king, 3, 0)).to be false
+        end
+
+        it 'should return false (get in between the king and the threat)' do
+          # _______________
+          # |__|__|__|__|BK| 7
+          # |__|__|__|__|BQ| 6
+          # |__|__|__|__|__| 5
+          # |__|__|__|__|__| 4
+          # |__|__|__|__|wn| 3
+          # |wb|__|---->/__| 2
+          # |__|__|__|__|__| 1
+          # |__|__|__|__|wk| 0
+          # | 0  1  2  3  4
+          expect(game.check?('white')).to be true
+          expect(game.misstep?(white_knight, 4, 3)).to be false
+        end
+
+        it 'should return false (eat the threatening bad guy)' do
+          # _______________
+          # |__|__|__|__|BK| 7
+          # |__|__|__|__|wb| 6
+          # |__|__|__|_/|__| 5
+          # |__|__| /|__|__| 4
+          # |__| /|__|__|__| 3
+          # | /|__|wn|__|__| 2
+          # |__|__|__|__|__| 1
+          # |__|__|__|__|wk| 0
+          # | 0  1  2  3  4
+          expect(game.check?('white')).to be true
+          expect(game.misstep?(white_bishop, 4, 6)).to be false
+        end
+      end
+    end
+
+    context 'with the white king not in check' do
+      # _______________
+      # |__|__|__|__|BK| 7
+      # |__|__|__|BR|BQ| 6
+      # |__|__|__|__|__| ...
+      # |__|__|__|__|wr| 1
+      # |__|__|__|__|wk| 0
+      # | 0  1  2  3  4
+
+      let!(:black_queen) { create(:queen, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 6, color: 'black', captured: false) }
+      let!(:black_rook) { create(:queen, player: game.player_2, game: game, x_coordinate: 3, y_coordinate: 6, color: 'black', captured: false) }
+      let!(:white_rook) { create(:rook, player: game.player_1, game: game, x_coordinate: 4, y_coordinate: 1, color: 'white', captured: false) }
+
+      context 'if the move exposes the king to check' do
+        it 'should return true (moving king into danger)' do
+          # _______________
+          # |__|__|__|__|BK| 7
+          # |__|__|__|BR|BQ| 6
+          # |__|__|__|__|__| ...
+          # |__|__|__|__|wr| 1
+          # |__|__|__|wk<--| 0
+          # | 0  1  2  3  4
+          expect(game.check?('white')).to be false
+          expect(game.misstep?(white_king, 3, 0)).to be true
+        end
+
+        it 'should return true (moving blocking piece out of the way)' do
+          # _______________
+          # |__|__|__|__|BK| 7
+          # |__|__|__|BR|BQ| 6
+          # |__|__|__|__|__| ...
+          # |wr<-----------| 1
+          # |__|__|__|__|wk| 0
+          # | 0  1  2  3  4
+          expect(game.check?('white')).to be false
+          expect(game.misstep?(white_rook, 0, 1)).to be true
+        end
       end
     end
   end

@@ -6,6 +6,4 @@ class King < Piece
     return true if diagonal?(x, y) && (x_coordinate - x).abs == 1 && (y_coordinate - y).abs == 1
     false # if not horizontal or vertical or diagonal or obstructed
   end
-
-
 end
