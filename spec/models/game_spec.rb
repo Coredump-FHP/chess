@@ -115,4 +115,275 @@ RSpec.describe Game, type: :model do
       end
     end
   end
+
+  describe '#check?' do
+    let(:game) { create(:game) }
+    # player2's king
+    let(:player2_king) { create(:king, player: game.player_2, game: game, x_coordinate: 3, y_coordinate: 3, color: 'black') }
+    let!(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0) }
+
+    context "When no chess piece from the opponent can capture the current player's king" do
+      it 'Returns false' do
+        player2_king
+
+        expect(game.check?).to be false
+      end
+    end
+
+    context "When there's at least one chess piece from the opponent can capture the current player's king" do
+      context "When the oppnent player's rook can capture the current player's king" do
+        # _______________
+        # |__|__|k |__|L1|
+        # |__|__|__|__|__|
+        # |__|__|L2|__|__|
+        context 'With the rook on the same vertical line and no obstruction in between' do
+          it 'returns true' do
+            # data setup
+            create(:rook, player: game.player_1, game: game, x_coordinate: 3, y_coordinate: 1, color: 'white')
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'With the rook on the same horizontal line and no obstruction in between' do
+          it 'returns true' do
+            # data setup
+            create(:rook, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 3, color: 'white')
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+      end
+
+      context "When the oppnent player's bishop can capture the current player's king" do
+        # _______________
+        # |L1|__|__|__|L2|
+        # |__|__|__|__|__|
+        # |__|__|k |__|__|
+        # |__|__|__|__|__|
+        # |L3|__|__|__|L4|
+
+        context 'With the bishop on the bottom left diagonal and no obstruction in between' do
+          it 'returns true' do
+            # data setup
+            create(:bishop, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 1)
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'With the bishop on the bottom right diagonal and no obstruction in between' do
+          it 'returns true' do
+            # data setup
+            create(:bishop, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 1)
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'With the bishop on the top left diagonal and no obstruction in between' do
+          it 'returns true' do
+            # data setup
+            create(:bishop, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 5)
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'With the bishop on the top right diagonal and no obstruction in between' do
+          it 'returns true' do
+            # data setup
+            create(:bishop, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 5)
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+      end
+
+      context "When the oppnent player's queen can capture the current player's king" do
+        # _______________
+        # |L1|__|L2|__|L3|
+        # |__|__|__|__|__|
+        # |L4|__|k |__|__|
+        # |__|__|__|__|__|
+        # |L5|__|__|__|L6|
+        context 'With the queen on the same vertical line and no obstruction in between' do
+          it 'returns true' do
+            # data setup
+            create(:queen, player: game.player_1, game: game, x_coordinate: 3, y_coordinate: 1)
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'With the queen on the same horizontal line and no obstruction in between' do
+          it 'returns true' do
+            # data setup
+            create(:queen, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 3)
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'With the queen on the bottom left diagonal and no obstruction in between' do
+          it 'returns true' do
+            # data setup
+            create(:queen, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 1)
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'With the queen on the bottom right diagonal and no obstruction in between' do
+          it 'returns true' do
+            # data setup
+            create(:queen, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 1)
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'With the queen on the top left diagonal and no obstruction in between' do
+          it 'returns true' do
+            # data setup
+            create(:queen, player: game.player_1, game: game, x_coordinate: 1, y_coordinate: 5)
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'With the queen on the top right diagonal and no obstruction in between' do
+          it 'returns true' do
+            # data setup
+            create(:queen, player: game.player_1, game: game, x_coordinate: 5, y_coordinate: 5)
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+      end
+
+      context "When the oppnent player's pawn can capture the current player's king" do
+        # _______________
+        # |__|__|k |__|__|
+        # |__|L1|__|L2|__|
+
+        context 'With the pawn on the immediate diagonal square below the king on the left' do
+          it 'returns true' do
+            # data setup
+            create(:pawn, player: game.player_1, game: game, x_coordinate: 2, y_coordinate: 2)
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'With the pawn on the immediate diagnal square below the king on the right' do
+          it 'returns true' do
+            # data setup
+            create(:pawn, player: game.player_1, game: game, x_coordinate: 4, y_coordinate: 2)
+            player2_king
+
+            expect(game.check?).to be true
+          end
+        end
+      end
+
+      context "When the oppnent player's knight can capture the current player's king" do
+        #  _______________
+        # 5|__|L1|__|L2|__|
+        # 4|L3|__|__|__|L4|
+        # 3|__|__|k |__|__|
+        # 2|L5|__|__|__|L6|
+        # 1|__|L7|__|L8|__|
+        #   1   2  3  4  5
+
+        # player1's knight
+        let!(:player1_knight) { create(:knight, player: game.player_1, game: game, x_coordinate: 3, y_coordinate: 3) }
+
+        context 'with the king on location 1 (L1)' do
+          it 'returns true' do
+            # data setup
+            create(:king, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 5, color: 'black')
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'with the king on location 2 (L2)' do
+          it 'returns true' do
+            # data setup
+            create(:king, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 5, color: 'black')
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'with the king on location 3 (L3)' do
+          it 'returns true' do
+            # data setup
+            create(:king, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 4, color: 'black')
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'with the king on location 4 (L4)' do
+          it 'returns true' do
+            # data setup
+            create(:king, player: game.player_2, game: game, x_coordinate: 5, y_coordinate: 4, color: 'black')
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'with the king on location 5 (L5)' do
+          it 'returns true' do
+            # data setup
+            create(:king, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 2, color: 'black')
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'with the king on location 6 (L6)' do
+          it 'returns true' do
+            # data setup
+            create(:king, player: game.player_2, game: game, x_coordinate: 5, y_coordinate: 2, color: 'black')
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'with the king on location 7 (L7)' do
+          it 'returns true' do
+            # data setup
+            create(:king, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 1, color: 'black')
+
+            expect(game.check?).to be true
+          end
+        end
+
+        context 'with the king on location 8 (L8)' do
+          it 'returns true' do
+            # data setup
+            create(:king, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 1, color: 'black')
+
+            expect(game.check?).to be true
+          end
+        end
+      end
+    end
+  end
 end

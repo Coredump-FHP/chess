@@ -23,8 +23,15 @@
 <div class="container">
   <div class="col-xs-6 col-xs-3 text-center">
     <%= image_tag gravatar_url(@game.player_1.email, 64), alt: "", class: 'gravatars' %>
+    <h3>Player - <%=@game.player_1_id %></h3>
   </div>
   <div class="col-xs-6 col-xs-3 text-center">
     <%= image_tag gravatar_url(@game.player_2.email, 64), alt: "", class: 'gravatars' %>
+    <h3>Player - <%= @game.player_2_id %></h3>
   </div>
+
 </div>
+<div class="text-center col-xs-6 col-xs-offset-3">
+  <h1>It is Player <%= @game.turn %>'s turn</h1>
+</div>
+

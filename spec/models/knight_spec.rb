@@ -6,7 +6,7 @@ RSpec.describe Knight, type: :model do
   end
 
   describe '#valid_move?' do
-    it 'should move in L step' do
+    it 'should only move in L steps' do
       knight = create_knight(3, 3)
       # up L
       expect(knight.valid_move?(2, 5)).to eq true
@@ -22,10 +22,16 @@ RSpec.describe Knight, type: :model do
       expect(knight.valid_move?(1, 2)).to eq true
     end
 
-    it 'should not move outside L pattern' do
+    it 'should not move outside L steps' do
       knight = create_knight(3, 3)
+      # test 1 step left horizontal
       expect(knight.valid_move?(2, 3)).to eq false
+      # test 1 step up vertical
       expect(knight.valid_move?(3, 4)).to eq false
+      # test > 1 steps diagonally in negative direction
+      expect(knight.valid_move?(0, 0)).to eq false
+      # test incorrect steps
+      expect(knight.valid_move?(7, 5)).to eq false
     end
 
     it 'should not stand still' do
