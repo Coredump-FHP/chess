@@ -5,9 +5,6 @@ class Piece < ApplicationRecord
 
   enum color: %w(white black)
 
-  # This uses ActiveRecords transactions determine potential moves of pieces being put in check
-  # Remembers the moves and rolls back out
-
   def opposite_color
     color == 'white' ? 'black' : 'white'
   end
@@ -38,7 +35,8 @@ class Piece < ApplicationRecord
     end
     # Finally, it should call update_attributes on the piece and change the piece's x/y position.
     # http://apidock.com/rails/ActiveRecord/Base/update_attributes
-    raise ArgumentError, "Can't move piece" unless update_attributes(x_coordinate: x, y_coordinate: y)
+    # raise ArgumentError, "Can't move piece"
+    return false unless update_attributes(x_coordinate: x, y_coordinate: y)
   end
 
   # testing potential moves - move will not be saved
@@ -52,11 +50,12 @@ class Piece < ApplicationRecord
       raise ArgumentError, "Can't take your own piece!" if test_destination_piece.color == color
 
       # You could set the piece's x/y coordinates to nil
-      test_destination_piece.update_attributes(x_coordinate: nil, y_coordinate: nil, captured: true)
+      test_destination_piece.assign_attributes(x_coordinate: nil, y_coordinate: nil, captured: true)
     end
     # Finally, it should call update_attributes on the piece and change the piece's x/y position.
-    # http://apidock.com/rails/ActiveRecord/Base/update_attributes
-    raise ArgumentError, "Can't move piece" unless update_attributes(x_coordinate: x, y_coordinate: y)
+    # http://apidock.com/rails/ActiveRecord/Base/assign_attributes
+    # http://stackoverflow.com/questions/6770350/rails-update-attributes-without-save
+    return false unless assign_attributes(x_coordinate: x, y_coordinate: y)
   end
 
   def obstructed?(x, y)

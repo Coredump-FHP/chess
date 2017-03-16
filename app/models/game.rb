@@ -70,12 +70,28 @@ class Game < ApplicationRecord
     # starting position
     x = moving_piece.x_coordinate
     y = moving_piece.y_coordinate
+
+    # find the destination piece and hold it in memory
+    captured_piece = pieces.find_by(x_coordinate: move_to_x, y_coordinate: move_to_y, captured: false)
+
+    # find the destination piece,
     # move to see if it puts you in check. if true, it's a misstep
+
+    ########################
+    # TODO:
+    # unmutated move_to not working
+    # If this can be fixed, it should call move_to --> moving_piece.move_to(move_to_x, move_to_y)
+    ########################
     moving_piece.move_to!(move_to_x, move_to_y)
     misstep = check?(moving_piece.color)
 
-    # move it back to starting position
+    # move it back to starting position (undo move)
     moving_piece.move_to!(x, y)
+
+    # if there is a piece in the destination, take the piece and set to not captured and put back x y coordinates
+    # (an undo - put pieces back to original location if pieces are eaten)
+    captured_piece.update_attributes(x_coordinate: move_to_x, y_coordinate: move_to_y, captured: false) if captured_piece
+
     misstep
   end
 
@@ -93,6 +109,7 @@ class Game < ApplicationRecord
     (0..7).each do |i|
       create_piece!(color, i, pawn_row, 'Pawn', "pawn-#{color}.png")
     end
+
     create_piece!(color, 0, king_row, 'Rook', "rook-#{color}.png")
     create_piece!(color, 1, king_row, 'Knight', "knight-#{color}.png")
     create_piece!(color, 2, king_row, 'Bishop', "bishop-#{color}.png")

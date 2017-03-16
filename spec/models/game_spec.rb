@@ -502,6 +502,7 @@ RSpec.describe Game, type: :model do
           # |__|__|__|__|__| 1
           # |__|__|__|__|wk| 0
           # | 0  1  2  3  4
+          # binding.pry
           expect(game.check?('white')).to be true
           expect(game.misstep?(white_bishop, 4, 6)).to be false
         end
