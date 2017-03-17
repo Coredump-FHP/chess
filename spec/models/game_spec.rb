@@ -119,28 +119,24 @@ RSpec.describe Game, type: :model do
 
   describe '#stalemate?' do
     let(:game) { FactoryGirl.create(:game) }
-    let(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white') }
-    let!(:player2_bishop) { create(:bishop, player: game.player_2, game: game, x_coordinate: 0, y_coordinate: 1, color: 'black') }
-    let!(:player2_pawn) { create(:pawn, player: game.player_2, game: game, x_coordinate: 0, y_coordinate: 2, color: 'black') }
+    let!(:player1_king) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'white') }
+    let!(:player2_rook1) { create(:rook, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 1, color: 'black') }
+    let!(:player2_rook2) { create(:rook, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 2, color: 'black') }
+    let!(:player1_king1) { create(:king, player: game.player_1, game: game, x_coordinate: 0, y_coordinate: 0, color: 'black') }
+    let!(:player2_rook3) { create(:rook, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 1, color: 'white') }
+    let!(:player2_rook4) { create(:rook, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 2, color: 'white') }
 
-        # STALEMATE EX: 1
-        # _______________
-        # |__|__|  |__|  |
-        # |__|__|__|__|__|
-        # |P2|__|__|__|__|
-        # |B2|__|__|__|__|
-        # |K1|__|__|__|__|
+    # STALEMATE EXAMPLE
+    # ________________
+    # |__|__|__|__|__|
+    # |__|__|__|__|__|
+    # |__|R2|__|__|__|
+    # |__|__|R2|__|__|
+    # |K1|__|__|__|__|
 
-
-    context 'When a White King is not in CHECK and has no valid moves' do
+    context 'When a King is currently not in CHECK and the only move is to go INTO CHECK' do
       it 'returns Stalemate as true' do
-
-        puts player1_king.id
-        puts game.id
-        expect(game.check?).to be false
-        # expect(player1_king.valid_move?(1, 1)).to be true
-        # expect(game.check?).to be true
-        # expect(game.stalemate?).to be true
+        expect(game.stalemate?).to be true
       end
     end
   end
