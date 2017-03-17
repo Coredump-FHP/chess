@@ -58,8 +58,8 @@ class Game < ApplicationRecord
 
     # Go through every possible move for every single piece I have and see if you can get out of checkmate
     pieces.find_by(color: color, captured: false).each do |piece|
-      piece.valid_moves(x, y).each do |move|
-        return false unless misstep?(piece, move.x, move.y)
+      piece.valid_moves.each do |move|
+        return false unless misstep?(piece, move[:x], move[:y])
       end
     end
     true

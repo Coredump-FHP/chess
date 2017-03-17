@@ -1,4 +1,16 @@
 require 'pry'
+
+class Move
+  def new(x, y)
+    @x = x
+    @y = y
+  end
+
+  attr_reader :x
+
+  attr_reader :y
+end
+
 class Piece < ApplicationRecord
   belongs_to :player, class_name: 'Player', optional: true
   belongs_to :game
@@ -39,8 +51,7 @@ class Piece < ApplicationRecord
     return false unless update_attributes(x_coordinate: x, y_coordinate: y)
   end
 
-  # testing potential moves - move will not be saved
-  def move_to(x, y)
+  def move_to(x, y) # testing potential moves - move will not be saved
     # check to see if there is a piece in the location it`s moving to.
     test_destination_piece = Piece.find_by(game: game, x_coordinate: x, y_coordinate: y, captured: false)
 
@@ -135,6 +146,24 @@ class Piece < ApplicationRecord
       return true if square_is_occupied(x_square, y_square)
     end
     false
+  end
+
+  # TODO: Add valid moves in each piece class
+  # TODO: get someone to get move_to unmutated to work properly. Getting undefined method error
+  # TODO: [x] update attribute within move_to also mutates.. how do we not mutate it?  assign_attributes is the same as
+  #       update_attribute without the save
+  # TODO: [x] bug? - misstep can eat pieces when testing moves, so we'll need to make dead pieces come back to life.
+
+  # moves to every spot on the board and push the piece on to the board if it's a valid move
+  def valid_moves # used by misstep for test moves.
+    moves = []
+
+    (0..7).each do |x|
+      (0..7).each do |y|
+        moves.push(x: x, y: y) if valid_move?(x, y)
+      end
+    end
+    moves
   end
 
   # used by the different pieces in the subclasses
