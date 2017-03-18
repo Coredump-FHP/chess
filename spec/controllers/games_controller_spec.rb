@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe GamesController, type: :controller do
   describe 'games#new action' do
@@ -32,14 +31,6 @@ RSpec.describe GamesController, type: :controller do
       @game = Game.last
       expect(@game.name).to eq 'test game'
       expect(@game.player_1_id).to eq player.id
-    end
-
-    it 'sets the first turn of the game to the player that created the game' do
-      player1 = FactoryGirl.create(:player)
-      sign_in player1
-      @game = FactoryGirl.create(:game, player_1: player1)
-      @game.update_attributes!(turn: player1.id)
-      expect(@game.reload.turn).to eq player1.id
     end
 
     it 'should deal with errors correctly' do

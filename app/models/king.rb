@@ -1,9 +1,17 @@
 class King < Piece
-  def valid_move?(x, y)
-    return false unless on_board?(x, y)
-    return true if horizontal?(x, y) && (x_coordinate - x).abs == 1
-    return true if vertical?(x, y) && (y_coordinate - y).abs == 1
-    return true if diagonal?(x, y) && (x_coordinate - x).abs == 1 && (y_coordinate - y).abs == 1
-    false # if not horizontal or vertical or diagonal or obstructed
+  def valid_move?(destination_x, destination_y)
+    return false unless on_board?(destination_x, destination_y)
+
+    # find the absolute value of the distance between the starting coordinates and the destination coordinates
+    x_distance = (x_coordinate - destination_x).abs
+    y_distance = (y_coordinate - destination_y).abs
+
+    # king moves one step vertically, horizontally and diagonally
+    return true if [x_distance, y_distance] == [0, 1]
+    return true if [x_distance, y_distance] == [1, 0]
+    return true if [x_distance, y_distance] == [1, 1]
+
+    # Unconditional fail returns false even for nil
+    false
   end
 end

@@ -8,7 +8,7 @@ RSpec.describe King, type: :model do
   describe '#valid_move?' do
     it 'should move one step' do
       king = create_king(3, 3)
-      # there is only 8 squares the King walk to
+
       expect(king.valid_move?(2, 2)).to eq true
       expect(king.valid_move?(2, 3)).to eq true
       expect(king.valid_move?(2, 4)).to eq true

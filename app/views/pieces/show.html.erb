@@ -6,9 +6,9 @@
   <% (0..7).each do |row| %>
     <tr>
       <% (0..7).each do |column| %>
-        <td width='100' height='100' class ='<%= column.even? ^ row.even? ? "white" : "black" %>' id='<%= @piece.id %>'>
+        <td width='100' height='100' class = "droppable" '<%= column.even? ^ row.even? ? "white" : "black" %>' id='<%= @piece.id %> '>
           <%= render_piece_highlight(column, 7 - row) %>
-        </td>
+        </td >
       <% end %>
     </tr>
   <% end %>
