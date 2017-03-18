@@ -414,7 +414,7 @@ RSpec.describe Game, type: :model do
 
     context 'the king cannot run away' do
       let!(:player2_rook) { create(:rook, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 0, color: 'black', captured: false) }
-      let!(:player2_rook) { create(:rook, player: game.player_2, game: game, x_coordinate: 0, y_coordinate: 4, color: 'black', captured: false) }
+      let!(:player2_rook_2) { create(:rook, player: game.player_2, game: game, x_coordinate: 0, y_coordinate: 4, color: 'black', captured: false) }
       let!(:player2_bishop) { create(:bishop, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 2, color: 'black', captured: false) }
       # _______________
       # |BR|__|__|__|BK| 4
@@ -424,8 +424,9 @@ RSpec.describe Game, type: :model do
       # |wk|__|__|__|BR| 0
       # | 0  1  2  3  4
       it 'returns true' do
-        #binding.pry
-        expect(game.checkmate?(opposite_color)).to be true
+        # used to be "black", I thought it might be a mistake
+        # so I changed it to 'white'
+        expect(game.checkmate?('white')).to be true
         #expect(player1_king.x_coordinate).to be 0
         #expect(player1_king.y_coordinate).to be 0
       end
