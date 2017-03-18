@@ -74,7 +74,7 @@ class Game < ApplicationRecord
     # find the destination piece and hold it in memory
     captured_piece = pieces.find_by(x_coordinate: move_to_x, y_coordinate: move_to_y, captured: false)
 
-    # find the destination piece,
+    # find the destination piece,move
     # move to see if it puts you in check. if true, it's a misstep
 
     ########################
@@ -82,15 +82,15 @@ class Game < ApplicationRecord
     # unmutated move_to not working
     # If this can be fixed, it should call move_to --> moving_piece.move_to(move_to_x, move_to_y)
     ########################
-    moving_piece.move_to!(move_to_x, move_to_y)
-    misstep = check?(moving_piece.color)
+    test_piece = moving_piece.move_to(move_to_x, move_to_y)
+    misstep = check?(test_piece.color)
 
     # move it back to starting position (undo move)
-    moving_piece.move_to!(x, y)
+    # moving_piece.move_to!(x, y)
 
     # if there is a piece in the destination, take the piece and set to not captured and put back x y coordinates
     # (an undo - put pieces back to original location if pieces are eaten)
-    captured_piece.update_attributes(x_coordinate: move_to_x, y_coordinate: move_to_y, captured: false) if captured_piece
+    # captured_piece.update_attributes(x_coordinate: move_to_x, y_coordinate: move_to_y, captured: false) if captured_piece
 
     misstep
   end
