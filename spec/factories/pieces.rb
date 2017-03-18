@@ -5,31 +5,36 @@ FactoryGirl.define do
     association :player
     association :game
     captured false
-    icon 'pawn-black.png'
+    icon ''
     color 'white'
 
-    factory :pawn, class: Pawn, parent: :piece do
+    factory :pawn, class: Pawn do
+      color 'white'
+      x_coordinate 2
+      y_coordinate 2
+      type 'Pawn'
     end
 
     # http://stackoverflow.com/questions/13343876/how-to-define-factories-with-a-inheritance-user-model
     factory :king, class: King, parent: :piece do
     end
 
-    factory :queen do
-      player 'player_1'
-      x_coordinate 4
-      y_coordinate 1
-      type 'Queen'
-    end
-
     factory :bishop, class: Bishop, parent: :piece do
     end
 
-    factory :knight, class: Knight, parent: :piece do
+    factory :knight, class: Knight do
+      color 'white'
+      x_coordinate 2
+      y_coordinate 1
+      type 'Knight'
     end
 
-    factory :rook do
-      player 'player_2'
+    factory :queen, class: Queen, parent: :piece do
+    end
+
+    factory :rook, class: Rook do
+      color 'black'
+
       x_coordinate 1
       y_coordinate 1
       type 'Rook'
