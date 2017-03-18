@@ -1,6 +1,4 @@
 class GamesController < ApplicationController
-  before_action :find_game, only: [:edit, :update, :show]
-
   def new
     @game = Game.new
   end
@@ -12,28 +10,28 @@ class GamesController < ApplicationController
     else
       @game.player_1 = current_player
       @game.populate_game!
-      @game.update_attributes(turn: @game.player_1_id)
       redirect_to root_path
     end
   end
 
-  def edit; end
+  def edit
+    @game = Game.find(params[:id])
+  end
 
   def update
+    @game = Game.find(params[:id])
     @game.player_2 = current_player
     @game.save
     redirect_to game_path(@game)
   end
 
-  def show; end
-
-  private
-
-  def find_game
+  def show
     @game = Game.find(params[:id])
   end
 
+  private
+
   def game_params
-    params.require(:game).permit(:name, :turn)
+    params.require(:game).permit(:name)
   end
 end

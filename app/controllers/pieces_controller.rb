@@ -1,8 +1,7 @@
 class PiecesController < ApplicationController
   helper PiecesHelper
-  before_action :find_piece
-
   def show
+    @piece = Piece.find(params[:id])
     @game = @piece.game
   end
 
@@ -16,10 +15,6 @@ class PiecesController < ApplicationController
   end
 
   private
-
-  def find_piece
-    @piece = Piece.find(params[:id])
-  end
 
   def piece_params
     params.require(:piece).permit(:x_coordinate, :y_coordinate)
