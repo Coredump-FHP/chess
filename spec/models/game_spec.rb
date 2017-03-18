@@ -427,8 +427,8 @@ RSpec.describe Game, type: :model do
         # used to be "black", I thought it might be a mistake
         # so I changed it to 'white'
         expect(game.checkmate?('white')).to be true
-        #expect(player1_king.x_coordinate).to be 0
-        #expect(player1_king.y_coordinate).to be 0
+        # expect(player1_king.x_coordinate).to be 0
+        # expect(player1_king.y_coordinate).to be 0
       end
     end
   end

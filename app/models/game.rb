@@ -57,7 +57,7 @@ class Game < ApplicationRecord
     #  a3. pieces checking king check cannot be captured
 
     # Go through every possible move for every single piece I have and see if you can get out of checkmate
-    pieces.where(color: color, captured: false).each do |piece|
+    pieces.where(color: color, captured: false).find_each do |piece|
       piece.valid_moves.each do |move|
         return false unless misstep?(piece, move[:x], move[:y])
       end
@@ -71,7 +71,6 @@ class Game < ApplicationRecord
     x = moving_piece.x_coordinate
     y = moving_piece.y_coordinate
 
-    
     # find the destination piece and hold it in memory
     captured_piece = pieces.find_by(x_coordinate: move_to_x, y_coordinate: move_to_y, captured: false)
 
@@ -83,10 +82,10 @@ class Game < ApplicationRecord
     # unmutated move_to not working
     # If this can be fixed, it should call move_to --> moving_piece.move_to(move_to_x, move_to_y)
     ########################
-    
+
     moving_piece.move_to!(move_to_x, move_to_y)
     misstep = check?(moving_piece.color)
-    
+
     # move it back to starting position (undo move)
     moving_piece.move_to!(x, y)
 
