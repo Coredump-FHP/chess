@@ -59,7 +59,7 @@ class Game < ApplicationRecord
   # Step 3 - determine if the king has any available moves that does not put them into check, stalemate is FALSE
 
   def stalemate?
-    !check? && king_moves_into_check
+    return true if !check? && king_moves_into_check
     false
   end
 
