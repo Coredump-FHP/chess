@@ -76,13 +76,6 @@ class Game < ApplicationRecord
 
     # find the destination piece,move
     # move to see if it puts you in check. if true, it's a misstep
-
-    ########################
-    # TODO:
-    # unmutated move_to not working
-    # If this can be fixed, it should call move_to --> moving_piece.move_to(move_to_x, move_to_y)
-    ########################
-
     moving_piece.move_to!(move_to_x, move_to_y)
     misstep = check?(moving_piece.color)
 

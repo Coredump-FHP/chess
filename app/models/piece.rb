@@ -1,15 +1,6 @@
 require 'pry'
 
-class Move
-  def new(x, y)
-    @x = x
-    @y = y
-  end
-
-  attr_reader :x
-
-  attr_reader :y
-end
+Move = Struct.new(:x, :y)
 
 class Piece < ApplicationRecord
   belongs_to :player, class_name: 'Player', optional: true
@@ -49,6 +40,11 @@ class Piece < ApplicationRecord
     # http://apidock.com/rails/ActiveRecord/Base/update_attributes
     # raise ArgumentError, "Can't move piece"
     return false unless update_attributes(x_coordinate: x, y_coordinate: y)
+  end
+
+  # check for a move would end on our own piece.
+  def own_piece?(x, y)
+    game.pieces.where(x_coordinate: x, y_coordinate: y, captured: false, color: color).exists?
   end
 
   def obstructed?(x, y)
@@ -130,19 +126,13 @@ class Piece < ApplicationRecord
     false
   end
 
-  # TODO: Add valid moves in each piece class
-  # TODO: get someone to get move_to unmutated to work properly. Getting undefined method error
-  # TODO: [x] update attribute within move_to also mutates.. how do we not mutate it?  assign_attributes is the same as
-  #       update_attribute without the save
-  # TODO: [x] bug? - misstep can eat pieces when testing moves, so we'll need to make dead pieces come back to life.
-
   # moves to every spot on the board and push the piece on to the board if it's a valid move
   def valid_moves # used by misstep for test moves.
     moves = []
 
     (0..7).each do |x|
       (0..7).each do |y|
-        moves.push(x: x, y: y) if valid_move?(x, y)
+        moves.push(Move.new(x, y)) if valid_move?(x, y)
       end
     end
     moves

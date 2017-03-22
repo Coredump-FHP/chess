@@ -424,11 +424,29 @@ RSpec.describe Game, type: :model do
       # |wk|__|__|__|BR| 0
       # | 0  1  2  3  4
       it 'returns true' do
-        # used to be "black", I thought it might be a mistake
-        # so I changed it to 'white'
         expect(game.checkmate?('white')).to be true
-        # expect(player1_king.x_coordinate).to be 0
-        # expect(player1_king.y_coordinate).to be 0
+        expect(player1_king.x_coordinate).to be 0
+        expect(player1_king.y_coordinate).to be 0
+      end
+    end
+
+    context 'the queen can block (protect) the king' do
+      let!(:player1_queen) { create(:rook, player: game.player_2, game: game, x_coordinate: 0, y_coordinate: 1, color: 'white', captured: false) }
+      let!(:player2_bishop) { create(:bishop, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 2, color: 'black', captured: false) }
+      # _______________
+      # |__|__|__|__|BK| 4
+      # |__|__|__|__|__| 3
+      # |__|__|BB|__|__| 2
+      # |wq|__|__|__|__| 1
+      # |wk|__|__|__|__| 0
+      # | 0  1  2  3  4
+      it 'returns false' do
+        expect(game.checkmate?('white')).to be false
+        expect(player1_king.x_coordinate).to be 0
+        expect(player1_king.y_coordinate).to be 0
+        # queen stay exactly where she was, even though she could move
+        expect(player1_queen.x_coordinate).to be 0
+        expect(player1_queen.y_coordinate).to be 1
       end
     end
   end
