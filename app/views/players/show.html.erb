@@ -3,4 +3,6 @@
 <div class="booyah-box">
   <h1> <%= @player.email %> Dashboard </h1>
   <h3> Member Since: <%= @player.created_at.strftime("%B %d, %Y") %></h3>
+  <h4> Your total games: <%= @player.games.count %></h4>
+</div>
 </div>
