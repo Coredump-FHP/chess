@@ -11,11 +11,6 @@ class Player < ApplicationRecord
     Game.where('player_1_id = ? OR player_2_id = ?', id, id)
   end
 
-  def my_games
-    if player_signed_in?
-      @my_games = Game.where('player_1_id = ? OR player_2_id = ?', current_player.id, current_player.id).order('updated_at').to_a.first(10)
-    end
-  end
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |player|
