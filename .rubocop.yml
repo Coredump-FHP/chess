@@ -7,7 +7,6 @@ AllCops:
     - bin/**/*
     - db/**/*
     - vendor/**/*
-    - spec/support/share_db_connection.rb
 
 Rails:
   Enabled: true
