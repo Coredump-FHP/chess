@@ -12,6 +12,10 @@ class PiecesController < ApplicationController
       return head :ok, location: @game
     end
     head :bad_request
+
+    if @game.check?
+      flash[:error] = 'Check!'
+    end
   end
 
   private
