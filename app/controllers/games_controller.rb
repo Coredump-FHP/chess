@@ -27,7 +27,17 @@ class GamesController < ApplicationController
 
   def show; end
 
+  def forfeit
+    current_game.forfeit_game(current_player.id, current_game)
+    flash[:alert] = 'The game has been forfeited!'
+    redirect_to game_path(current_game)
+  end
+
   private
+
+  def current_game
+    @game ||= Game.find(params[:id])
+  end
 
   def find_game
     @game = Game.find(params[:id])

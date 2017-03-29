@@ -119,6 +119,15 @@ class Game < ApplicationRecord
     stalemate?
   end
 
+  def forfeit_game(current_player_id, game_id)
+    game = Game.find(game_id)
+    if current_player_id == player_1_id
+      game.update_attributes(winning_player_id: player_2_id)
+    else
+      game.update_attributes(winning_player_id: player_1_id)
+    end
+  end
+
   private
 
   def add_starting_pieces_for_color!(color)

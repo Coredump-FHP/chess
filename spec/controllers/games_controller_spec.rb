@@ -65,4 +65,20 @@ RSpec.describe GamesController, type: :controller do
       expect(@game.player_2_id).to eq player2.id
     end
   end
+  describe 'games#forfeit action' do
+    it 'it should trigger forfeit_game method in model' do
+      player1 = FactoryGirl.create(:player)
+      sign_in player1
+
+      post :create, params: { game: { name: 'test game' } }
+      @game = Game.last
+      sign_out player1
+      player2 = FactoryGirl.create(:player)
+      sign_in player2
+
+      patch :forfeit, params: { winning_player_id: player1.id, game_id: @game.id }
+      @game.reload
+      expect(@game.winning_player_id).to eq player1.id
+    end
+  end
 end
