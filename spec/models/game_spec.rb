@@ -128,6 +128,77 @@ RSpec.describe Game, type: :model do
     end
   end
 
+  describe "#stalemate" do
+    context 'When a King is currently not in CHECK and the only move is to go INTO CHECK' do
+          it 'returns Stalemate as true' do		        it 'returns Stalemate as true' do
+          create(:rook, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 1, color: 'black')
+          create(:rook, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 2, color: 'black')
+          create(:rook, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 1, color: 'white')
+          create(:rook, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 2, color: 'white')
+
+           expect(game.stalemate?).to be true
+         end
+       end
+
+       # STALEMATE EXAMPLE
+       # ________________
+       # |__|__|__|__|__|
+       # |__|__|__|__|__|
+       # |R2|__|__|__|__|
+       # |__|__|R2|__|__|
+       # |K1|__|__|__|__|
+
+       context 'When a King is currently in CHECK' do
+         it 'returns Stalemate as false' do
+           create(:rook, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 1, color: 'black')
+           create(:rook, player: game.player_2, game: game, x_coordinate: 0, y_coordinate: 2, color: 'black')
+           create(:rook, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 1, color: 'white')
+           create(:rook, player: game.player_2, game: game, x_coordinate: 0, y_coordinate: 2, color: 'white')
+
+           expect(game.stalemate?).to be false
+         end
+       end
+
+       # STALEMATE EXAMPLE
+       # ________________
+       # |R2|__|__|__|__|
+       # |__|__|__|__|__|
+       # |__|__|__|__|__|
+       # |__|__|__|__|__|
+       # |K1|__|__|__|R2|
+
+       context 'When a King is currently in CHECK' do
+         it 'returns Stalemate as false' do
+           create(:rook, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 0, color: 'black')
+           create(:rook, player: game.player_2, game: game, x_coordinate: 0, y_coordinate: 4, color: 'black')
+           create(:rook, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 0, color: 'white')
+           create(:rook, player: game.player_2, game: game, x_coordinate: 0, y_coordinate: 4, color: 'white')
+
+           expect(game.stalemate?).to be false
+         end
+       end
+
+       # STALEMATE EXAMPLE
+       # ________________
+       # |__|R2|__|__|__|
+       # |__|__|__|__|__|
+       # |__|__|__|__|__|
+       # |__|__|__|__|R2|
+       # |K1|__|__|__|__|
+
+       context 'When a King is currently not in CHECK and the only move is to go INTO CHECK' do
+         it 'returns Stalemate as true' do
+           create(:rook, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 1, color: 'black')
+           create(:rook, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 4, color: 'black')
+           create(:rook, player: game.player_2, game: game, x_coordinate: 4, y_coordinate: 1, color: 'white')
+           create(:rook, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 4, color: 'white')
+
+            expect(game.stalemate?).to be true		          expect(game.stalemate?).to be true
+          end
+         end
+        end
+      end
+
   describe '#check?' do
     let(:opposite_color) { 'black' }
     let(:game) { create(:game) }
