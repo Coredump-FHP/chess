@@ -66,8 +66,8 @@ class Game < ApplicationRecord
     misstep
   end
 
-  def stalemate?
-    return true if !check? && king_moves_into_check
+  def stalemate?(color)
+    return true if !check?(color) && king_moves_into_check
     false
   end
 
@@ -76,7 +76,7 @@ class Game < ApplicationRecord
     kings.each do |king|
       0.upto(7) do |x|
         0.upto(7) do |y|
-          return true if king.valid_move?(x, y) && check?
+          return true if king.valid_move?(x, y) && check?(color)
         end
       end
     end
