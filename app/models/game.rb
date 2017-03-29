@@ -89,6 +89,36 @@ class Game < ApplicationRecord
     misstep
   end
 
+  # Stalemate is when the King is NOT in check, and the only move they have puts them into check)
+  # Step 1 - determine if the king is in check.
+  # Step 2 - determine if the king has a valid_move && if it puts him into check, stalemate returns TRUE.
+  # Step 3 - determine if the king has any available moves that does not put them into check, stalemate is FALSE
+
+  def stalemate?
+    return true if !check? && king_moves_into_check
+    false
+  end
+
+  def king_moves_into_check
+    kings = kings_on_board
+    kings.each do |king|
+      0.upto(7) do |x|
+        0.upto(7) do |y|
+          return true if king.valid_move?(x, y) && check?
+        end
+      end
+    end
+  end
+
+  def kings_on_board
+    pieces.where(x_coordinate: 0..7, y_coordinate: 0..7, type: 'King', color: 'white')
+    pieces.where(x_coordinate: 0..7, y_coordinate: 0..7, type: 'King', color: 'black')
+  end
+
+  def draw
+    stalemate?
+  end
+
   private
 
   def add_starting_pieces_for_color!(color)
