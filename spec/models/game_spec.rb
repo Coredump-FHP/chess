@@ -148,7 +148,7 @@ RSpec.describe Game, type: :model do
         create(:rook, player: game.player_2, game: game, x_coordinate: 2, y_coordinate: 1, color: 'white')
         create(:rook, player: game.player_2, game: game, x_coordinate: 1, y_coordinate: 2, color: 'white')
 
-        expect(game.stalemate?(player1_king1)).to be true
+        expect(game.stalemate?(player1_king1.color)).to be true
       end
     end
   end

@@ -67,11 +67,11 @@ class Game < ApplicationRecord
   end
 
   def stalemate?(color)
-    return true if !check?(color) && king_moves_into_check
+    return true if !check?(color) && king_moves_into_check(color)
     false
   end
 
-  def king_moves_into_check
+  def king_moves_into_check(color)
     kings = kings_on_board
     kings.each do |king|
       0.upto(7) do |x|
