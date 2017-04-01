@@ -35,9 +35,8 @@ gem 'omniauth-facebook'
 gem 'simple_form'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jquery-ui-rails'
+## Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -55,6 +54,11 @@ group :development, :test do
   # a debugger console
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
+
+  # Tried to enable this. Stopped at this for now:
+  #   Selenium::WebDriver::Error::WebDriverError:
+  #      Unable to find Mozilla geckodriver. Please download the server from https://github.com/mozilla/geckodriver/releases and place it somewhere on your PATH. More info at https://developer.mozilla.org/en-US/docs/Mozilla/QA/Marionette/WebDriver.
+  # gem 'selenium-webdriver'
 end
 
 group :test do
