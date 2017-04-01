@@ -31,7 +31,6 @@ class Game < ApplicationRecord
     !inactive_player
   end
 
-  # Populate a game with all the pieces in the correct locations (x_coordinate, y_coordinate)
   def populate_game!
     return unless pieces.count.zero?
     add_starting_pieces_for_color!('white')
@@ -89,22 +88,17 @@ class Game < ApplicationRecord
     misstep
   end
 
-  # Stalemate is when the King is NOT in check, and the only move they have puts them into check)
-  # Step 1 - determine if the king is in check.
-  # Step 2 - determine if the king has a valid_move && if it puts him into check, stalemate returns TRUE.
-  # Step 3 - determine if the king has any available moves that does not put them into check, stalemate is FALSE
-
-  def stalemate?
-    return true if !check? && king_moves_into_check
+  def stalemate?(color)
+    return true if !check?(color) && king_moves_into_check(color)
     false
   end
 
-  def king_moves_into_check
+  def king_moves_into_check(color)
     kings = kings_on_board
     kings.each do |king|
       0.upto(7) do |x|
         0.upto(7) do |y|
-          return true if king.valid_move?(x, y) && check?
+          return true if king.valid_move?(x, y) && check?(color)
         end
       end
     end
@@ -120,7 +114,7 @@ class Game < ApplicationRecord
   end
 
   def forfeit_game(current_player_id, game_id)
-    game = Game.find(game_id)
+    game = Game.find(game_id.id)
     if current_player_id == player_1_id
       game.update_attributes(winning_player_id: player_2_id)
     else
