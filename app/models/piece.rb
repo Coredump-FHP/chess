@@ -36,17 +36,10 @@ class Piece < ApplicationRecord
       # You could set the piece's x/y coordinates to nil
       destination_piece.update_attributes(x_coordinate: nil, y_coordinate: nil, captured: true)
     end
-
     # Finally, it should call update_attributes on the piece and change the piece's x/y position.
     # http://apidock.com/rails/ActiveRecord/Base/update_attributes
     # raise ArgumentError, "Can't move piece"
-    unless update_attributes(x_coordinate: x, y_coordinate: y)
-      # puts "move_to(#{x},#{y}) for #{color} #{type} on #{x_coordinate},#{y_coordinate} -> false"
-      return false
-    end
-
-    # puts "move_to(#{x},#{y}) for #{color} #{type} on #{x_coordinate},#{y_coordinate} -> true"
-    true
+    return false unless update_attributes(x_coordinate: x, y_coordinate: y)
   end
 
   # check for a move would end on our own piece.
