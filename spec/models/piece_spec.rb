@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'pry'
+
 RSpec.describe Piece, type: :model do
   let(:game) { FactoryGirl.create(:game) }
 
