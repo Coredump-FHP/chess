@@ -1,5 +1,3 @@
-require 'pry'
-
 Move = Struct.new(:x, :y)
 
 class Piece < ApplicationRecord
