@@ -6,8 +6,8 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
-  <body>
+<body>
+<div id="wrap">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -28,13 +28,32 @@
           <li><a class="text-center" href="#team">The Team</a></li>
           <li><%= link_to 'Sign out', destroy_player_session_path, method: :delete %></li>
         <% else %>
+        <li><a class="text-center" href="#games">Join Game</a></li>
+        <li><a class="text-center" href="#about">About</a></li>
+        <li><a class="text-center" href="#team">The Team</a></li>
         <li><%= link_to 'Register', new_player_registration_path %></li>
         <li><%= link_to 'Sign in', new_player_session_path %></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+  </div>
+  <% if notice.present? %>
+    <p class="alert alert-info text-center"><%= notice %></p>
+  <% end %>
+  <% if alert.present? %>
+    <p class="alert alert-danger text-center"><%= alert %></p>
+  <% end %><!-- /.container-fluid -->
 </nav>
     <%= yield %>
-  </body>
+</div>
+<br class="clr" />
+
+  <div id="footer">
+    <div class="container">
+      <div class="text-center foot-note">
+        <p>CD Chess | 2017</p>
+      </div>
+    </div>
+</div>
+</body>
 </html>

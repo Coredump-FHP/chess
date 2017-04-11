@@ -1,14 +1,5 @@
-<br />
-<br />
-<% if notice.present? %>
-  <p class="alert alert-info"><%= notice %></p>
-<% end %>
-<% if alert.present? %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
-
+<br /><br />
 <table width= '800' height='800' align='center' border='2' class='chess-board'>
-
   <% (0..7).each do |row| %>
     <tr>
       <% (0..7).each do |column| %>
@@ -22,7 +13,6 @@
     </tr>
   <% end %>
 </table>
-
 <br /><br />
 <div class="container">
   <div class="col-xs-6 col-xs-3 text-center">
