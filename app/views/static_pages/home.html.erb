@@ -26,7 +26,7 @@
             <%= image_tag "games.png", class: 'game-icons' %>
             <%= button_to 'Join game', join_game_path(game.id), { class: 'btn btn-success join-button', action: :join, method: :patch } %>
             <br  />
-            <p class="verify">Game: <%= game.name %><br /> Date created: <%= game.created_at.to_date %><br /> Opponent: <%= game.player_1.email %></p>
+            <p class="verify">Game: <%= game.name %><br /> Date created: <%= game.created_at.to_date %><br /> Opponent: <%= game.player_1.email %><br />Color Available: <%= game.player_1.nil? ? 'White is open' : 'Black is Open' %></p>
             <br class="clr" />
             <hr />
           <% end %>
