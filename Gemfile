@@ -21,6 +21,7 @@ gem 'figaro'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'omniauth-facebook'
+gem 'rails_12factor', group: :production
 gem 'rubocop', '~> 0.47.1', require: false
 gem 'simple_form'
 
