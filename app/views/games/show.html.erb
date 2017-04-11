@@ -34,8 +34,7 @@
     <h3>Player - <%= @game.player_2_id %></h3>
   </div>
 </div>
-<div class="text-center col-xs-6 col-xs-offset-3">
-  <h1>It is Player <%= @game.turn %>'s turn</h1>
+<div class="text-center col-xs-6 col-xs-offset-3 bottom">
+  <h1>It's Player <%= @game.turn %>'s turn</h1>
+  <%= button_to 'Forfeit The Game', { controller: 'games', action: 'forfeit', id: @game.id }, method: :post %>
 </div>
-
- <%= button_to 'Forfeit', { controller: 'games', action: 'forfeit', id: @game.id }, method: :post %>

@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'database_cleaner'
 
 describe 'Visit the home page', type: :feature do
   let!(:game) { FactoryGirl.create(:game, name: 'Full game') }
@@ -20,10 +21,9 @@ describe 'Visit the home page', type: :feature do
 
       visit root_path
 
-      expect(page).to have_content 'All open games'
+      expect(page).to have_content 'Available Games'
       expect(page).to have_content 'First open game'
       expect(page).to have_content 'Second open game'
-      expect(page).to have_no_content 'Full game'
     end
   end
 end

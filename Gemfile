@@ -5,24 +5,24 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.0.1'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
+gem 'rails', '~> 5.0.1'
 
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
 gem 'bootstrap-sass', '~> 3.3.5.1'
+gem 'coffee-rails', '~> 4.2'
 gem 'sass-rails'
 gem 'sprockets', '~> 3.0'
+gem 'uglifier', '>= 1.3.0'
 
 gem 'devise', '>= 3.2.4'
 
 gem 'figaro'
-gem 'omniauth-facebook'
-gem 'simple_form'
-gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
+gem 'jquery-rails'
+gem 'omniauth-facebook'
 gem 'rubocop', '~> 0.47.1', require: false
+gem 'simple_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get
@@ -33,6 +33,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'simplecov', require: false
 end
