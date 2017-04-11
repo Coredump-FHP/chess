@@ -1,14 +1,5 @@
-<br />
-<br />
-<% if notice.present? %>
-  <p class="alert alert-info"><%= notice %></p>
-<% end %>
-<% if alert.present? %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
-
+<br /><br />
 <table width= '800' height='800' align='center' border='2' class='chess-board'>
-
   <% (0..7).each do |row| %>
     <tr>
       <% (0..7).each do |column| %>
@@ -22,7 +13,6 @@
     </tr>
   <% end %>
 </table>
-
 <br /><br />
 <div class="container">
   <div class="col-xs-6 col-xs-3 text-center">
@@ -34,8 +24,7 @@
     <h3>Player - <%= @game.player_2_id %></h3>
   </div>
 </div>
-<div class="text-center col-xs-6 col-xs-offset-3">
-  <h1>It is Player <%= @game.turn %>'s turn</h1>
+<div class="text-center col-xs-6 col-xs-offset-3 bottom">
+  <h1>It's Player <%= @game.turn %>'s turn</h1>
+  <%= button_to 'Forfeit The Game', { controller: 'games', action: 'forfeit', id: @game.id }, method: :post %>
 </div>
-
- <%= button_to 'Forfeit', { controller: 'games', action: 'forfeit', id: @game.id }, method: :post %>

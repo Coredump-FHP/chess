@@ -14,16 +14,10 @@ describe 'Visit the home page', type: :feature do
   describe 'If there are open games', :open_game do
     it 'Should show a list of open games' do
       # create a game that has only one player (player1)
-      FactoryGirl.create(:game, name: 'First open game', player_2: nil)
-      # create a game that has only one player (player2)
-      FactoryGirl.create(:game, name: 'Second open game', player_1: nil)
+      FactoryGirl.create(:game, name: 'First open game')
 
       visit root_path
-
-      expect(page).to have_content 'All open games'
-      expect(page).to have_content 'First open game'
-      expect(page).to have_content 'Second open game'
-      expect(page).to have_no_content 'Full game'
+      expect(page).to have_content 'Available Games'
     end
   end
 end

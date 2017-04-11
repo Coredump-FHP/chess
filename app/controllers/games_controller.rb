@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_action :find_game, only: [:edit, :update, :show]
+  before_action :authenticate_player!, only: [:new, :create, :show]
 
   def new
     @game = Game.new
@@ -17,7 +18,12 @@ class GamesController < ApplicationController
     end
   end
 
-  def edit; end
+  def join
+    @game = Game.find(params[:id])
+    @game.player_2 = current_player
+    @game.save
+    redirect_to game_path(@game)
+  end
 
   def update
     @game.player_2 = current_player

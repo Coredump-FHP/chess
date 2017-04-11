@@ -1,30 +1,140 @@
-<div align='center'>
+<div class="responsive-scale">
+  <br /><br />
+    <h2 class="text-center">CD Chess</h2>
+    <p class="text-center">
+      (A Firehose Agile Team Project)
+    </p>
+</div>
+<div class="splitter"></div>
+<div id="games" class="container">
+  <div class="games col-xs-10 col-xs-offset-1 verify">
+    <h1 class="text-center">Available Games!</h1>
+     <p class="text-center link">
+       Nothing open?&nbsp;&nbsp; Start a <%= link_to 'New Game', new_game_path %> ...
+     </p>
+     <hr />
+    <% if !@open_games.empty? %>
+    <div class="col-xs-12 game-list">
+        <% @open_games.each do |game| %>
+            <div class="col-xs-4">
+              <%= image_tag "games.png", class: 'game-icons' %>
+              <p></p>
+              <%= button_to 'Join game', join_game_path(game.id), { class: 'btn btn-success join-button', action: :join, method: :patch } %>
+            </div>
+            <div class="col-xs-6">
+              <p class="verify">Game: <%= game.name %><br /> Date created: <%= game.created_at.to_date %><br />
+              Opponent: <%= game.player_1.email %>&nbsp;<%= image_tag gravatar_url(game.player_1.email, 64), alt: "", class: 'gravatars2' %><br />Color Available: <%= game.player_1.nil? ? 'White is open' : 'Black is Open' %></p>
+            </div>
+            <br class="clr" />
+            <hr />
+          <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-  <%= link_to 'New Game', new_game_path %></text>
+<div class="container">
+  <div id="about" class="about">
+    <h1 class="text-center">About</h1>
+    <hr class="hr-divide" />
+    <span class="col-md-8 col-md-offset-2">
+      <p class="info justify">
+        CD (Core Dump) Chess is an open source Ruby on Rails Chess application. Our Team Of Developers studying at The Firehose Project, worked together
+        to create this application in an Agile Team environment. Thanks for checking it out!
+      </p>
+      <br />
+    </span>
+    <br class="clr" />
+    <div class="toolkit-icons text-center">
+      <h1 class="text-center">Skills We Used</h1>
+      <hr class="hr-divide" />
+      <div class="team">
+        <%= image_tag 'ruby.png', class: 'tool-icons' %>
+        <p class="info3">Ruby</p>
+      </div>
+      <div class="team">
+        <%= image_tag 'rails.png', class: 'tool-icons' %>
+        <p class="info3">Rails</p>
+      </div>
+      <div class="team">
+        <%= image_tag 'js.png', class: 'tool-icons' %>
+        <p class="info3">JavaScript</p>
+      </div>
+      <div class="team">
+        <%= image_tag 'html.png', class: 'tool-icons' %>
+        <p class="info3">HTML5</p>
+      </div>
+      <div class="team">
+        <%= image_tag 'css.png', class: 'tool-icons' %>
+        <p class="info3">CSS-3</p>
+      </div>
+    </div>
+    <br class="clr" />
+    <div class="toolkit-icons text-center">
+      <h1 class="text-center">Tools For The Job</h1>
+      <hr class="hr-divide" />
+      <div class="team">
+        <%= image_tag 'rubocop.png', class: 'tool-icons2' %>
+        <p class="info3">Rubocop</p>
+      </div>
+      <div class="team">
+        <%= image_tag 'travis.jpg', class: 'tool-icons2' %>
+        <p class="info3">Travis CI</p>
+      </div>
+      <div class="team">
+        <%= image_tag 'trello.png', class: 'tool-icons' %>
+        <p class="info3">Trello</p>
+      </div>
+      <div class="team">
+        <%= image_tag 'slack.png', class: 'tool-icons' %>
+        <p class="info3">Slack</p>
+      </div>
+    </div>
+    <br class="clr" />
+      <div class="code-pics">
+        <h1 class="text-center">Code Examples</h1>
+        <hr class="hr-divide" />
+        <div class="col-md-12 code">
+          <p class="text-center info2">(Methods for Check and Checkmate)</p>
+          <%= image_tag 'code1.png', class: 'img-responsive' %>
+        </div>
+        <div class="col-md-12 code">
+          <p class="text-center info2">(RSpec Testing for Stalemate)</p>
+          <%= image_tag 'code2.png', class: 'img-responsive' %>
+        </div>
+        <div class="col-md-12 code">
+          <p class="text-center info2">(Method For Vertical Obstructions)</p>
+          <%= image_tag 'code3.png', class: 'img-responsive' %>
+        </div>
+      </div>
+  </div>
+</div>
 
-  <% if player_signed_in? %>
-    <li><%= link_to 'Sign out', destroy_player_session_path, method: :delete %></li>
-  <% else %>
-    <li><%= link_to "Sign in with Facebook", player_facebook_omniauth_authorize_path %></li>
-    <li><%= link_to 'Sign in', new_player_session_path %></li>
-    <li><%= link_to 'Sign up', new_player_registration_path %></li>
-  <% end %>
-
-  <% if notice.present? %>
-    <p class="alert alert-info"><%= notice %></p>
-  <% end %>
-  <% if alert.present? %>
-    <p class="alert alert-danger"><%= alert %></p>
-  <% end %>
-
-  <% if !@open_games.empty? %>
-    <h1>All open games</h1>
-    <h3>Feel free to join the following games</h3>
-    <ul>
-      <% @open_games.each do |game| %>
-        <li><%= link_to game.name, edit_game_path(game) %></li>
-      <% end %>
-    </ul>
-  <% end %>
-
+<div class="container the-team text-center">
+  <div id="team" class="team text-center">
+    <h1 class="text-center">The Team</h1>
+    <hr class="hr-divide" />
+    <div class="team-members text-center">
+        <div class="team">
+          <%= image_tag 'wc.png', class: 'team-pics' %>
+          <p class="info3">Wade Carlson<br />Milwaukee, WI</p>
+        </div>
+        <div class="team">
+          <%= image_tag 'wc.png', class: 'team-pics' %>
+          <p class="info3">Wade Carlson<br />Milwaukee, WI</p>
+        </div>
+        <div class="team">
+          <%= image_tag 'wc.png', class: 'team-pics' %>
+          <p class="info3">Wade Carlson<br />Milwaukee, WI</p>
+        </div>
+        <div class="team">
+          <%= image_tag 'wc.png', class: 'team-pics' %>
+          <p class="info3">Wade Carlson<br />Milwaukee, WI</p>
+        </div>
+        <div class="team">
+          <%= image_tag 'wc.png', class: 'team-pics' %>
+          <p class="info3">Wade Carlson<br />Milwaukee, WI</p>
+        </div>
+      </div>
+  </div>
 </div>
