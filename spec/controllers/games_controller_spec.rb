@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe GamesController, type: :controller do
   describe 'games#new action' do
