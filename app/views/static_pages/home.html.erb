@@ -1,30 +1,47 @@
-<div align='center'>
-
-  <%= link_to 'New Game', new_game_path %></text>
-
-  <% if player_signed_in? %>
-    <li><%= link_to 'Sign out', destroy_player_session_path, method: :delete %></li>
-  <% else %>
-    <li><%= link_to "Sign in with Facebook", player_facebook_omniauth_authorize_path %></li>
-    <li><%= link_to 'Sign in', new_player_session_path %></li>
-    <li><%= link_to 'Sign up', new_player_registration_path %></li>
-  <% end %>
-
+<div class="responsive-scale">
+  <br /><br />
   <% if notice.present? %>
-    <p class="alert alert-info"><%= notice %></p>
+    <p class="alert alert-info text-center"><%= notice %></p>
   <% end %>
   <% if alert.present? %>
-    <p class="alert alert-danger"><%= alert %></p>
+    <p class="alert alert-danger text-center"><%= alert %></p>
   <% end %>
+    <h2 class="text-center">CD Chess</h2>
+    <p class="text-center">
+      (A Firehose Agile Team Project)
+    </p>
+</div>
+<div class="splitter"></div>
 
-  <% if !@open_games.empty? %>
-    <h1>All open games</h1>
-    <h3>Feel free to join the following games</h3>
-    <ul>
-      <% @open_games.each do |game| %>
-        <li><%= link_to game.name, edit_game_path(game) %></li>
-      <% end %>
-    </ul>
-  <% end %>
+<div id="games" class="container">
+  <div class="games col-xs-10 col-xs-offset-1 verify">
+    <h1 class="text-center">Available Games</h1>
+     <p class="text-center">
+       Nothing open? Start a <%= link_to 'New Game', new_game_path %> here!
+     </p>
+     <hr />
+    <% if !@open_games.empty? %>
+    <div class="col-xs-6 game-list">
+        <% @open_games.each do |game| %>
+            <%= image_tag "games.png", class: 'game-icons' %>
+            <%= button_to 'Join game', join_game_path(game.id), { class: 'btn btn-success join-button', action: :join, method: :patch } %>
+            <br  />
+            <p class"verify">Game: <%= game.name %><br /> Date created: <%= game.created_at.to_date %><br /> Opponent: <%= game.player_1.email %></p>
 
+            <br class="clr" />
+            <hr />
+          <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="container">
+  <div id="about" class="about col-xs-10 col-xs-offset-1">
+    <h1 class="text-center">About</h1>
+  </div>
+</div>
+<div class="container">
+  <div id="team" class="about col-xs-10 col-xs-offset-1">
+    <h1 class="text-center">The Team</h1>
+  </div>
 </div>
