@@ -14,7 +14,7 @@ class GamesController < ApplicationController
       @game.player_1 = current_player
       @game.populate_game!
       @game.update_attributes(turn: @game.player_1_id)
-      redirect_to root_path
+      redirect_to games_dashboard_path
     end
   end
 

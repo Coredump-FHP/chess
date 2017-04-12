@@ -23,12 +23,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <% if player_signed_in? %>
-          <li><a class="text-center" href="#games">Join Game</a></li>
+          <li><%= link_to 'Join Game', games_dashboard_path %></li>
           <li><a class="text-center" href="#about">About</a></li>
           <li><a class="text-center" href="#team">The Team</a></li>
           <li><%= link_to 'Sign out', destroy_player_session_path, method: :delete %></li>
         <% else %>
-        <li><a class="text-center" href="#games">Join Game</a></li>
+        <li><%= link_to 'Join Game', games_dashboard_path %></li>
         <li><a class="text-center" href="#about">About</a></li>
         <li><a class="text-center" href="#team">The Team</a></li>
         <li><%= link_to 'Register', new_player_registration_path %></li>

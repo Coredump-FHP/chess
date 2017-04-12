@@ -5,34 +5,6 @@
       (A Firehose Agile Team Project)
     </p>
 </div>
-<div class="splitter"></div>
-<div id="games" class="container">
-  <div class="games col-xs-10 col-xs-offset-1 verify">
-    <h1 class="text-center">Available Games!</h1>
-     <p class="text-center link">
-       Nothing open?&nbsp;&nbsp; Start a <%= link_to 'New Game', new_game_path %> ...
-     </p>
-     <hr />
-    <% if !@open_games.empty? %>
-    <div class="col-xs-12 game-list">
-        <% @open_games.each do |game| %>
-            <div class="col-xs-4">
-              <%= image_tag "games.png", class: 'game-icons' %>
-              <p></p>
-              <%= button_to 'Join game', join_game_path(game.id), { class: 'btn btn-success join-button', action: :join, method: :patch } %>
-            </div>
-            <div class="col-xs-6">
-              <p class="verify">Game: <%= game.name %><br /> Date created: <%= game.created_at.to_date %><br />
-              Opponent: <%= game.player_1.email %>&nbsp;<%= image_tag gravatar_url(game.player_1.email, 64), alt: "", class: 'gravatars2' %><br />Color Available: <%= game.player_1.nil? ? 'White is open' : 'Black is Open' %></p>
-            </div>
-            <br class="clr" />
-            <hr />
-          <% end %>
-      </div>
-    <% end %>
-  </div>
-</div>
-
 <div class="container">
   <div id="about" class="about">
     <h1 class="text-center">About</h1>
