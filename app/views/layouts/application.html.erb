@@ -24,13 +24,9 @@
       <ul class="nav navbar-nav navbar-right">
         <% if player_signed_in? %>
           <li><%= link_to 'Join Game', games_dashboard_path %></li>
-          <li><a class="text-center" href="#about">About</a></li>
-          <li><a class="text-center" href="#team">The Team</a></li>
           <li><%= link_to 'Sign out', destroy_player_session_path, method: :delete %></li>
         <% else %>
         <li><%= link_to 'Join Game', games_dashboard_path %></li>
-        <li><a class="text-center" href="#about">About</a></li>
-        <li><a class="text-center" href="#team">The Team</a></li>
         <li><%= link_to 'Register', new_player_registration_path %></li>
         <li><%= link_to 'Sign in', new_player_session_path %></li>
         <% end %>
