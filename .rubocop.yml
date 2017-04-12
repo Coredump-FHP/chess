@@ -44,14 +44,20 @@ LineLength:
 
 CyclomaticComplexity:
   Enabled: false
-  
+
 PerceivedComplexity:
   Enabled: false
 
 # Disables "Method has too many lines" warning
 MethodLength:
   Enabled: false
-  
+
 # Do not use block comments.
 Style/BlockComments:
+  Enabled: false
+
+GuardClause:
+  Enabled: false
+
+OutputSafety:
   Enabled: false
